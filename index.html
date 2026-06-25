@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BM DESIGN01 — Visual Storytelling & Lifestyle Brands</title>
+
+    <!-- Meta SEO -->
+    <meta name="description" content="BM DESIGN01 creates photography, motion, and creative direction that help businesses express their identity with clarity, consistency, and purpose.">
+    <meta name="keywords" content="visual storytelling, lifestyle brands, creative studio, brand identity, photography, creative direction, personal brands, art direction">
+    <meta name="author" content="BM DESIGN01">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Loading Screen -->
+    <div class="loader" id="pageLoader">
+        <div class="loader-logo">BM DESIGN01</div>
+        <div class="loader-line"></div>
+        <div class="loader-number" id="loaderNumber">00%</div>
+    </div>
+
+    <!-- Fullscreen Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#home" class="mobile-link">Home</a>
+        <a href="#work" class="mobile-link">Selected Work</a>
+        <a href="#collections" class="mobile-link">Collections</a>
+        <a href="#styles" class="mobile-link">Creative Styles</a>
+        <a href="#contact" class="mobile-link">Start A Partnership</a>
+    </div>
+
+    <!-- Navigation Header -->
+    <nav id="navbar">
+        <a href="#home" class="nav-logo">BM DESIGN01</a>
+        <ul class="nav-links">
+            <li><a href="#work">Work</a></li>
+            <li><a href="#collections">Collections</a></li>
+            <li><a href="#styles">Styles</a></li>
+            <li><a href="#partnerships">Partnership</a></li>
+            <li><a href="#contact" class="nav-cta">Start A Partnership</a></li>
+        </ul>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Smooth Scroll Wrapper -->
+    <div class="smooth-wrapper">
+        <div class="smooth-content" id="scrollContent">
+
+            <!-- ============================================
+                 1. HERO EXPERIENCE
+            ============================================ -->
+            <section id="home" class="hero">
+                <div class="hero-video-container">
+                    <img src="images/hero-bg.jpg" alt="BM DESIGN01 Visual" class="hero-video" fetchpriority="high">
+                </div>
+                <div class="hero-content">
+                    <div class="hero-label fade-up">Global · Est. 2024</div>
+                    <h1 class="hero-headline">
+                        <span class="line"><span class="line-inner">BUILDING BRANDS</span></span>
+                        <span class="line"><span class="line-inner">THROUGH</span></span>
+                        <span class="line"><span class="line-inner">EXPERIENCE.</span></span>
+                    </h1>
+                    <p class="hero-sub fade-up">
+                        A creative studio built from travel, culture, and the belief that the strongest brands are shaped by real experiences.
+                    </p>
+                    <div class="hero-buttons fade-up">
+                        <a href="#work" class="btn-primary">
+                            Explore The Journey <span class="btn-arrow"></span>
+                        </a>
+                        <a href="#contact" class="btn-secondary">
+                            Start A Partnership <span class="btn-arrow"></span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Scroll Indicator -->
+                <div class="hero-scroll-indicator fade-up">
+                    <span>Scroll</span>
+                    <div class="scroll-line"></div>
+                </div>
+            </section>
+
+            <!-- Marquee Section -->
+            <section class="marquee-section">
+                <div class="marquee-track">
+                    <div class="marquee-item">
+                        <span>Brand Identity</span><div class="marquee-dot"></div>
+                        <span>Creative Campaigns</span><div class="marquee-dot"></div>
+                        <span>Personal Brands</span><div class="marquee-dot"></div>
+                        <span>Art Direction</span><div class="marquee-dot"></div>
+                        <span>Photography</span><div class="marquee-dot"></div>
+                        <span>Brand Strategy</span><div class="marquee-dot"></div>
+                    </div>
+                    <div class="marquee-item">
+                        <span>Brand Identity</span><div class="marquee-dot"></div>
+                        <span>Creative Campaigns</span><div class="marquee-dot"></div>
+                        <span>Personal Brands</span><div class="marquee-dot"></div>
+                        <span>Art Direction</span><div class="marquee-dot"></div>
+                        <span>Photography</span><div class="marquee-dot"></div>
+                        <span>Brand Strategy</span><div class="marquee-dot"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================
+                 2. SELECTED WORK
+            ============================================ -->
+            <section id="work" class="work">
+                <div class="work-header container">
+                    <div class="work-header-left">
+                        <div class="section-label">Selected Work</div>
+                        <h2 class="work-title reveal-text">
+                            <span class="reveal-text-inner">SELECTED STORIES</span>
+                        </h2>
+                    </div>
+                    <a href="#work" class="work-link fade-up">View All Projects</a>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="work-filters container fade-up">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="fashion">Fashion</button>
+                    <button class="filter-btn" data-filter="beauty">Beauty</button>
+                    <button class="filter-btn" data-filter="hospitality">Hospitality</button>
+                    <button class="filter-btn" data-filter="luxury-mobility">Luxury Mobility</button>
+                    <button class="filter-btn" data-filter="wellness">Wellness</button>
+                    <button class="filter-btn" data-filter="architecture">Architecture</button>
+                    <button class="filter-btn" data-filter="restaurants">Restaurants</button>
+                    <button class="filter-btn" data-filter="jewelry">Jewelry</button>
+                    <button class="filter-btn" data-filter="interior-design">Interior Design</button>
+                    <button class="filter-btn" data-filter="technology">Technology</button>
+                    <button class="filter-btn" data-filter="personal-brands">Personal Brands</button>
+                </div>
+
+                <!-- Editorial Layout Grid -->
+                <div class="work-editorial" id="workGrid">
+
+                    <!-- Fashion -->
+                    <div class="work-item fade-up" data-category="fashion">
+                        <img src="images/project-fashion.png" alt="Maison Noir Fashion Editorial" class="work-item-img" loading="lazy">
+                        <div class="work-overlay"></div>
+                        <div class="work-item-info">
+                            <div class="work-item-cat">Fashion · Milan, Italy</div>
+                            <h4 class="work-item-name">Maison Noir Fashion Editorial</h4>
+                        </div>
+                    </div>
+
+                    <!-- Beauty -->
+                    <div class="work-item fade-up" data-category="beauty">
+                        <img src="images/project-beauty.png" alt="Noir Parfum Brand Campaign" class="work-item-img" loading="lazy">
+                        <div class="work-overlay"></div>
+                        <div class="work-item-info">
+                            <div class="work-item-cat">Beauty · New York, USA</div>
+                            <h4 class="work-item-name">Noir Parfum Brand Campaign</h4>
+                        </div>
+                    </div>
+
+                    <!-- Hospitality -->
+                    <div class="work-item fade-up" data-category="hospitality">
+                        <img src="images/project-hospitality1.png" alt="Villa Como Hotel Campaign" class="work-item-img" loading="lazy">
+                        <div class="work-overlay"></div>
+                        <div class="work-item-info">
+                            <div class="work-item-cat">Hospitality · Lake Como, Italy</div>
+                            <h4 class="work-item-name">Villa Como Hotel Campaign</h4>
+                        </div>
+                    </div>
+
+                    <!-- Luxury Mobility -->
+                    <div class="work-item fade-up" data-category="luxury-mobility">
+                        <img src="images/project-mobility.png" alt="Azure Motors Brand Launch" class="work-item-img" loading="lazy">
+                        <div class="work-overlay"></div>
+                        <div class="work-item-info">
+                            <div class="work-item-cat">Luxury Mobility · Monaco</div>
+                            <h4 class="work-item-name">Azure Motors Brand Launch</h4>
+                        </div>
+                    </div>
+
+                    <!-- Wellness -->
+                    <div class="work-item fade-up" data-category="wellness">
+                        <img src="images/project-wellness.png" alt="Serene Wellness Retreat" class="work-item-img" loading="lazy">
+                        <div class="work-overlay"></div>
+                        <div class="work-item-info">
+                            <div class="work-item-cat">Wellness · Bali, Indonesia</div>
+                            <h4 class="work-item-name">Serene Wellness Retreat</h4>
+                        </div>
+                    </div>
+
+                    <!-- Architecture -->
+                    <div class="work-item fade-up" data-category="architecture">
+                        <img src="images/project-architecture.png" alt="Atelier Studio Architecture" class="work-item-img" loading="lazy">
+                        <div class="work-overlay"></div>
+                        <div class="work-item-info">
+                            <div class="work-item-cat">Architecture · Dubai, UAE</div>
+                            <h4 class="work-item-name">Atelier Studio Architecture</h4>
+                        </div>
+                    </div>
+
+                    <!-- Restaurants -->
+                    <div class="work-item fade-up" data-category="restaurants">
+                        <img src="images/project-restaurant.png" alt="Oro Restaurant Identity" class="work-item-img" loading="lazy">
+                        <div class="work-overlay"></div>
+                        <div class="work-item-info">
+                            <div class="work-item-cat">Restaurants · Rome, Italy</div>
+                            <h4 class="work-item-name">Oro Restaurant Identity</h4>
+                        </div>
+                    </div>
+
+                    <!-- Jewelry -->
+                    <div class="work-item fade-up" data-category="jewelry">
+                        <img src="images/project-jewelry.png" alt="Lumière Jewelry Collection" class="work-item-img" loading="lazy">
+                        <div class="work-overlay"></div>
+                        <div class="work-item-info">
+                            <div class="work-item-cat">Jewelry · Paris, France</div>
+                            <h4 class="work-item-name">Lumière Jewelry Collection</h4>
+                        </div>
+                    </div>
+
+                    <!-- Interior Design -->
+                    <div class="work-item fade-up" data-category="interior-design">
+                        <img src="images/project-interior.png" alt="Casa Moderna Interior" class="work-item-img" loading="lazy">
+                        <div class="work-overlay"></div>
+                        <div class="work-item-info">
+                            <div class="work-item-cat">Interior Design · London, UK</div>
+                            <h4 class="work-item-name">Casa Moderna Interior</h4>
+                        </div>
+                    </div>
+
+                    <!-- Technology -->
+                    <div class="work-item fade-up" data-category="technology">
+                        <img src="images/project-technology.png" alt="Nexus Tech Brand Identity" class="work-item-img" loading="lazy">
+                        <div class="work-overlay"></div>
+                        <div class="work-item-info">
+                            <div class="work-item-cat">Technology · San Francisco, USA</div>
+                            <h4 class="work-item-name">Nexus Tech Brand Identity</h4>
+                        </div>
+                    </div>
+
+                    <!-- Hospitality (2) -->
+                    <div class="work-item fade-up" data-category="hospitality">
+                        <img src="images/project-hospitality2.png" alt="The Saint Hotel Brand Identity" class="work-item-img" loading="lazy">
+                        <div class="work-overlay"></div>
+                        <div class="work-item-info">
+                            <div class="work-item-cat">Hospitality · Paris, France</div>
+                            <h4 class="work-item-name">The Saint Hotel Brand Identity</h4>
+                        </div>
+                    </div>
+
+                    <!-- Personal Brands -->
+                    <div class="work-item fade-up" data-category="personal-brands">
+                        <img src="images/project-personal.png" alt="Alessio Ferrari Personal Brand" class="work-item-img" loading="lazy">
+                        <div class="work-overlay"></div>
+                        <div class="work-item-info">
+                            <div class="work-item-cat">Personal Brands · Milan, Italy</div>
+                            <h4 class="work-item-name">Alessio Ferrari Personal Brand</h4>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ============================================
+                 3. COLLECTIONS
+            ============================================ -->
+            <section id="collections" class="collections">
+                <div class="collections-header container">
+                    <div class="section-label">Brand Collections</div>
+                    <h2 class="collections-title reveal-text">
+                        <span class="reveal-text-inner">CHOOSE THE EXPERIENCE</span>
+                    </h2>
+                    <h2 class="collections-title reveal-text">
+                        <span class="reveal-text-inner">THAT MATCHES YOUR GOALS.</span>
+                    </h2>
+                </div>
+
+                <!-- STANDARD COLLECTIONS -->
+                <div class="collections-tier container">
+                    <div class="collections-tier-label fade-up">Standard Collections</div>
+                    <p class="collections-tier-desc fade-up">
+                        For businesses and personal brands that need consistent, high-quality content.
+                    </p>
+                </div>
+
+                <div class="collections-grid container">
+                    <!-- Personal Identity -->
+                    <div class="collection-card fade-up">
+                        <div class="collection-card-header">
+                            <h3 class="collection-card-title">Personal Identity</h3>
+                            <p class="collection-card-goal">Build authority around yourself.</p>
+                        </div>
+                        <p class="collection-card-desc">
+                            Designed for creators, entrepreneurs and professionals who want to establish a consistent visual identity.
+                        </p>
+                        <div class="collection-card-includes">
+                            <span class="collection-card-label">Includes</span>
+                            <ul>
+                                <li>9 edited social media posts</li>
+                                <li>Professional photography</li>
+                                <li>Short-form video content</li>
+                                <li>One creative style of your choice</li>
+                            </ul>
+                        </div>
+                        <a href="#contact" class="collection-card-cta">
+                            Book Collection <span class="btn-arrow"></span>
+                        </a>
+                    </div>
+
+                    <!-- Brand Presence -->
+                    <div class="collection-card fade-up">
+                        <div class="collection-card-header">
+                            <h3 class="collection-card-title">Brand Presence</h3>
+                            <p class="collection-card-goal">Consistent content for growing businesses.</p>
+                        </div>
+                        <p class="collection-card-desc">
+                            Consistent photography and video that strengthens your brand across every platform.
+                        </p>
+                        <div class="collection-card-includes">
+                            <span class="collection-card-label">Includes</span>
+                            <ul>
+                                <li>9 edited social media posts</li>
+                                <li>Professional photography</li>
+                                <li>Short-form video content</li>
+                                <li>One creative style of your choice</li>
+                            </ul>
+                        </div>
+                        <a href="#contact" class="collection-card-cta">
+                            Book Collection <span class="btn-arrow"></span>
+                        </a>
+                    </div>
+
+                    <!-- Custom System -->
+                    <div class="collection-card collection-card-accent fade-up">
+                        <div class="collection-card-header">
+                            <h3 class="collection-card-title">Custom System</h3>
+                            <p class="collection-card-goal">Need something unique?</p>
+                        </div>
+                        <p class="collection-card-desc">
+                            Every project is different. We'll create a production tailored to your goals, industry and vision.
+                        </p>
+                        <p class="collection-card-note">
+                            For product launches, destination campaigns, restaurants, hotels, fashion brands and one-off productions.
+                        </p>
+                        <a href="#build" class="collection-card-cta">
+                            Describe Your Project <span class="btn-arrow"></span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- CAMPAIGN EXPERIENCES -->
+                <div class="collections-tier container">
+                    <div class="collections-tier-label fade-up">Campaign Experiences</div>
+                    <p class="collections-tier-desc fade-up">
+                        Expanded productions with creative direction and multiple visual concepts.
+                    </p>
+                </div>
+
+                <div class="collections-grid container">
+                    <!-- Iconic Personal Identity -->
+                    <div class="collection-card fade-up">
+                        <div class="collection-card-header">
+                            <h3 class="collection-card-title">Iconic Personal Identity</h3>
+                            <p class="collection-card-goal">For individuals building an iconic personal brand.</p>
+                        </div>
+                        <p class="collection-card-desc">
+                            A production experience with more filming time, multiple creative styles and advanced storytelling.
+                        </p>
+                        <div class="collection-card-includes">
+                            <span class="collection-card-label">Includes</span>
+                            <ul>
+                                <li>9 posts</li>
+                                <li>Professional photography</li>
+                                <li>Cinematic video production</li>
+                                <li>Up to 3 creative styles</li>
+                                <li>Creative direction throughout the production</li>
+                            </ul>
+                        </div>
+                        <a href="#contact" class="collection-card-cta">
+                            Book Experience <span class="btn-arrow"></span>
+                        </a>
+                    </div>
+
+                    <!-- Brand Campaign -->
+                    <div class="collection-card fade-up">
+                        <div class="collection-card-header">
+                            <h3 class="collection-card-title">Brand Campaign</h3>
+                            <p class="collection-card-goal">For brands that want campaign-level content.</p>
+                        </div>
+                        <p class="collection-card-desc">
+                            Designed for businesses looking to elevate their visual identity through production and creative direction.
+                        </p>
+                        <div class="collection-card-includes">
+                            <span class="collection-card-label">Includes</span>
+                            <ul>
+                                <li>9 posts</li>
+                                <li>Professional photography</li>
+                                <li>Cinematic video production</li>
+                                <li>Up to 3 creative styles</li>
+                                <li>Creative direction</li>
+                                <li>Expanded production planning</li>
+                            </ul>
+                        </div>
+                        <a href="#contact" class="collection-card-cta">
+                            Book Experience <span class="btn-arrow"></span>
+                        </a>
+                    </div>
+
+                    <!-- Event Storytelling -->
+                    <div class="collection-card fade-up">
+                        <div class="collection-card-header">
+                            <h3 class="collection-card-title">Event Storytelling</h3>
+                            <p class="collection-card-goal">Capture experiences people remember.</p>
+                        </div>
+                        <p class="collection-card-desc">
+                            Professional photography and video coverage for events, launches, conferences and exclusive experiences.
+                        </p>
+                        <div class="collection-card-includes">
+                            <span class="collection-card-label">Includes</span>
+                            <ul>
+                                <li>Photography coverage</li>
+                                <li>Video coverage</li>
+                                <li>Highlight film</li>
+                                <li>Edited gallery</li>
+                            </ul>
+                        </div>
+                        <a href="#contact" class="collection-card-cta">
+                            Book Event Coverage <span class="btn-arrow"></span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================
+                 4. CREATIVE STYLES
+            ============================================ -->
+            <section id="styles" class="creative-styles">
+                <div class="styles-header container">
+                    <div class="styles-header-left">
+                        <div class="section-label">Creative Style Selection</div>
+                        <h2 class="styles-title reveal-text">
+                            <span class="reveal-text-inner">CHOOSE THE VISUAL LANGUAGE</span>
+                        </h2>
+                        <h2 class="styles-title reveal-text">
+                            <span class="reveal-text-inner">THAT DEFINES YOUR CONTENT.</span>
+                        </h2>
+                    </div>
+                    <div class="styles-header-right fade-up">
+                        <button type="button" class="btn-book-styles" id="bookStylesBtn">
+                            Book Selected Styles <span id="selectedStylesCount">(0)</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="styles-grid container">
+                    <div class="style-card fade-up">
+                        <div class="style-card-visual style-luxury-minimal"></div>
+                        <div class="style-card-info">
+                            <h4 class="style-card-name">Luxury Minimal</h4>
+                            <p class="style-card-desc">Clean compositions inspired by fashion editorials.</p>
+                        </div>
+                    </div>
+
+                    <div class="style-card fade-up">
+                        <div class="style-card-visual style-cinematic-essence"></div>
+                        <div class="style-card-info">
+                            <h4 class="style-card-name">Cinematic Essence</h4>
+                            <p class="style-card-desc">Movie-inspired storytelling with dramatic lighting.</p>
+                        </div>
+                    </div>
+
+                    <div class="style-card fade-up">
+                        <div class="style-card-visual style-urban-street"></div>
+                        <div class="style-card-info">
+                            <h4 class="style-card-name">Urban Street</h4>
+                            <p class="style-card-desc">Raw energy and city culture captured in motion.</p>
+                        </div>
+                    </div>
+
+                    <div class="style-card fade-up">
+                        <div class="style-card-visual style-classic-elegance"></div>
+                        <div class="style-card-info">
+                            <h4 class="style-card-name">Classic Elegance</h4>
+                            <p class="style-card-desc">Timeless sophistication with refined compositions.</p>
+                        </div>
+                    </div>
+
+                    <div class="style-card fade-up">
+                        <div class="style-card-visual style-natural-harmony"></div>
+                        <div class="style-card-info">
+                            <h4 class="style-card-name">Natural Harmony</h4>
+                            <p class="style-card-desc">Organic tones and natural light in every frame.</p>
+                        </div>
+                    </div>
+
+                    <div class="style-card fade-up">
+                        <div class="style-card-visual style-artistic-direction"></div>
+                        <div class="style-card-info">
+                            <h4 class="style-card-name">Artistic Direction</h4>
+                            <p class="style-card-desc">Bold creative vision that challenges convention.</p>
+                        </div>
+                    </div>
+
+                    <div class="style-card fade-up">
+                        <div class="style-card-visual style-hot-bold"></div>
+                        <div class="style-card-info">
+                            <h4 class="style-card-name">Hot & Bold</h4>
+                            <p class="style-card-desc">Vibrant colors and confident visual statements.</p>
+                        </div>
+                    </div>
+
+                    <div class="style-card fade-up">
+                        <div class="style-card-visual style-retro-revival"></div>
+                        <div class="style-card-info">
+                            <h4 class="style-card-name">Retro Revival</h4>
+                            <p class="style-card-desc">Nostalgic aesthetics reimagined for modern brands.</p>
+                        </div>
+                    </div>
+
+                    <div class="style-card fade-up">
+                        <div class="style-card-visual style-futuristic-glow"></div>
+                        <div class="style-card-info">
+                            <h4 class="style-card-name">Futuristic Glow</h4>
+                            <p class="style-card-desc">Neon-lit visuals and forward-thinking aesthetics.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================
+                 5. INDUSTRIES WE CREATE FOR
+            ============================================ -->
+            <section id="industries" class="industries">
+                <div class="industries-header container">
+                    <div class="section-label">Industries</div>
+                    <h2 class="industries-title reveal-text">
+                        <span class="reveal-text-inner">INDUSTRIES WE CREATE FOR</span>
+                    </h2>
+                </div>
+
+                <div class="industries-grid container">
+                    <div class="industry-item fade-up">
+                        <span class="industry-name">Fashion</span>
+                        <div class="industry-arrow">
+                            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                    <div class="industry-item fade-up">
+                        <span class="industry-name">Beauty</span>
+                        <div class="industry-arrow">
+                            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                    <div class="industry-item fade-up">
+                        <span class="industry-name">Hospitality</span>
+                        <div class="industry-arrow">
+                            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                    <div class="industry-item fade-up">
+                        <span class="industry-name">Luxury Mobility</span>
+                        <div class="industry-arrow">
+                            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                    <div class="industry-item fade-up">
+                        <span class="industry-name">Wellness</span>
+                        <div class="industry-arrow">
+                            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                    <div class="industry-item fade-up">
+                        <span class="industry-name">Architecture</span>
+                        <div class="industry-arrow">
+                            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                    <div class="industry-item fade-up">
+                        <span class="industry-name">Restaurants</span>
+                        <div class="industry-arrow">
+                            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                    <div class="industry-item fade-up">
+                        <span class="industry-name">Jewelry</span>
+                        <div class="industry-arrow">
+                            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                    <div class="industry-item fade-up">
+                        <span class="industry-name">Interior Design</span>
+                        <div class="industry-arrow">
+                            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                    <div class="industry-item fade-up">
+                        <span class="industry-name">Technology</span>
+                        <div class="industry-arrow">
+                            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                    <div class="industry-item fade-up">
+                        <span class="industry-name">Personal Brands</span>
+                        <div class="industry-arrow">
+                            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================
+                 6. CREATIVE PARTNERSHIPS
+            ============================================ -->
+            <section id="partnerships" class="partnerships">
+                <div class="partnerships-inner container">
+                    <div class="partnerships-content fade-up">
+                        <div class="section-label">Creative Partnerships</div>
+                        <h2 class="partnerships-title">WE BECOME YOUR LONG-TERM CREATIVE TEAM.</h2>
+                        <p class="partnerships-desc">
+                            We don't chase trends. We create visual identities that last. Because when a brand reflects who it truly is, people remember it.
+                        </p>
+                        <div class="partnerships-services">
+                            <div class="partnership-service">Monthly Production</div>
+                            <div class="partnership-service">Campaign Development</div>
+                            <div class="partnership-service">Creative Direction</div>
+                            <div class="partnership-service">Brand Strategy</div>
+                            <div class="partnership-service">Social Content</div>
+                            <div class="partnership-service">Visual Identity</div>
+                        </div>
+                        <a href="#contact" class="btn-primary">
+                            Start A Partnership <span class="btn-arrow"></span>
+                        </a>
+                    </div>
+
+                    <div class="partnerships-process fade-up">
+                        <div class="process-label">Our Process</div>
+                        <div class="process-steps">
+                            <div class="process-step">
+                                <div class="process-step-num">01</div>
+                                <div class="process-step-name">Discover</div>
+                            </div>
+                            <div class="process-step-line"></div>
+                            <div class="process-step">
+                                <div class="process-step-num">02</div>
+                                <div class="process-step-name">Creative Direction</div>
+                            </div>
+                            <div class="process-step-line"></div>
+                            <div class="process-step">
+                                <div class="process-step-num">03</div>
+                                <div class="process-step-name">Production</div>
+                            </div>
+                            <div class="process-step-line"></div>
+                            <div class="process-step">
+                                <div class="process-step-num">04</div>
+                                <div class="process-step-name">Editing</div>
+                            </div>
+                            <div class="process-step-line"></div>
+                            <div class="process-step">
+                                <div class="process-step-num">05</div>
+                                <div class="process-step-name">Delivery</div>
+                            </div>
+                            <div class="process-step-line"></div>
+                            <div class="process-step">
+                                <div class="process-step-num">06</div>
+                                <div class="process-step-name">Growth</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================
+                 7. BUILD YOUR OWN PROJECT
+            ============================================ -->
+            <section id="build" class="build-project">
+                <div class="build-bg">
+                    <div class="build-bg-line" style="width: 400px; height: 400px;"></div>
+                    <div class="build-bg-line" style="width: 700px; height: 700px;"></div>
+                    <div class="build-bg-line" style="width: 1000px; height: 1000px;"></div>
+                </div>
+                <div class="build-inner container">
+                    <div class="build-content fade-up">
+                        <div class="section-label">Build Your Vision</div>
+                        <h2 class="build-title">DON'T SEE THE RIGHT COLLECTION?</h2>
+                        <p class="build-desc">
+                            Every brand is different. Tell us about your vision, and we'll create a production tailored specifically for your project.
+                        </p>
+                        <div class="build-example">
+                            <span class="build-example-label">Example</span>
+                            <p>"Luxury hotel campaign in Italy. Cinematic storytelling. Four shooting days. Lifestyle photography."</p>
+                        </div>
+                        <a href="#contact" class="btn-primary">
+                            Describe Your Project <span class="btn-arrow"></span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================
+                 8. TESTIMONIALS
+            ============================================ -->
+            <section class="testimonials">
+                <div class="testimonials-header container">
+                    <div class="section-label">Partnerships</div>
+                    <h2 class="testimonials-title reveal-text">
+                        <span class="reveal-text-inner">WORDS FROM OUR PARTNERS</span>
+                    </h2>
+                </div>
+
+                <div class="testimonials-track" id="testimonialsTrack">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">
+                            BM DESIGN01 didn't just redesign our brand — they redefined how we think about it. Their process felt more like a conversation than a transaction.
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">VC</div>
+                            <div>
+                                <h5 class="testimonial-name">Villa Como</h5>
+                                <span class="testimonial-role">Hospitality · Lake Como</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">
+                            I've worked with agencies for years. This was completely different. They understood the vision before I could even explain it.
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">AF</div>
+                            <div>
+                                <h5 class="testimonial-name">Alessio Ferrari</h5>
+                                <span class="testimonial-role">Personal Brand · Milan</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"</div>
+                        <p class="testimonial-text">
+                            Working with this team felt like a true partnership. They challenged our thinking, refined our story, and delivered something that genuinely moves people.
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">TS</div>
+                            <div>
+                                <h5 class="testimonial-name">The Saint Hotel</h5>
+                                <span class="testimonial-role">Hospitality · Paris</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonials-nav container">
+                    <button class="testimonial-nav-btn" id="prevBtn" aria-label="Previous">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <button class="testimonial-nav-btn" id="nextBtn" aria-label="Next">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </section>
+
+            <!-- ============================================
+                 9. FAQ
+            ============================================ -->
+            <section id="faq" class="faq-section">
+                <div class="faq-header container">
+                    <div class="section-label">FAQ</div>
+                    <h2 class="faq-title reveal-text">
+                        <span class="reveal-text-inner">FREQUENTLY ASKED QUESTIONS</span>
+                    </h2>
+                </div>
+
+                <div class="faq-list container">
+                    <div class="faq-item fade-up">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>What's included in a collection?</span>
+                            <div class="faq-icon"><span></span><span></span></div>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Each collection includes professional photography, short-form video content, edited social media posts, and your chosen creative style. Campaign experiences expand to include cinematic video production, creative direction, and up to 3 creative styles.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item fade-up">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>How long does a production take?</span>
+                            <div class="faq-icon"><span></span><span></span></div>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Standard collections are typically completed within 2–3 weeks from the shooting day. Campaign experiences may take 3–5 weeks depending on the scope of creative direction and post-production involved.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item fade-up">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Do you work internationally?</span>
+                            <div class="faq-icon"><span></span><span></span></div>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yes. We've delivered projects across 15+ countries. Our work is inspired by travel, culture, and diverse environments. We're available for productions anywhere in the world.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item fade-up">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Can I customize my collection?</span>
+                            <div class="faq-icon"><span></span><span></span></div>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Absolutely. If our standard collections or campaign experiences don't fit your goals, we'll create a custom production tailored to your industry, brand, and vision.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item fade-up">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>What industries do you work with?</span>
+                            <div class="faq-icon"><span></span><span></span></div>
+                        </button>
+                        <div class="faq-answer">
+                            <p>We create for fashion, beauty, hospitality, luxury mobility, wellness, architecture, restaurants, jewelry, interior design, technology, and personal brands.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item fade-up">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>How do creative partnerships work?</span>
+                            <div class="faq-icon"><span></span><span></span></div>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Creative partnerships are long-term collaborations where we become your dedicated creative team. This includes monthly production, campaign development, creative direction, brand strategy, social content, and visual identity management.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================
+                 10. CONTACT
+            ============================================ -->
+            <section id="contact" class="contact-section">
+                <div class="contact-bg">
+                    <div class="contact-bg-line" style="width: 300px; height: 300px;"></div>
+                    <div class="contact-bg-line" style="width: 600px; height: 600px;"></div>
+                    <div class="contact-bg-line" style="width: 900px; height: 900px;"></div>
+                </div>
+                <div class="contact-inner container">
+                    <div class="contact-content fade-up">
+                        <div class="section-label">Contact</div>
+                        <h2 class="contact-title">READY TO CREATE<br>SOMETHING MEMORABLE?</h2>
+                        <p class="contact-desc">
+                            Tell us about your vision and let's build something that represents your brand at its best.
+                        </p>
+                    </div>
+                    <form class="contact-form fade-up" id="contactForm" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contactName">Name</label>
+                                <input type="text" id="contactName" name="name" required autocomplete="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="contactEmail">Email</label>
+                                <input type="email" id="contactEmail" name="email" required autocomplete="email">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contactBrand">Brand</label>
+                                <input type="text" id="contactBrand" name="brand">
+                            </div>
+                            <div class="form-group">
+                                <label for="contactSocial">Instagram / Website</label>
+                                <input type="text" id="contactSocial" name="social">
+                            </div>
+                        </div>
+                        <div class="form-group form-group-full">
+                            <label for="contactDetails">Project Details</label>
+                            <textarea id="contactDetails" name="details" rows="5"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary form-submit">
+                            Start Your Journey <span class="btn-arrow"></span>
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer>
+                <div class="footer-inner container">
+                    <div class="footer-brand">
+                        <div class="footer-logo">BM DESIGN01</div>
+                        <div class="footer-tagline">Creative Studio</div>
+                    </div>
+                    <div class="footer-links">
+                        <a href="https://instagram.com" class="footer-link" target="_blank" rel="noopener">Instagram</a>
+                        <a href="https://tiktok.com" class="footer-link" target="_blank" rel="noopener">TikTok</a>
+                        <a href="mailto:office@bmdesign01.com" class="footer-link">Email</a>
+                    </div>
+                    <div class="footer-copy">
+                        &copy; 2026 BM DESIGN01. All rights reserved.
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+
+    <!-- Floating Action Button for Style Selection -->
+    <button type="button" class="floating-booking-btn" id="floatingBookStylesBtn">
+        Begin Your Journey <span id="floatingSelectedStylesCount">(0)</span>
+    </button>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="booking-modal" aria-hidden="true">
+        <div class="booking-modal-overlay"></div>
+        <div class="booking-modal-content">
+            <button class="booking-modal-close" aria-label="Close modal" id="closeBookingBtn">
+                <span></span>
+                <span></span>
+            </button>
+            <div class="booking-modal-body">
+                <div class="booking-modal-left">
+                    <div class="section-label">Selected Experience</div>
+                    <h3 id="modalServiceTitle" class="booking-modal-service-title">Personal Identity</h3>
+                    <p id="modalServiceGoal" class="booking-modal-service-goal">Build authority around yourself.</p>
+                    <div class="booking-modal-includes" id="modalServiceIncludesContainer">
+                        <span class="booking-modal-includes-label">Includes</span>
+                        <ul id="modalServiceIncludes">
+                            <li>9 edited social media posts</li>
+                            <li>Professional photography</li>
+                            <li>Short-form video content</li>
+                            <li>One creative style of your choice</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="booking-modal-right">
+                    <h4 class="booking-form-title">BOOKING INQUIRY</h4>
+                    <form id="bookingForm" novalidate>
+                        <input type="hidden" id="modalServiceInput" name="service">
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="bookingName">Name</label>
+                                <input type="text" id="bookingName" name="name" required autocomplete="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="bookingEmail">Email</label>
+                                <input type="email" id="bookingEmail" name="email" required autocomplete="email">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="bookingBrand">Brand Name</label>
+                                <input type="text" id="bookingBrand" name="brand">
+                            </div>
+                            <div class="form-group">
+                                <label for="bookingSocial">Instagram / Website</label>
+                                <input type="text" id="bookingSocial" name="social">
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-full">
+                            <label>Creative Styles of Choice</label>
+                            <div class="modal-styles-checkbox-grid">
+                                <label class="style-checkbox-label">
+                                    <input type="checkbox" name="styles" value="Luxury Minimal" id="style-luxury-minimal">
+                                    <span class="style-checkbox-custom"></span>
+                                    Luxury Minimal
+                                </label>
+                                <label class="style-checkbox-label">
+                                    <input type="checkbox" name="styles" value="Cinematic Essence" id="style-cinematic-essence">
+                                    <span class="style-checkbox-custom"></span>
+                                    Cinematic Essence
+                                </label>
+                                <label class="style-checkbox-label">
+                                    <input type="checkbox" name="styles" value="Urban Street" id="style-urban-street">
+                                    <span class="style-checkbox-custom"></span>
+                                    Urban Street
+                                </label>
+                                <label class="style-checkbox-label">
+                                    <input type="checkbox" name="styles" value="Classic Elegance" id="style-classic-elegance">
+                                    <span class="style-checkbox-custom"></span>
+                                    Classic Elegance
+                                </label>
+                                <label class="style-checkbox-label">
+                                    <input type="checkbox" name="styles" value="Natural Harmony" id="style-natural-harmony">
+                                    <span class="style-checkbox-custom"></span>
+                                    Natural Harmony
+                                </label>
+                                <label class="style-checkbox-label">
+                                    <input type="checkbox" name="styles" value="Artistic Direction" id="style-artistic-direction">
+                                    <span class="style-checkbox-custom"></span>
+                                    Artistic Direction
+                                </label>
+                                <label class="style-checkbox-label">
+                                    <input type="checkbox" name="styles" value="Hot & Bold" id="style-hot-bold">
+                                    <span class="style-checkbox-custom"></span>
+                                    Hot & Bold
+                                </label>
+                                <label class="style-checkbox-label">
+                                    <input type="checkbox" name="styles" value="Retro Revival" id="style-retro-revival">
+                                    <span class="style-checkbox-custom"></span>
+                                    Retro Revival
+                                </label>
+                                <label class="style-checkbox-label">
+                                    <input type="checkbox" name="styles" value="Futuristic Glow" id="style-futuristic-glow">
+                                    <span class="style-checkbox-custom"></span>
+                                    Futuristic Glow
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-full">
+                            <label for="bookingDetails">Project Notes & Goals</label>
+                            <textarea id="bookingDetails" name="details" rows="3" placeholder="Tell us about your brand vision..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary form-submit">
+                            Request Booking <span class="btn-arrow"></span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script file -->
+    <script src="js/main.js"></script>
+</body>
+</html>
