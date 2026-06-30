@@ -285,7 +285,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const submitBtn = contactForm.querySelector('.form-submit');
             const originalText = submitBtn.innerHTML;
 
-            submitBtn.innerHTML = 'Message Sent ✓';
+            const successText = window.BM_i18n ? (window.BM_i18n.t('contact.sent', window.BM_i18n.getCurrentLang()) || 'Message Sent ✓') : 'Message Sent ✓';
+            submitBtn.innerHTML = successText;
             submitBtn.style.background = 'rgba(215, 210, 200, 0.2)';
             submitBtn.style.color = 'var(--accent)';
             submitBtn.disabled = true;
@@ -458,7 +459,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const emailInput = document.getElementById('bookingEmail');
 
             if (!nameInput.value.trim() || !emailInput.value.trim()) {
-                alert('Please fill out Name and Email.');
+                const alertMsg = window.BM_i18n ? (window.BM_i18n.t('modal.fill_fields', window.BM_i18n.getCurrentLang()) || 'Please fill out Name and Email.') : 'Please fill out Name and Email.';
+                alert(alertMsg);
                 return;
             }
 
@@ -466,7 +468,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const submitBtn = bookingForm.querySelector('.form-submit');
             const originalText = submitBtn.innerHTML;
 
-            submitBtn.innerHTML = 'Booking Requested ✓';
+            const successText = window.BM_i18n ? (window.BM_i18n.t('modal.booking_requested', window.BM_i18n.getCurrentLang()) || 'Booking Requested ✓') : 'Booking Requested ✓';
+            submitBtn.innerHTML = successText;
             submitBtn.style.background = 'rgba(215, 210, 200, 0.2)';
             submitBtn.style.color = 'var(--accent)';
             submitBtn.disabled = true;
