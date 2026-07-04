@@ -365,7 +365,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedStyles = new Set();
 
     // Open booking modal
-    const openBookingModal = (serviceName, goalText, includesHtml, initialStyles = []) => {
+    const openBookingModal = (serviceName, goalText, includesHtml, priceText = '', initialStyles = []) => {
         if (!bookingModal) return;
 
         // Reset form and styles checkboxes
@@ -381,6 +381,12 @@ document.addEventListener('DOMContentLoaded', () => {
         modalServiceTitle.textContent = serviceName;
         modalServiceGoal.textContent = goalText || 'Custom project design';
         modalServiceInput.value = serviceName;
+
+        const modalPriceEl = document.getElementById('modalServicePrice');
+        if (modalPriceEl) {
+            modalPriceEl.textContent = priceText;
+            modalPriceEl.style.display = priceText ? 'block' : 'none';
+        }
 
         if (includesHtml) {
             modalServiceIncludes.innerHTML = includesHtml;
@@ -420,13 +426,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault();
 
                 const title = card.querySelector('.collection-card-title').textContent.trim();
+                const priceEl = card.querySelector('.collection-card-price');
+                const price = priceEl ? priceEl.textContent.trim() : '';
                 const goal = card.querySelector('.collection-card-goal').textContent.trim();
                 
                 const includesEl = card.querySelector('.collection-card-includes ul');
                 const includesHtml = includesEl ? includesEl.innerHTML : '';
 
                 // Open modal with this collection details
-                openBookingModal(title, goal, includesHtml);
+                openBookingModal(title, goal, includesHtml, price);
             }
         });
     });
@@ -478,6 +486,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'Custom Style Selection', 
                 'Tailored visual direction for your project.', 
                 includesListHtml, 
+                '', 
                 stylesList
             );
         });
@@ -492,6 +501,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'Custom Style Selection', 
                 'Tailored visual direction for your project.', 
                 includesListHtml, 
+                '', 
                 stylesList
             );
         });

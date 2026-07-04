@@ -421,6 +421,7 @@
                         <div class="collection-card-overlay"></div>
                         <div class="collection-card-header">
                             <h3 class="collection-card-title" data-i18n="collections.personal_title">Lični Identitet</h3>
+                            <div class="collection-card-price">290 €</div>
                             <p class="collection-card-goal" data-i18n="collections.personal_goal">Izgradite autoritet oko sebe.</p>
                         </div>
                         <p class="collection-card-desc" data-i18n="collections.personal_desc">
@@ -445,6 +446,7 @@
                         <div class="collection-card-overlay"></div>
                         <div class="collection-card-header">
                             <h3 class="collection-card-title" data-i18n="collections.brand_title">Prisustvo Brenda</h3>
+                            <div class="collection-card-price">590 €</div>
                             <p class="collection-card-goal" data-i18n="collections.brand_goal">Konzistentan sadržaj za biznise u rastu.</p>
                         </div>
                         <p class="collection-card-desc" data-i18n="collections.brand_desc">
@@ -456,6 +458,7 @@
                                 <li data-i18n="collections.9_posts">9 editovanih objava za društvene mreže</li>
                                 <li data-i18n="collections.pro_photo">Profesionalna fotografija</li>
                                 <li data-i18n="collections.short_video">Kratki video sadržaj</li>
+                                <li data-i18n="collections.advertising">Reklamiranje i oglašavanje</li>
                                 <li data-i18n="collections.one_style">Jedan kreativni stil po vašem izboru</li>
                             </ul>
                         </div>
@@ -469,16 +472,25 @@
                         <div class="collection-card-overlay"></div>
                         <div class="collection-card-header">
                             <h3 class="collection-card-title" data-i18n="collections.custom_title">Prilagođen Sistem</h3>
-                            <p class="collection-card-goal" data-i18n="collections.custom_goal">Trebate nešto jedinstveno?</p>
+                            <div class="collection-card-price" data-i18n="collections.custom_price">Na Upit</div>
+                            <p class="collection-card-goal" data-i18n="collections.custom_goal">Personalizovani sistem za razvoj vašeg brenda</p>
                         </div>
                         <p class="collection-card-desc" data-i18n="collections.custom_desc">
                             Svaki projekat je drugačiji. Kreiraćemo produkciju prilagođenu vašim ciljevima, industriji i viziji.
                         </p>
+                        <div class="collection-card-includes">
+                            <span class="collection-card-label" data-i18n="collections.includes">Uključuje</span>
+                            <ul>
+                                <li data-i18n="collections.custom_item1">Izaberite usluge po želji</li>
+                                <li data-i18n="collections.custom_item2">Skrojite paket prema vašim ciljevima</li>
+                                <li data-i18n="collections.custom_item3">Fleksibilan obim produkcije</li>
+                            </ul>
+                        </div>
                         <p class="collection-card-note" data-i18n="collections.custom_note">
                             Za lansiranje proizvoda, destinacijske kampanje, restorane, hotele, modne brendove i jednokratne produkcije.
                         </p>
                         <a href="#build" class="collection-card-cta">
-                            <span data-i18n="collections.describe_project">Opišite Vaš Projekat</span> <span class="btn-arrow"></span>
+                            <span data-i18n="collections.describe_project">Kreiraj Svoj Paket</span> <span class="btn-arrow"></span>
                         </a>
                     </div>
                 </div>
@@ -497,6 +509,7 @@
                         <div class="collection-card-overlay"></div>
                         <div class="collection-card-header">
                             <h3 class="collection-card-title" data-i18n="collections.iconic_title">Ikonični Lični Identitet</h3>
+                            <div class="collection-card-price">590 €</div>
                             <p class="collection-card-goal" data-i18n="collections.iconic_goal">Za pojedince koji grade ikoničan lični brend.</p>
                         </div>
                         <p class="collection-card-desc" data-i18n="collections.iconic_desc">
@@ -522,6 +535,7 @@
                         <div class="collection-card-overlay"></div>
                         <div class="collection-card-header">
                             <h3 class="collection-card-title" data-i18n="collections.brand_campaign_title">Brendirana Kampanja</h3>
+                            <div class="collection-card-price">1.490 €</div>
                             <p class="collection-card-goal" data-i18n="collections.brand_campaign_goal">Za brendove koji žele sadržaj na nivou kampanje.</p>
                         </div>
                         <p class="collection-card-desc" data-i18n="collections.brand_campaign_desc">
@@ -534,6 +548,7 @@
                                 <li data-i18n="collections.pro_photo">Profesionalna fotografija</li>
                                 <li data-i18n="collections.iconic_cinema">Filmska video produkcija</li>
                                 <li data-i18n="collections.iconic_3styles">Do 3 kreativna stila</li>
+                                <li data-i18n="collections.advertising">Reklamiranje i oglašavanje</li>
                                 <li data-i18n="collections.brand_campaign_direction">Kreativna direkcija</li>
                                 <li data-i18n="collections.brand_campaign_planning">Prošireno planiranje produkcije</li>
                             </ul>
@@ -548,6 +563,7 @@
                         <div class="collection-card-overlay"></div>
                         <div class="collection-card-header">
                             <h3 class="collection-card-title" data-i18n="collections.event_title">Pripovedanje Događaja</h3>
+                            <div class="collection-card-price">490 € — 2.000+ €</div>
                             <p class="collection-card-goal" data-i18n="collections.event_goal">Zabeležite iskustva koja ljudi pamte.</p>
                         </div>
                         <p class="collection-card-desc" data-i18n="collections.event_desc">
@@ -1075,6 +1091,7 @@
                 <div class="booking-modal-left">
                     <div class="section-label" data-i18n="modal.selected_experience">Izabrano Iskustvo</div>
                     <h3 id="modalServiceTitle" class="booking-modal-service-title">Personal Identity</h3>
+                    <div id="modalServicePrice" class="booking-modal-service-price"></div>
                     <p id="modalServiceGoal" class="booking-modal-service-goal">Build authority around yourself.</p>
                     <div class="booking-modal-includes" id="modalServiceIncludesContainer">
                         <span class="booking-modal-includes-label" data-i18n="collections.includes">Uključuje</span>

@@ -482,9 +482,9 @@ const translations = {
         en: "Custom System"
     },
     "collections.custom_goal": {
-        sr: "Trebate nešto jedinstveno?",
-        ru: "Нужно что-то уникальное?",
-        en: "Need something unique?"
+        sr: "Personalizovani sistem za razvoj vašeg brenda",
+        ru: "Персонализированная система для развития вашего бренда",
+        en: "Personalized system for the development of your brand"
     },
     "collections.custom_desc": {
         sr: "Svaki projekat je drugačiji. Kreiraćemo produkciju prilagođenu vašim ciljevima, industriji i viziji.",
@@ -497,9 +497,34 @@ const translations = {
         en: "For product launches, destination campaigns, restaurants, hotels, fashion brands and one-off productions."
     },
     "collections.describe_project": {
-        sr: "Opišite Vaš Projekat",
-        ru: "Опишите Ваш Проект",
-        en: "Describe Your Project"
+        sr: "Kreiraj Svoj Paket",
+        ru: "Создать Свой Пакет",
+        en: "Build Your Custom Package"
+    },
+    "collections.custom_price": {
+        sr: "Na Upit",
+        ru: "По Запросу",
+        en: "On Request"
+    },
+    "collections.custom_item1": {
+        sr: "Izaberite usluge po želji",
+        ru: "Выбирайте услуги по запросу",
+        en: "Choose services on demand"
+    },
+    "collections.custom_item2": {
+        sr: "Skrojite paket prema vašim ciljevima",
+        ru: "Создайте пакет под ваши цели",
+        en: "Tailor the package to your goals"
+    },
+    "collections.custom_item3": {
+        sr: "Fleksibilan obim produkcije",
+        ru: "Гибкий масштаб производства",
+        en: "Flexible production scale"
+    },
+    "collections.advertising": {
+        sr: "Reklamiranje i oglašavanje",
+        ru: "Реклама и продвижение",
+        en: "Advertising & promotion"
     },
 
     // Collection card shared
@@ -672,6 +697,11 @@ const translations = {
         sr: "KOJI DEFINIŠE VAŠ SADRŽAJ.",
         ru: "КОТОРЫЙ ОПРЕДЕЛИТ ВАШ КОНТЕНТ.",
         en: "THAT DEFINES YOUR CONTENT."
+    },
+    "styles.subtitle": {
+        sr: "Ovi kreativni pravci se primenjuju na kompletnu fotografisanje i video produkciju u okviru vašeg paketa.",
+        ru: "Эти креативные направления применимы ко всем услугам фотосъемки и видеопроизводства в вашем пакете.",
+        en: "These creative directions apply to all photography and video production services in your package."
     },
     "styles.book_selected": {
         sr: "Rezerviši Izabrane Stilove",
