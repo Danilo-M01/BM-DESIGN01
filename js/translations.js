@@ -185,6 +185,16 @@ const translations = {
         ru: "Фотография, моушн и премиальное производство контента.",
         en: "Photography, motion and premium content production."
     },
+    "wwb.service5_title": {
+        sr: "Arhitektura & Dizajn Enterijera",
+        ru: "Архитектура & Дизайн Интерьера",
+        en: "Architecture & Interior Design"
+    },
+    "wwb.service5_desc": {
+        sr: "Prostorni koncepti, umetničko stilizovanje i vizuelno pripovedanje za arhitekturu i enterijere.",
+        ru: "Пространственные концепции, арт-стайлинг и визуальный сторителлинг для архитектуры и интерьеров.",
+        en: "Spatial concepts, art styling and visual storytelling for architecture and interiors."
+    },
     "wwb.view_work": {
         sr: "Pogledajte izabrane radove",
         ru: "Смотреть избранные работы",
@@ -844,35 +854,20 @@ const translations = {
         ru: "Мы не гонимся за трендами. Мы создаём визуальные идентичности, которые живут долго. Потому что когда бренд отражает то, чем он является на самом деле, люди его запоминают.",
         en: "We don't chase trends. We create visual identities that last. Because when a brand reflects who it truly is, people remember it."
     },
-    "partnerships.monthly": {
-        sr: "Mesečna Produkcija",
-        ru: "Ежемесячный Продакшн",
-        en: "Monthly Production"
+    "partnerships.visual_social": {
+        sr: "Vizuelni identitet i sadržaj za društvene mreže",
+        ru: "Визуальная идентичность и контент для соцсетей",
+        en: "Visual identity and social content"
     },
-    "partnerships.campaign_dev": {
-        sr: "Razvoj Kampanja",
-        ru: "Разработка Кампаний",
-        en: "Campaign Development"
+    "partnerships.direction_strategy": {
+        sr: "Kreativna direkcija, strategija i razvoj brenda",
+        ru: "Креативное руководство, стратегия и развитие бренда",
+        en: "Creative direction, brand strategy and brand development"
     },
-    "partnerships.creative_dir": {
-        sr: "Kreativna Direkcija",
-        ru: "Креативное Руководство",
-        en: "Creative Direction"
-    },
-    "partnerships.brand_strategy": {
-        sr: "Strategija Brenda",
-        ru: "Стратегия Бренда",
-        en: "Brand Strategy"
-    },
-    "partnerships.social_content": {
-        sr: "Sadržaj za Mreže",
-        ru: "Контент для Соцсетей",
-        en: "Social Content"
-    },
-    "partnerships.visual_identity": {
-        sr: "Vizuelni Identitet",
-        ru: "Визуальная Идентичность",
-        en: "Visual Identity"
+    "partnerships.monthly_prod": {
+        sr: "Mesečna produkcija",
+        ru: "Ежемесячный продакшн",
+        en: "Monthly production"
     },
     "partnerships.start": {
         sr: "Započni Partnerstvo",

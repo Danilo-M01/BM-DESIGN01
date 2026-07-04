@@ -210,6 +210,21 @@
                                 </a>
                             </div>
                         </div>
+
+                        <div class="wwb-row" data-wwb-index="4">
+                            <div class="wwb-row-accent"></div>
+                            <div class="wwb-row-inner">
+                                <span class="wwb-num">05</span>
+                                <div class="wwb-row-content">
+                                    <h3 class="wwb-row-title" data-i18n="wwb.service5_title">Architecture &amp; Interior Design</h3>
+                                    <p class="wwb-row-desc" data-i18n="wwb.service5_desc">Spatial concepts, art styling and visual storytelling for architecture and interiors.</p>
+                                </div>
+                                <a href="#work" class="wwb-row-link">
+                                    <span data-i18n="wwb.view_work">View selected work</span>
+                                    <span class="wwb-arrow">→</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Bottom CTA -->
@@ -236,25 +251,33 @@
                     </div>
                     <a href="#work" class="work-link fade-up" data-i18n="work.view_all">Pogledaj Sve Projekte</a>
                 </div>
-
-                <!-- Category Filters -->
                 <div class="work-filters container fade-up">
                     <button class="filter-btn active" data-filter="all" data-i18n="filter.all">Sve</button>
+                    <button class="filter-btn" data-filter="personal-brands" data-i18n="filter.personal_brands">Lični Brendovi</button>
                     <button class="filter-btn" data-filter="fashion" data-i18n="filter.fashion">Moda</button>
                     <button class="filter-btn" data-filter="beauty" data-i18n="filter.beauty">Lepota</button>
+                    <button class="filter-btn" data-filter="jewelry" data-i18n="filter.jewelry">Nakit</button>
                     <button class="filter-btn" data-filter="hospitality" data-i18n="filter.hospitality">Ugostiteljstvo</button>
-                    <button class="filter-btn" data-filter="luxury-mobility" data-i18n="filter.luxury_mobility">Luksuzna Mobilnost</button>
                     <button class="filter-btn" data-filter="wellness" data-i18n="filter.wellness">Velnes</button>
+                    <button class="filter-btn" data-filter="luxury-mobility" data-i18n="filter.luxury_mobility">Luksuzna Mobilnost</button>
+                    <button class="filter-btn" data-filter="interior-design" data-i18n="filter.interior_design">Dizajn Enterijera</button>
                     <button class="filter-btn" data-filter="architecture" data-i18n="filter.architecture">Arhitektura</button>
                     <button class="filter-btn" data-filter="restaurants" data-i18n="filter.restaurants">Restorani</button>
-                    <button class="filter-btn" data-filter="jewelry" data-i18n="filter.jewelry">Nakit</button>
-                    <button class="filter-btn" data-filter="interior-design" data-i18n="filter.interior_design">Dizajn Enterijera</button>
                     <button class="filter-btn" data-filter="technology" data-i18n="filter.technology">Tehnologija</button>
-                    <button class="filter-btn" data-filter="personal-brands" data-i18n="filter.personal_brands">Lični Brendovi</button>
                 </div>
 
                 <!-- Editorial Layout Grid -->
                 <div class="work-editorial" id="workGrid">
+
+                    <!-- Personal Brands -->
+                    <div class="work-item fade-up" data-category="personal-brands">
+                        <img src="images/project-personal.png" alt="Alessio Ferrari Personal Brand" class="work-item-img" loading="lazy">
+                        <div class="work-overlay"></div>
+                        <div class="work-item-info">
+                            <div class="work-item-cat" data-i18n="work.personal_milan">Lični Brendovi · Milano, Italija</div>
+                            <h4 class="work-item-name" data-i18n="work.personal_name">Alessio Ferrari Lični Brend</h4>
+                        </div>
+                    </div>
 
                     <!-- Fashion -->
                     <div class="work-item fade-up" data-category="fashion">
@@ -276,13 +299,43 @@
                         </div>
                     </div>
 
-                    <!-- Hospitality -->
+                    <!-- Jewelry -->
+                    <div class="work-item fade-up" data-category="jewelry">
+                        <img src="images/project-jewelry.png" alt="Lumière Jewelry Collection" class="work-item-img" loading="lazy">
+                        <div class="work-overlay"></div>
+                        <div class="work-item-info">
+                            <div class="work-item-cat" data-i18n="work.jewelry_paris">Nakit · Pariz, Francuska</div>
+                            <h4 class="work-item-name" data-i18n="work.jewelry_name">Lumière Kolekcija Nakita</h4>
+                        </div>
+                    </div>
+
+                    <!-- Hospitality (Como) -->
                     <div class="work-item fade-up" data-category="hospitality">
                         <img src="images/project-hospitality1.png" alt="Villa Como Hotel Campaign" class="work-item-img" loading="lazy">
                         <div class="work-overlay"></div>
                         <div class="work-item-info">
                             <div class="work-item-cat" data-i18n="work.hospitality_como">Ugostiteljstvo · Jezero Komo, Italija</div>
                             <h4 class="work-item-name" data-i18n="work.hospitality_como_name">Villa Como Hotelska Kampanja</h4>
+                        </div>
+                    </div>
+
+                    <!-- Hospitality (The Saint) -->
+                    <div class="work-item fade-up" data-category="hospitality">
+                        <img src="images/project-hospitality2.png" alt="The Saint Hotel Brand Identity" class="work-item-img" loading="lazy">
+                        <div class="work-overlay"></div>
+                        <div class="work-item-info">
+                            <div class="work-item-cat" data-i18n="work.hospitality_paris">Ugostiteljstvo · Pariz, Francuska</div>
+                            <h4 class="work-item-name" data-i18n="work.hospitality_paris_name">The Saint Hotel Identitet Brenda</h4>
+                        </div>
+                    </div>
+
+                    <!-- Wellness -->
+                    <div class="work-item fade-up" data-category="wellness">
+                        <img src="images/project-wellness.png" alt="Serene Wellness Retreat" class="work-item-img" loading="lazy">
+                        <div class="work-overlay"></div>
+                        <div class="work-item-info">
+                            <div class="work-item-cat" data-i18n="work.wellness_bali">Velnes · Bali, Indonezija</div>
+                            <h4 class="work-item-name" data-i18n="work.wellness_name">Serene Velnes Utočište</h4>
                         </div>
                     </div>
 
@@ -296,13 +349,13 @@
                         </div>
                     </div>
 
-                    <!-- Wellness -->
-                    <div class="work-item fade-up" data-category="wellness">
-                        <img src="images/project-wellness.png" alt="Serene Wellness Retreat" class="work-item-img" loading="lazy">
+                    <!-- Interior Design -->
+                    <div class="work-item fade-up" data-category="interior-design">
+                        <img src="images/project-interior.png" alt="Casa Moderna Interior" class="work-item-img" loading="lazy">
                         <div class="work-overlay"></div>
                         <div class="work-item-info">
-                            <div class="work-item-cat" data-i18n="work.wellness_bali">Velnes · Bali, Indonezija</div>
-                            <h4 class="work-item-name" data-i18n="work.wellness_name">Serene Velnes Utočište</h4>
+                            <div class="work-item-cat" data-i18n="work.interior_london">Dizajn Enterijera · London, UK</div>
+                            <h4 class="work-item-name" data-i18n="work.interior_name">Casa Moderna Enterijer</h4>
                         </div>
                     </div>
 
@@ -326,26 +379,6 @@
                         </div>
                     </div>
 
-                    <!-- Jewelry -->
-                    <div class="work-item fade-up" data-category="jewelry">
-                        <img src="images/project-jewelry.png" alt="Lumière Jewelry Collection" class="work-item-img" loading="lazy">
-                        <div class="work-overlay"></div>
-                        <div class="work-item-info">
-                            <div class="work-item-cat" data-i18n="work.jewelry_paris">Nakit · Pariz, Francuska</div>
-                            <h4 class="work-item-name" data-i18n="work.jewelry_name">Lumière Kolekcija Nakita</h4>
-                        </div>
-                    </div>
-
-                    <!-- Interior Design -->
-                    <div class="work-item fade-up" data-category="interior-design">
-                        <img src="images/project-interior.png" alt="Casa Moderna Interior" class="work-item-img" loading="lazy">
-                        <div class="work-overlay"></div>
-                        <div class="work-item-info">
-                            <div class="work-item-cat" data-i18n="work.interior_london">Dizajn Enterijera · London, UK</div>
-                            <h4 class="work-item-name" data-i18n="work.interior_name">Casa Moderna Enterijer</h4>
-                        </div>
-                    </div>
-
                     <!-- Technology -->
                     <div class="work-item fade-up" data-category="technology">
                         <img src="images/project-technology.png" alt="Nexus Tech Brand Identity" class="work-item-img" loading="lazy">
@@ -355,26 +388,7 @@
                             <h4 class="work-item-name" data-i18n="work.tech_name">Nexus Tech Identitet Brenda</h4>
                         </div>
                     </div>
-
-                    <!-- Hospitality (2) -->
-                    <div class="work-item fade-up" data-category="hospitality">
-                        <img src="images/project-hospitality2.png" alt="The Saint Hotel Brand Identity" class="work-item-img" loading="lazy">
-                        <div class="work-overlay"></div>
-                        <div class="work-item-info">
-                            <div class="work-item-cat" data-i18n="work.hospitality_paris">Ugostiteljstvo · Pariz, Francuska</div>
-                            <h4 class="work-item-name" data-i18n="work.hospitality_paris_name">The Saint Hotel Identitet Brenda</h4>
-                        </div>
-                    </div>
-
-                    <!-- Personal Brands -->
-                    <div class="work-item fade-up" data-category="personal-brands">
-                        <img src="images/project-personal.png" alt="Alessio Ferrari Personal Brand" class="work-item-img" loading="lazy">
-                        <div class="work-overlay"></div>
-                        <div class="work-item-info">
-                            <div class="work-item-cat" data-i18n="work.personal_milan">Lični Brendovi · Milano, Italija</div>
-                            <h4 class="work-item-name" data-i18n="work.personal_name">Alessio Ferrari Lični Brend</h4>
-                        </div>
-                    </div>
+                </div>                  </div>
 
                 </div>
             </section>
@@ -663,68 +677,79 @@
                 </div>
 
                 <div class="industries-grid container">
+                    <!-- 1. Personal Brands -->
+                    <div class="industry-item fade-up">
+                        <span class="industry-name" data-i18n="industries.personal_brands">Lični Brendovi</span>
+                        <div class="industry-arrow">
+                            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                    <!-- 2. Fashion -->
                     <div class="industry-item fade-up">
                         <span class="industry-name" data-i18n="industries.fashion">Moda</span>
                         <div class="industry-arrow">
                             <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         </div>
                     </div>
+                    <!-- 3. Beauty -->
                     <div class="industry-item fade-up">
                         <span class="industry-name" data-i18n="industries.beauty">Lepota</span>
                         <div class="industry-arrow">
                             <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         </div>
                     </div>
-                    <div class="industry-item fade-up">
-                        <span class="industry-name" data-i18n="industries.hospitality">Ugostiteljstvo</span>
-                        <div class="industry-arrow">
-                            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </div>
-                    </div>
-                    <div class="industry-item fade-up">
-                        <span class="industry-name" data-i18n="industries.luxury_mobility">Luksuzna Mobilnost</span>
-                        <div class="industry-arrow">
-                            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </div>
-                    </div>
-                    <div class="industry-item fade-up">
-                        <span class="industry-name" data-i18n="industries.wellness">Velnes</span>
-                        <div class="industry-arrow">
-                            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </div>
-                    </div>
-                    <div class="industry-item fade-up">
-                        <span class="industry-name" data-i18n="industries.architecture">Arhitektura</span>
-                        <div class="industry-arrow">
-                            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </div>
-                    </div>
-                    <div class="industry-item fade-up">
-                        <span class="industry-name" data-i18n="industries.restaurants">Restorani</span>
-                        <div class="industry-arrow">
-                            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </div>
-                    </div>
+                    <!-- 4. Jewelry -->
                     <div class="industry-item fade-up">
                         <span class="industry-name" data-i18n="industries.jewelry">Nakit</span>
                         <div class="industry-arrow">
                             <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         </div>
                     </div>
+                    <!-- 5. Hospitality -->
+                    <div class="industry-item fade-up">
+                        <span class="industry-name" data-i18n="industries.hospitality">Ugostiteljstvo</span>
+                        <div class="industry-arrow">
+                            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                    <!-- 6. Wellness -->
+                    <div class="industry-item fade-up">
+                        <span class="industry-name" data-i18n="industries.wellness">Velnes</span>
+                        <div class="industry-arrow">
+                            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                    <!-- 7. Luxury Mobility -->
+                    <div class="industry-item fade-up">
+                        <span class="industry-name" data-i18n="industries.luxury_mobility">Luksuzna Mobilnost</span>
+                        <div class="industry-arrow">
+                            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                    <!-- 8. Interior Design -->
                     <div class="industry-item fade-up">
                         <span class="industry-name" data-i18n="industries.interior_design">Dizajn Enterijera</span>
                         <div class="industry-arrow">
                             <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         </div>
                     </div>
+                    <!-- 9. Architecture -->
                     <div class="industry-item fade-up">
-                        <span class="industry-name" data-i18n="industries.technology">Tehnologija</span>
+                        <span class="industry-name" data-i18n="industries.architecture">Arhitektura</span>
                         <div class="industry-arrow">
                             <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         </div>
                     </div>
+                    <!-- 10. Restaurants -->
                     <div class="industry-item fade-up">
-                        <span class="industry-name" data-i18n="industries.personal_brands">Lični Brendovi</span>
+                        <span class="industry-name" data-i18n="industries.restaurants">Restorani</span>
+                        <div class="industry-arrow">
+                            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                    <!-- 11. Technology -->
+                    <div class="industry-item fade-up">
+                        <span class="industry-name" data-i18n="industries.technology">Tehnologija</span>
                         <div class="industry-arrow">
                             <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         </div>
@@ -744,12 +769,9 @@
                             Ne jurimo trendove. Kreiramo vizuelne identitete koji traju. Jer kad brend odražava ono što zaista jeste, ljudi ga pamte.
                         </p>
                         <div class="partnerships-services">
-                            <div class="partnership-service" data-i18n="partnerships.monthly">Mesečna Produkcija</div>
-                            <div class="partnership-service" data-i18n="partnerships.campaign_dev">Razvoj Kampanja</div>
-                            <div class="partnership-service" data-i18n="partnerships.creative_dir">Kreativna Direkcija</div>
-                            <div class="partnership-service" data-i18n="partnerships.brand_strategy">Strategija Brenda</div>
-                            <div class="partnership-service" data-i18n="partnerships.social_content">Sadržaj za Mreže</div>
-                            <div class="partnership-service" data-i18n="partnerships.visual_identity">Vizuelni Identitet</div>
+                            <div class="partnership-service" data-i18n="partnerships.visual_social">Vizuelni identitet i sadržaj za društvene mreže</div>
+                            <div class="partnership-service" data-i18n="partnerships.direction_strategy">Kreativna direkcija, strategija i razvoj brenda</div>
+                            <div class="partnership-service" data-i18n="partnerships.monthly_prod">Mesečna produkcija</div>
                         </div>
                         <a href="#contact" class="btn-primary">
                             <span data-i18n="partnerships.start">Započni Partnerstvo</span> <span class="btn-arrow"></span>
