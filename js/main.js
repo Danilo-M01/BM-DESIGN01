@@ -181,6 +181,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         wwbObserver.observe(wwbSection);
+
+        // Theme switcher observer to smoothly shift variables on scroll
+        const themeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    document.body.classList.add('theme-light');
+                } else {
+                    document.body.classList.remove('theme-light');
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '-10% 0px -10% 0px'
+        });
+        themeObserver.observe(wwbSection);
     }
 
     /* ============================================
