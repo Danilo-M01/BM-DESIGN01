@@ -1159,7 +1159,6 @@ section {
 
 .collection-card {
     background-color: var(--bg-card);
-    background-image: url('../images/collection-bg-grain.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -1169,30 +1168,38 @@ section {
     border-top: 1px solid var(--border);
     position: relative;
     overflow: hidden;
-    transition: background-color 0.4s ease;
+    transition: background-color 0.4s ease, transform 0.4s var(--ease-refined);
     z-index: 1;
+    cursor: pointer;
 }
 
 .collection-card-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(12, 11, 10, 0.88) 0%, rgba(12, 11, 10, 0.96) 100%);
-    backdrop-filter: blur(2.5px) saturate(0.85);
-    -webkit-backdrop-filter: blur(2.5px) saturate(0.85);
+    background: linear-gradient(180deg, rgba(12, 11, 10, 0.45) 0%, rgba(12, 11, 10, 0.68) 100%);
+    backdrop-filter: blur(1.5px) saturate(1.1);
+    -webkit-backdrop-filter: blur(1.5px) saturate(1.1);
     z-index: -1;
     transition: background 0.4s var(--ease-refined), backdrop-filter 0.4s var(--ease-refined);
 }
 
 .collection-card:hover .collection-card-overlay {
-    background: linear-gradient(180deg, rgba(12, 11, 10, 0.78) 0%, rgba(12, 11, 10, 0.9) 100%);
-    backdrop-filter: blur(1.5px) saturate(1.0);
-    -webkit-backdrop-filter: blur(1.5px) saturate(1.0);
+    background: linear-gradient(180deg, rgba(12, 11, 10, 0.28) 0%, rgba(12, 11, 10, 0.48) 100%);
+    backdrop-filter: blur(0.5px) saturate(1.2);
+    -webkit-backdrop-filter: blur(0.5px) saturate(1.2);
 }
 
-/* Custom System gets the warm ray texture */
-.collection-card.collection-card-accent {
-    background-image: url('../images/collection-bg-warm.jpg');
+.collection-card:hover {
+    transform: translateY(-2px);
 }
+
+/* Individual Card Textures */
+.collection-card.collection-card-grey { background-image: url('../images/collection-bg-grey.png'); }
+.collection-card.collection-card-blue { background-image: url('../images/collection-bg-blue.jpg'); }
+.collection-card.collection-card-gold { background-image: url('../images/collection-bg-gold.jpg'); }
+.collection-card.collection-card-red { background-image: url('../images/collection-bg-red.jpg'); }
+.collection-card.collection-card-emerald { background-image: url('../images/collection-bg-emerald.jpg'); }
+.collection-card.collection-card-warm { background-image: url('../images/collection-bg-warm.jpg'); }
 
 .collection-card::before {
     content: '';
@@ -2394,15 +2401,27 @@ footer {
     font-weight: 700;
     letter-spacing: 0.25em;
     color: var(--text-primary);
-    margin-bottom: 32px;
+    margin-bottom: 24px;
+}
+
+.booking-modal-right {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+#bookingForm {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
 }
 
 /* Styles Checkbox Grid */
 .modal-styles-checkbox-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px 24px;
-    margin-top: 8px;
+    gap: 16px 24px;
+    margin-top: 12px;
 }
 
 .style-checkbox-label {

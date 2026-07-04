@@ -403,25 +403,31 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflowY = '';
     };
 
-    // 1. Hook up Collection Cards
+    // 1. Hook up Collection Cards (Clicking anywhere on the card opens the booking form)
     document.querySelectorAll('.collection-card').forEach(card => {
         const ctaBtn = card.querySelector('.collection-card-cta');
         if (!ctaBtn) return;
 
-        // Skip "Describe Your Project" button which navigates to #build
-        if (ctaBtn.getAttribute('href') === '#build') return;
+        card.addEventListener('click', (e) => {
+            const href = ctaBtn.getAttribute('href');
+            if (href === '#build') {
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            } else {
+                e.preventDefault();
 
-        ctaBtn.addEventListener('click', (e) => {
-            e.preventDefault();
+                const title = card.querySelector('.collection-card-title').textContent.trim();
+                const goal = card.querySelector('.collection-card-goal').textContent.trim();
+                
+                const includesEl = card.querySelector('.collection-card-includes ul');
+                const includesHtml = includesEl ? includesEl.innerHTML : '';
 
-            const title = card.querySelector('.collection-card-title').textContent.trim();
-            const goal = card.querySelector('.collection-card-goal').textContent.trim();
-            
-            const includesEl = card.querySelector('.collection-card-includes ul');
-            const includesHtml = includesEl ? includesEl.innerHTML : '';
-
-            // Open modal with this collection details
-            openBookingModal(title, goal, includesHtml);
+                // Open modal with this collection details
+                openBookingModal(title, goal, includesHtml);
+            }
         });
     });
 
