@@ -8,20 +8,23 @@
 }
 
 :root {
-    --bg-primary: #0B0B0B;
-    --bg-secondary: #111111;
-    --bg-card: #171717;
-    --bg-card-hover: #1d1d1d;
-    --text-primary: #F6F6F4;
-    --text-secondary: #A8A8A8;
-    --accent: #D7D2C8;
-    --accent-dim: rgba(215, 210, 200, 0.15);
-    --border: rgba(215, 210, 200, 0.08);
-    --border-hover: rgba(215, 210, 200, 0.2);
+    --bg-primary: #0C0B0A;
+    --bg-secondary: #121110;
+    --bg-card: #181716;
+    --bg-card-hover: #1e1d1b;
+    --text-primary: #F4F3F0;
+    --text-secondary: #9A9590;
+    --accent: #C8C0B4;
+    --accent-dim: rgba(200, 192, 180, 0.12);
+    --border: rgba(200, 192, 180, 0.07);
+    --border-hover: rgba(200, 192, 180, 0.18);
     --font-display: 'Manrope', sans-serif;
+    --font-serif: 'Cormorant Garamond', serif;
     --font-body: 'Inter', sans-serif;
-    --ease-luxury: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --ease-refined: cubic-bezier(0.22, 0.61, 0.36, 1);
     --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-slow: 0.6s;
+    --transition-medium: 0.45s;
 }
 
 html {
@@ -368,13 +371,13 @@ nav.scrolled {
 }
 
 .hero-headline {
-    font-family: var(--font-display);
+    font-family: var(--font-serif);
     font-size: clamp(42px, 7vw, 110px);
-    font-weight: 800;
+    font-weight: 500;
     line-height: 0.95;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.01em;
     color: var(--text-primary);
-    margin-bottom: 40px;
+    margin-bottom: 48px;
     overflow: hidden;
 }
 
@@ -390,12 +393,13 @@ nav.scrolled {
 }
 
 .hero-sub {
-    font-size: clamp(14px, 1.4vw, 17px);
+    font-size: clamp(14px, 1.3vw, 17px);
     font-weight: 300;
-    line-height: 1.7;
+    line-height: 1.8;
     color: var(--text-secondary);
-    max-width: 500px;
-    margin-bottom: 52px;
+    max-width: 480px;
+    margin-bottom: 56px;
+    letter-spacing: 0.01em;
 }
 
 .hero-buttons {
@@ -408,16 +412,16 @@ nav.scrolled {
 .btn-primary {
     display: inline-flex;
     align-items: center;
-    gap: 12px;
-    padding: 16px 36px;
+    gap: 14px;
+    padding: 15px 34px;
     background: var(--accent);
     color: var(--bg-primary);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     text-decoration: none;
-    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    transition: background var(--transition-medium) var(--ease-refined), transform var(--transition-medium) var(--ease-refined), box-shadow var(--transition-medium) ease;
     border: none;
     cursor: pointer;
     font-family: var(--font-body);
@@ -425,24 +429,24 @@ nav.scrolled {
 
 .btn-primary:hover {
     background: var(--text-primary);
-    transform: translateY(-2px);
-    box-shadow: 0 20px 60px rgba(215, 210, 200, 0.15);
+    transform: translateY(-1px);
+    box-shadow: 0 16px 48px rgba(200, 192, 180, 0.1);
 }
 
 .btn-secondary {
     display: inline-flex;
     align-items: center;
-    gap: 12px;
-    padding: 16px 36px;
+    gap: 14px;
+    padding: 15px 34px;
     background: transparent;
     color: var(--text-primary);
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.2em;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     text-decoration: none;
     border: 1px solid var(--border-hover);
-    transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+    transition: border-color var(--transition-medium) var(--ease-refined), background var(--transition-medium) var(--ease-refined), transform var(--transition-medium) var(--ease-refined);
     cursor: pointer;
     font-family: var(--font-body);
 }
@@ -450,7 +454,7 @@ nav.scrolled {
 .btn-secondary:hover {
     border-color: var(--accent);
     background: var(--accent-dim);
-    transform: translateY(-2px);
+    transform: translateY(-1px);
 }
 
 .btn-arrow {
@@ -458,7 +462,7 @@ nav.scrolled {
     height: 1px;
     background: currentColor;
     position: relative;
-    transition: width 0.3s ease;
+    transition: width var(--transition-medium) var(--ease-refined);
 }
 
 .btn-arrow::after {
@@ -558,12 +562,12 @@ nav.scrolled {
 
 .marquee-item span {
     font-family: var(--font-display);
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.25em;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
     color: var(--text-secondary);
     text-transform: uppercase;
-    transition: color 0.3s ease;
+    transition: color var(--transition-medium) var(--ease-refined);
 }
 
 .marquee-item:hover span {
@@ -879,20 +883,21 @@ section {
 .section-label {
     font-size: 11px;
     font-weight: 500;
-    letter-spacing: 0.3em;
-    color: var(--accent);
+    letter-spacing: 0.18em;
+    color: var(--text-secondary);
     text-transform: uppercase;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
 }
 
 .section-label::before {
     content: '';
-    width: 24px;
+    width: 28px;
     height: 1px;
     background: var(--accent);
+    opacity: 0.5;
 }
 
 .reveal-text {
@@ -914,7 +919,7 @@ section {
 .fade-up {
     opacity: 0;
     transform: translate3d(0, 30px, 0);
-    transition: opacity 0.6s ease, transform 0.6s var(--ease-smooth);
+    transition: opacity 0.7s ease, transform 0.7s var(--ease-smooth);
     will-change: transform, opacity;
 }
 
@@ -949,18 +954,18 @@ section {
 }
 
 .work-title {
-    font-family: var(--font-display);
+    font-family: var(--font-serif);
     font-size: clamp(48px, 6.5vw, 96px);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 0.92;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 0.95;
     color: var(--text-primary);
 }
 
 .work-link {
     font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.2em;
+    font-weight: 500;
+    letter-spacing: 0.15em;
     color: var(--accent);
     text-decoration: none;
     text-transform: uppercase;
@@ -969,7 +974,7 @@ section {
     gap: 12px;
     padding-bottom: 8px;
     border-bottom: 1px solid transparent;
-    transition: border-color 0.3s ease;
+    transition: border-color var(--transition-medium) var(--ease-refined);
 }
 
 .work-link:hover {
@@ -995,7 +1000,7 @@ section {
     border: 1px solid var(--border);
     padding: 10px 24px;
     cursor: pointer;
-    transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+    transition: color var(--transition-medium) var(--ease-refined), border-color var(--transition-medium) var(--ease-refined), background var(--transition-medium) var(--ease-refined);
 }
 
 .filter-btn:hover {
@@ -1046,7 +1051,7 @@ section {
     inset: 0;
     background: linear-gradient(to top, rgba(11,11,11,0.95) 0%, transparent 60%);
     opacity: 0.7;
-    transition: opacity 0.4s ease;
+    transition: opacity var(--transition-medium) var(--ease-refined);
 }
 
 .work-item:hover .work-overlay {
@@ -1061,7 +1066,7 @@ section {
     padding: 40px;
     transform: translate3d(0, 8px, 0);
     opacity: 0;
-    transition: transform 0.4s ease, opacity 0.4s ease;
+    transition: transform var(--transition-medium) var(--ease-refined), opacity var(--transition-medium) var(--ease-refined);
 }
 
 .work-item:hover .work-item-info {
@@ -1099,11 +1104,11 @@ section {
 }
 
 .collections-title {
-    font-family: var(--font-display);
+    font-family: var(--font-serif);
     font-size: clamp(40px, 5.5vw, 80px);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 0.95;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 0.98;
     color: var(--text-primary);
 }
 
@@ -1303,11 +1308,11 @@ section {
 }
 
 .styles-title {
-    font-family: var(--font-display);
+    font-family: var(--font-serif);
     font-size: clamp(40px, 5.5vw, 80px);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 0.95;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 0.98;
     color: var(--text-primary);
 }
 
@@ -1323,7 +1328,7 @@ section {
     overflow: hidden;
     cursor: pointer;
     border: 1px solid var(--border);
-    transition: border-color 0.4s ease, transform 0.4s ease;
+    transition: border-color var(--transition-medium) var(--ease-refined), transform var(--transition-medium) var(--ease-refined);
 }
 
 .style-card:hover {
@@ -1418,11 +1423,11 @@ section {
 }
 
 .industries-title {
-    font-family: var(--font-display);
+    font-family: var(--font-serif);
     font-size: clamp(40px, 5.5vw, 80px);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 0.95;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 0.98;
     color: var(--text-primary);
 }
 
@@ -1508,11 +1513,11 @@ section {
 }
 
 .partnerships-title {
-    font-family: var(--font-display);
+    font-family: var(--font-serif);
     font-size: clamp(32px, 3.5vw, 52px);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.05;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
     color: var(--text-primary);
     margin-bottom: 28px;
 }
@@ -1663,11 +1668,11 @@ section {
 }
 
 .build-title {
-    font-family: var(--font-display);
+    font-family: var(--font-serif);
     font-size: clamp(36px, 5vw, 72px);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 0.95;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.0;
     color: var(--text-primary);
     margin-bottom: 28px;
 }
@@ -1723,11 +1728,11 @@ section {
 }
 
 .testimonials-title {
-    font-family: var(--font-display);
+    font-family: var(--font-serif);
     font-size: clamp(48px, 6.5vw, 96px);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 0.92;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 0.95;
     color: var(--text-primary);
 }
 
@@ -1754,7 +1759,7 @@ section {
     scroll-snap-align: start;
     position: relative;
     overflow: hidden;
-    transition: background 0.3s ease;
+    transition: background var(--transition-medium) var(--ease-refined);
     border-top: 1px solid var(--border);
 }
 
@@ -1765,21 +1770,22 @@ section {
 .testimonial-quote {
     font-size: 56px;
     color: var(--accent);
-    opacity: 0.3;
+    opacity: 0.25;
     line-height: 1;
     margin-bottom: 12px;
-    font-family: var(--font-display);
-    font-weight: 700;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
 }
 
 .testimonial-text {
-    font-size: clamp(16px, 1.3vw, 19px);
-    font-weight: 300;
+    font-size: clamp(17px, 1.4vw, 20px);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
     line-height: 1.7;
     color: var(--text-primary);
     margin-bottom: 40px;
-    font-family: var(--font-display);
-    letter-spacing: -0.01em;
 }
 
 .testimonial-author {
@@ -1833,7 +1839,7 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: border-color 0.3s ease, background 0.3s ease;
+    transition: border-color var(--transition-medium) var(--ease-refined), background var(--transition-medium) var(--ease-refined);
 }
 
 .testimonial-nav-btn:hover {
@@ -1861,11 +1867,11 @@ section {
 }
 
 .faq-title {
-    font-family: var(--font-display);
+    font-family: var(--font-serif);
     font-size: clamp(40px, 5.5vw, 80px);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 0.95;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 0.98;
     color: var(--text-primary);
 }
 
@@ -1895,12 +1901,12 @@ section {
 }
 
 .faq-question span {
-    font-family: var(--font-display);
+    font-family: var(--font-serif);
     font-size: clamp(18px, 2vw, 22px);
-    font-weight: 600;
+    font-weight: 500;
     color: var(--text-primary);
-    letter-spacing: -0.01em;
-    transition: color 0.3s ease;
+    letter-spacing: 0.01em;
+    transition: color var(--transition-medium) var(--ease-refined);
 }
 
 .faq-question:hover span {
@@ -1996,11 +2002,11 @@ section {
 }
 
 .contact-title {
-    font-family: var(--font-display);
+    font-family: var(--font-serif);
     font-size: clamp(32px, 3.5vw, 52px);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.05;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
     color: var(--text-primary);
     margin-bottom: 24px;
 }
@@ -2053,7 +2059,7 @@ section {
     font-size: 15px;
     font-weight: 300;
     padding: 16px 20px;
-    transition: border-color 0.3s ease, background 0.3s ease;
+    transition: border-color var(--transition-medium) var(--ease-refined), background var(--transition-medium) var(--ease-refined);
     outline: none;
     resize: vertical;
 }
@@ -2237,9 +2243,9 @@ footer {
 .booking-modal-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(6, 6, 6, 0.85);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    background: rgba(12, 11, 10, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
 .booking-modal-content {
@@ -2272,7 +2278,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: border-color 0.3s ease, transform 0.3s ease;
+    transition: border-color var(--transition-medium) var(--ease-refined), transform var(--transition-medium) var(--ease-refined);
 }
 
 .booking-modal-close:hover {
@@ -2307,10 +2313,10 @@ footer {
 }
 
 .booking-modal-service-title {
-    font-family: var(--font-display);
+    font-family: var(--font-serif);
     font-size: clamp(28px, 3.5vw, 44px);
-    font-weight: 800;
-    letter-spacing: -0.02em;
+    font-weight: 500;
+    letter-spacing: -0.01em;
     line-height: 1.1;
     color: var(--text-primary);
     margin: 20px 0 10px;
@@ -2634,7 +2640,7 @@ footer {
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    transition: background 0.3s ease, border-color 0.3s ease;
+    transition: background var(--transition-medium) var(--ease-refined), border-color var(--transition-medium) var(--ease-refined);
 }
 
 .lang-current:hover {
@@ -2651,7 +2657,7 @@ footer {
 }
 
 .lang-chevron {
-    transition: transform 0.3s ease;
+    transition: transform var(--transition-medium) var(--ease-refined);
     color: var(--text-secondary);
 }
 
@@ -2675,7 +2681,7 @@ footer {
     opacity: 0;
     transform: translateY(10px);
     pointer-events: none;
-    transition: opacity 0.3s var(--ease-smooth), transform 0.3s var(--ease-smooth);
+    transition: opacity var(--transition-medium) var(--ease-smooth), transform var(--transition-medium) var(--ease-smooth);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
