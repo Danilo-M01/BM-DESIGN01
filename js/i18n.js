@@ -163,11 +163,17 @@
             </div>
         `;
 
-        // Insert into the nav before hamburger
+        // Insert into the nav-links list as the last item (next to nav text)
+        const navLinks = document.querySelector('.nav-links');
         const navbar = document.getElementById('navbar');
         const hamburger = document.getElementById('hamburgerBtn');
 
-        if (navbar && hamburger) {
+        if (navLinks) {
+            const li = document.createElement('li');
+            li.className = 'lang-selector-li';
+            li.appendChild(langSelector);
+            navLinks.appendChild(li);
+        } else if (navbar && hamburger) {
             navbar.insertBefore(langSelector, hamburger);
         } else if (navbar) {
             navbar.appendChild(langSelector);

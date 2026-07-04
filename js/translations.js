@@ -134,6 +134,73 @@ const translations = {
         en: "Brand Strategy"
     },
 
+    // ===== WHAT WE BUILD =====
+    "wwb.title": {
+        sr: "ŠTA MI GRADIMO",
+        ru: "ЧТО МЫ СОЗДАЁМ",
+        en: "WHAT WE BUILD"
+    },
+    "wwb.intro": {
+        sr: "Dizajniramo identitete, kampanje i vizuelna iskustva koja pomažu ambicioznim brendovima da se istaknu.",
+        ru: "Мы создаём айдентику, кампании и визуальный опыт, который помогает амбициозным брендам выделяться.",
+        en: "We design identities, campaigns and visual experiences that help ambitious brands stand apart."
+    },
+    "wwb.service1_title": {
+        sr: "Identitet Brenda",
+        ru: "Идентичность Бренда",
+        en: "Brand Identity"
+    },
+    "wwb.service1_desc": {
+        sr: "Vizuelni sistemi, pozicioniranje i strategija.",
+        ru: "Визуальные системы, позиционирование и стратегия.",
+        en: "Visual systems, positioning and strategy."
+    },
+    "wwb.service2_title": {
+        sr: "Kreativna Direkcija",
+        ru: "Креативное Руководство",
+        en: "Creative Direction"
+    },
+    "wwb.service2_desc": {
+        sr: "Koncepti, pripovedanje i umetnička direkcija.",
+        ru: "Концепции, сторителлинг и арт-дирекция.",
+        en: "Concepts, storytelling and art direction."
+    },
+    "wwb.service3_title": {
+        sr: "Kampanje",
+        ru: "Кампании",
+        en: "Campaigns"
+    },
+    "wwb.service3_desc": {
+        sr: "Oglašavanje, partnerstva i lansirne kampanje.",
+        ru: "Реклама, партнёрства и запуск кампаний.",
+        en: "Advertising, partnerships and launch campaigns."
+    },
+    "wwb.service4_title": {
+        sr: "Foto & Film",
+        ru: "Фото & Видео",
+        en: "Photo & Film"
+    },
+    "wwb.service4_desc": {
+        sr: "Fotografija, pokretne slike i premium produkcija sadržaja.",
+        ru: "Фотография, моушн и премиальное производство контента.",
+        en: "Photography, motion and premium content production."
+    },
+    "wwb.view_work": {
+        sr: "Pogledajte izabrane radove",
+        ru: "Смотреть избранные работы",
+        en: "View selected work"
+    },
+    "wwb.cta_text": {
+        sr: "Potrebno vam je nešto posebno?",
+        ru: "Нужно что-то особенное?",
+        en: "Need something custom?"
+    },
+    "wwb.cta_link": {
+        sr: "Zakažite razgovor",
+        ru: "Запишитесь на консультацию",
+        en: "Book a discovery call"
+    },
+
     // ===== SELECTED WORK =====
     "work.label": {
         sr: "Izabrani Radovi",

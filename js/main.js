@@ -142,6 +142,48 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /* ============================================
+       WHAT WE BUILD — staggered reveals
+    ============================================ */
+    const wwbSection = document.getElementById('whatWeBuild');
+    if (wwbSection) {
+        const wwbHeader = wwbSection.querySelector('.wwb-header');
+        const wwbRows = wwbSection.querySelectorAll('.wwb-row');
+        const wwbCta = wwbSection.querySelector('.wwb-cta');
+
+        const wwbObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+
+                // Reveal header first
+                if (wwbHeader) {
+                    wwbHeader.classList.add('wwb-revealed');
+                }
+
+                // Stagger rows: 150ms apart
+                wwbRows.forEach((row, i) => {
+                    setTimeout(() => {
+                        row.classList.add('wwb-revealed');
+                    }, 150 + i * 150);
+                });
+
+                // CTA after rows finish
+                if (wwbCta) {
+                    setTimeout(() => {
+                        wwbCta.classList.add('wwb-revealed');
+                    }, 150 + wwbRows.length * 150 + 200);
+                }
+
+                observer.unobserve(entry.target);
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        wwbObserver.observe(wwbSection);
+    }
+
+    /* ============================================
        NUMBER COUNTER
     ============================================ */
     const animateNumber = (el) => {
