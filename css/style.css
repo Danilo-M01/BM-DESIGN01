@@ -1158,14 +1158,40 @@ section {
 }
 
 .collection-card {
-    background: var(--bg-card);
+    background-color: var(--bg-card);
+    background-image: url('../images/collection-bg-grain.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     padding: 48px 40px;
     display: flex;
     flex-direction: column;
     border-top: 1px solid var(--border);
     position: relative;
     overflow: hidden;
-    transition: background 0.4s ease;
+    transition: background-color 0.4s ease;
+    z-index: 1;
+}
+
+.collection-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(12, 11, 10, 0.88) 0%, rgba(12, 11, 10, 0.96) 100%);
+    backdrop-filter: blur(2.5px) saturate(0.85);
+    -webkit-backdrop-filter: blur(2.5px) saturate(0.85);
+    z-index: -1;
+    transition: background 0.4s var(--ease-refined), backdrop-filter 0.4s var(--ease-refined);
+}
+
+.collection-card:hover .collection-card-overlay {
+    background: linear-gradient(180deg, rgba(12, 11, 10, 0.78) 0%, rgba(12, 11, 10, 0.9) 100%);
+    backdrop-filter: blur(1.5px) saturate(1.0);
+    -webkit-backdrop-filter: blur(1.5px) saturate(1.0);
+}
+
+/* Custom System gets the warm ray texture */
+.collection-card.collection-card-accent {
+    background-image: url('../images/collection-bg-warm.jpg');
 }
 
 .collection-card::before {
@@ -1177,10 +1203,7 @@ section {
     height: 1px;
     background: transparent;
     transition: background 0.3s ease;
-}
-
-.collection-card:hover {
-    background: var(--bg-card-hover);
+    z-index: 2;
 }
 
 .collection-card:hover::before {
