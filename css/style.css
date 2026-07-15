@@ -1389,6 +1389,9 @@ section {
     aspect-ratio: 4/5;
     position: relative;
     overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     transition: filter 0.4s ease;
 }
 
@@ -1396,41 +1399,41 @@ section {
     filter: brightness(1.1);
 }
 
-/* Creative Style Mood Gradients */
+/* Creative Style Mood Images (Sony Professional Photography) */
 .style-luxury-minimal {
-    background: linear-gradient(135deg, #f5f5f0 0%, #e8e5de 30%, #c4bfb5 60%, #a09889 100%);
+    background-image: url('../images/style_luxury_minimal.png');
 }
 
 .style-cinematic-essence {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 30%, #0f3460 60%, #e94560 100%);
+    background-image: url('../images/style_cinematic_essence.png');
 }
 
 .style-urban-street {
-    background: linear-gradient(135deg, #2d2d2d 0%, #434343 30%, #6b6b6b 60%, #00f5d4 100%);
+    background-image: url('../images/style_urban_street.png');
 }
 
 .style-classic-elegance {
-    background: linear-gradient(135deg, #1a1410 0%, #3d2914 30%, #b8860b 60%, #f5f0e8 100%);
+    background-image: url('../images/style_classic_elegance.png');
 }
 
 .style-natural-harmony {
-    background: linear-gradient(135deg, #2d3e2d 0%, #4a6741 30%, #8fbc8f 60%, #f0e6d3 100%);
+    background-image: url('../images/style_natural_harmony.png');
 }
 
 .style-artistic-direction {
-    background: linear-gradient(135deg, #0d0d0d 0%, #4a0e4e 30%, #e91e63 60%, #ff9800 100%);
+    background-image: url('../images/style_artistic_direction.png');
 }
 
 .style-hot-bold {
-    background: linear-gradient(135deg, #ff0844 0%, #ff6b35 30%, #f9cb28 60%, #ffb7b2 100%);
+    background-image: url('../images/style_hot_bold.png');
 }
 
 .style-retro-revival {
-    background: linear-gradient(135deg, #d4a574 0%, #c17f59 30%, #8b5e3c 60%, #2c1810 100%);
+    background-image: url('../images/style_retro_revival.png');
 }
 
 .style-futuristic-glow {
-    background: linear-gradient(135deg, #0a0a1a 0%, #1a0533 30%, #6c3dd0 60%, #00f0ff 100%);
+    background-image: url('../images/style_futuristic_glow.png');
 }
 
 .style-card-info {
