@@ -323,23 +323,56 @@ document.addEventListener('DOMContentLoaded', () => {
             const formData = new FormData(contactForm);
             const data = Object.fromEntries(formData);
 
-            // Visual feedback
+            // Visual feedback - loading
             const submitBtn = contactForm.querySelector('.form-submit');
             const originalText = submitBtn.innerHTML;
 
-            const successText = window.BM_i18n ? (window.BM_i18n.t('contact.sent', window.BM_i18n.getCurrentLang()) || 'Message Sent ✓') : 'Message Sent ✓';
-            submitBtn.innerHTML = successText;
-            submitBtn.style.background = 'rgba(215, 210, 200, 0.2)';
-            submitBtn.style.color = 'var(--accent)';
+            const sendingText = window.BM_i18n ? (window.BM_i18n.t('contact.sending', window.BM_i18n.getCurrentLang()) || 'Sending...') : 'Sending...';
+            submitBtn.innerHTML = sendingText;
             submitBtn.disabled = true;
 
-            setTimeout(() => {
-                submitBtn.innerHTML = originalText;
-                submitBtn.style.background = '';
-                submitBtn.style.color = '';
-                submitBtn.disabled = false;
-                contactForm.reset();
-            }, 3000);
+            // Add type parameter for server-side routing
+            data.type = 'contact';
+
+            fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (response.ok) {
+                    const successText = window.BM_i18n ? (window.BM_i18n.t('contact.sent', window.BM_i18n.getCurrentLang()) || 'Message Sent ✓') : 'Message Sent ✓';
+                    submitBtn.innerHTML = successText;
+                    submitBtn.style.background = 'rgba(215, 210, 200, 0.2)';
+                    submitBtn.style.color = 'var(--accent)';
+
+                    setTimeout(() => {
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.style.background = '';
+                        submitBtn.style.color = '';
+                        submitBtn.disabled = false;
+                        contactForm.reset();
+                    }, 3000);
+                } else {
+                    throw new Error('Failed to send');
+                }
+            })
+            .catch(error => {
+                console.error('Error submitting contact form:', error);
+                const errorText = window.BM_i18n ? (window.BM_i18n.t('contact.error', window.BM_i18n.getCurrentLang()) || 'Error! Try again.') : 'Error! Try again.';
+                submitBtn.innerHTML = errorText;
+                submitBtn.style.background = 'rgba(239, 68, 68, 0.1)';
+                submitBtn.style.color = '#ef4444';
+
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.style.background = '';
+                    submitBtn.style.color = '';
+                    submitBtn.disabled = false;
+                }, 3000);
+            });
         });
     }
 
@@ -522,32 +555,80 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Submit feedback
+            // Submit feedback - loading
             const submitBtn = bookingForm.querySelector('.form-submit');
             const originalText = submitBtn.innerHTML;
 
-            const successText = window.BM_i18n ? (window.BM_i18n.t('modal.booking_requested', window.BM_i18n.getCurrentLang()) || 'Booking Requested ✓') : 'Booking Requested ✓';
-            submitBtn.innerHTML = successText;
-            submitBtn.style.background = 'rgba(215, 210, 200, 0.2)';
-            submitBtn.style.color = 'var(--accent)';
+            const sendingText = window.BM_i18n ? (window.BM_i18n.t('modal.booking_sending', window.BM_i18n.getCurrentLang()) || 'Sending...') : 'Sending...';
+            submitBtn.innerHTML = sendingText;
             submitBtn.disabled = true;
 
-            setTimeout(() => {
-                submitBtn.innerHTML = originalText;
-                submitBtn.style.background = '';
-                submitBtn.style.color = '';
-                submitBtn.disabled = false;
-                
-                // Clear selected style cards visual state & reset set
-                styleCards.forEach(c => c.classList.remove('is-selected'));
-                selectedStyles.clear();
-                if (selectedStylesCount) selectedStylesCount.textContent = '(0)';
-                if (floatingSelectedStylesCount) floatingSelectedStylesCount.textContent = '(0)';
-                if (bookStylesBtn) bookStylesBtn.classList.remove('visible');
-                if (floatingBookStylesBtn) floatingBookStylesBtn.classList.remove('visible');
+            // Gather booking form data
+            const selectedStyleList = [];
+            bookingForm.querySelectorAll('input[name="styles"]:checked').forEach(cb => {
+                selectedStyleList.push(cb.value);
+            });
 
-                closeBookingModal();
-            }, 2500);
+            const data = {
+                type: 'booking',
+                service: document.getElementById('modalServiceInput').value,
+                name: nameInput.value,
+                email: emailInput.value,
+                brand: document.getElementById('bookingBrand').value,
+                social: document.getElementById('bookingSocial').value,
+                styles: selectedStyleList,
+                details: document.getElementById('bookingDetails').value
+            };
+
+            fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (response.ok) {
+                    const successText = window.BM_i18n ? (window.BM_i18n.t('modal.booking_requested', window.BM_i18n.getCurrentLang()) || 'Booking Requested ✓') : 'Booking Requested ✓';
+                    submitBtn.innerHTML = successText;
+                    submitBtn.style.background = 'rgba(215, 210, 200, 0.2)';
+                    submitBtn.style.color = 'var(--accent)';
+
+                    setTimeout(() => {
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.style.background = '';
+                        submitBtn.style.color = '';
+                        submitBtn.disabled = false;
+                        
+                        // Clear selected style cards visual state & reset set
+                        styleCards.forEach(c => c.classList.remove('is-selected'));
+                        selectedStyles.clear();
+                        if (selectedStylesCount) selectedStylesCount.textContent = '(0)';
+                        if (floatingSelectedStylesCount) floatingSelectedStylesCount.textContent = '(0)';
+                        if (bookStylesBtn) bookStylesBtn.classList.remove('visible');
+                        if (floatingBookStylesBtn) floatingBookStylesBtn.classList.remove('visible');
+
+                        bookingForm.reset();
+                        closeBookingModal();
+                    }, 2500);
+                } else {
+                    throw new Error('Failed to send booking request');
+                }
+            })
+            .catch(error => {
+                console.error('Error submitting booking form:', error);
+                const errorText = window.BM_i18n ? (window.BM_i18n.t('modal.booking_error', window.BM_i18n.getCurrentLang()) || 'Error! Try again.') : 'Error! Try again.';
+                submitBtn.innerHTML = errorText;
+                submitBtn.style.background = 'rgba(239, 68, 68, 0.1)';
+                submitBtn.style.color = '#ef4444';
+
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.style.background = '';
+                    submitBtn.style.color = '';
+                    submitBtn.disabled = false;
+                }, 3000);
+            });
         });
     }
 

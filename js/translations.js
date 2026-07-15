@@ -1139,6 +1139,16 @@ const translations = {
         ru: "Сообщение Отправлено ✓",
         en: "Message Sent ✓"
     },
+    "contact.sending": {
+        sr: "Slanje...",
+        ru: "Отправка...",
+        en: "Sending..."
+    },
+    "contact.error": {
+        sr: "Greška pri slanju. Pokušajte ponovo.",
+        ru: "Ошибка при отправке. Пожалуйста, попробуйте еще раз.",
+        en: "Error sending message. Please try again."
+    },
 
     // ===== FOOTER =====
     "footer.tagline": {
@@ -1214,6 +1224,16 @@ const translations = {
         sr: "Rezervacija Zatražena ✓",
         ru: "Бронирование Запрошено ✓",
         en: "Booking Requested ✓"
+    },
+    "modal.booking_sending": {
+        sr: "Slanje...",
+        ru: "Отправка...",
+        en: "Sending..."
+    },
+    "modal.booking_error": {
+        sr: "Greška pri slanju. Pokušajte ponovo.",
+        ru: "Ошибка при отправке. Пожалуйста, попробуйте еще раз.",
+        en: "Error sending booking request. Please try again."
     },
     "modal.fill_fields": {
         sr: "Molimo popunite Ime i Email.",
