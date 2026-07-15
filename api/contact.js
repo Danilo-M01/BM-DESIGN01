@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
         }
 
         const formType = data.type || 'contact'; // 'contact' or 'booking'
-        const fromEmail = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
+        const fromEmail = process.env.RESEND_FROM_EMAIL || "info@contact.bmdesign01.com";
         const toEmail = process.env.RESEND_TO_EMAIL || "collab@bmdesign01.com";
 
         // Build email subject and HTML content
