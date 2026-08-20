@@ -488,8 +488,8 @@ document.addEventListener('DOMContentLoaded', () => {
        - GSAP Kinetic Typography Animations
     ============================================ */
     const initLuminaSlider = async () => {
-        const sliderContainer = document.getElementById('styles') || document.querySelector('.slider-wrapper');
-        const canvas = document.querySelector('.webgl-canvas');
+        const sliderContainer = document.getElementById('stylesSliderWrapper') || document.getElementById('styles');
+        const canvas = sliderContainer ? sliderContainer.querySelector('.webgl-canvas') : document.querySelector('.webgl-canvas');
         if (!sliderContainer || !canvas || typeof THREE === 'undefined') return;
 
         const SLIDER_CONFIG = {
@@ -819,6 +819,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             updateStyleToggleBtn(idx);
 
+            const tagEl = document.getElementById('slideTag');
+            if (tagEl) {
+                tagEl.textContent = `${String(idx + 1).padStart(2, '0')} · ${titleText.toUpperCase()}`;
+            }
+
             if (typeof gsap !== 'undefined') {
                 gsap.to(titleEl.children, { y: -20, opacity: 0, duration: 0.4, stagger: 0.02, ease: "power2.in" });
                 gsap.to(descEl, { y: -10, opacity: 0, duration: 0.3, ease: "power2.in" });
@@ -826,6 +831,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     titleEl.innerHTML = splitText(titleText);
                     descEl.textContent = descText;
+
 
                     gsap.set(titleEl.children, { opacity: 0 });
                     gsap.set(descEl, { y: 20, opacity: 0 });
@@ -1188,7 +1194,32 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Window resize and visibility hooks
+        // Arrow buttons navigation hooks
+        const prevBtn = document.getElementById('stylesPrevBtn');
+        const nextBtn = document.getElementById('stylesNextBtn');
+        if (prevBtn) {
+            prevBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (!isTransitioning && texturesLoaded) {
+                    stopAutoSlideTimer();
+                    quickResetProgress(currentSlideIndex);
+                    const prevIdx = (currentSlideIndex - 1 + slides.length) % slides.length;
+                    navigateToSlide(prevIdx);
+                }
+            });
+        }
+        if (nextBtn) {
+            nextBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (!isTransitioning && texturesLoaded) {
+                    stopAutoSlideTimer();
+                    quickResetProgress(currentSlideIndex);
+                    const nextIdx = (currentSlideIndex + 1) % slides.length;
+                    navigateToSlide(nextIdx);
+                }
+            });
+        }
+
         window.addEventListener("resize", () => {
             if (renderer && shaderMaterial && sliderContainer) {
                 const nw = sliderContainer.clientWidth || window.innerWidth;
