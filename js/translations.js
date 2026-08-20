@@ -708,6 +708,21 @@ const translations = {
         ru: "Забронировать Выбранные Стили",
         en: "Book Selected Styles"
     },
+    "styles.badge": {
+        sr: "BM KREATIVNA DIREKCIJA",
+        ru: "BM АРТ-ДИРЕКЦИЯ",
+        en: "BM CREATIVE DIRECTION"
+    },
+    "styles.select_this_style": {
+        sr: "Izaberi ovaj stil",
+        ru: "Выбрать этот стиль",
+        en: "Select this style"
+    },
+    "styles.style_selected": {
+        sr: "Izabran stil",
+        ru: "Стиль выбран",
+        en: "Style selected"
+    },
 
     // Style cards
     "styles.luxury_minimal": {
@@ -842,10 +857,15 @@ const translations = {
         ru: "Архитектура",
         en: "Architecture"
     },
+    "industries.sports": {
+        sr: "Sport",
+        ru: "Спорт",
+        en: "Sports"
+    },
     "industries.restaurants": {
-        sr: "Restorani",
-        ru: "Рестораны",
-        en: "Restaurants"
+        sr: "Sport",
+        ru: "Спорт",
+        en: "Sports"
     },
     "industries.jewelry": {
         sr: "Nakit",
