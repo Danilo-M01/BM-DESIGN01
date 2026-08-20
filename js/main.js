@@ -488,17 +488,15 @@ document.addEventListener('DOMContentLoaded', () => {
        - GSAP Kinetic Typography Animations
        - Performance Optimized: 0% CPU/GPU overhead when off-screen
     ============================================ */
-    const stylesSection = document.getElementById('styles');
-    const stylesWrapper = document.getElementById('stylesSliderWrapper');
-    const stylesCanvas = document.getElementById('stylesWebglCanvas');
-    const stylesTitleEl = document.getElementById('stylesMainTitle');
-    const stylesDescEl = document.getElementById('stylesMainDesc');
-    const stylesTagEl = document.getElementById('stylesSlideTag');
-    const stylesNumEl = document.getElementById('stylesSlideNumber');
-    const stylesTotalEl = document.getElementById('stylesSlideTotal');
-    const stylesNav = document.getElementById('stylesNav');
-    const stylesPrevBtn = document.getElementById('stylesPrevBtn');
-    const stylesNextBtn = document.getElementById('stylesNextBtn');
+    const stylesSection = document.getElementById('styles') || document.querySelector('.slider-wrapper');
+    const stylesWrapper = stylesSection;
+    const stylesCanvas = stylesSection ? stylesSection.querySelector('.webgl-canvas') : document.querySelector('.webgl-canvas');
+    const stylesTitleEl = document.getElementById('mainTitle');
+    const stylesDescEl = document.getElementById('mainDesc');
+    const stylesTagEl = document.getElementById('slideTag');
+    const stylesNumEl = document.getElementById('slideNumber');
+    const stylesTotalEl = document.getElementById('slideTotal');
+    const stylesNav = document.getElementById('slidesNav');
     const btnToggleCurrentStyle = document.getElementById('btnToggleCurrentStyle');
 
     const creativeStyleSlides = [
