@@ -488,13 +488,13 @@ document.addEventListener('DOMContentLoaded', () => {
        - GSAP Kinetic Typography Animations
     ============================================ */
     const initLuminaSlider = async () => {
-        const sliderContainer = document.getElementById('styles');
-        const canvas = document.querySelector('.creative-styles-fullscreen .webgl-canvas') || document.querySelector('.webgl-canvas');
+        const sliderContainer = document.getElementById('stylesSliderWrapper') || document.getElementById('styles');
+        const canvas = sliderContainer ? sliderContainer.querySelector('.webgl-canvas') : document.querySelector('.webgl-canvas');
         if (!sliderContainer || !canvas || typeof THREE === 'undefined') return;
 
         const SLIDER_CONFIG = {
             settings: {
-                transitionDuration: 2.0,
+                transitionDuration: 2.5,
                 autoSlideSpeed: 5000,
                 currentEffect: "glass",
                 currentEffectPreset: "Default",
