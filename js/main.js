@@ -482,115 +482,145 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // 3. Style Cards Click Selection for #styles Section
+    const styleCardsSelection = document.querySelectorAll('.creative-styles .style-card');
+    if (styleCardsSelection.length > 0) {
+        styleCardsSelection.forEach(card => {
+            card.addEventListener('click', () => {
+                const nameEl = card.querySelector('.style-card-name');
+                const styleName = nameEl ? nameEl.textContent.trim() : '';
+
+                if (card.classList.contains('is-selected')) {
+                    card.classList.remove('is-selected');
+                    selectedStyles.delete(styleName);
+                } else {
+                    card.classList.add('is-selected');
+                    selectedStyles.add(styleName);
+                }
+
+                const count = selectedStyles.size;
+                if (selectedStylesCount) selectedStylesCount.textContent = `(${count})`;
+                if (floatingSelectedStylesCount) floatingSelectedStylesCount.textContent = `(${count})`;
+
+                if (count > 0) {
+                    if (bookStylesBtn) bookStylesBtn.classList.add('visible');
+                    if (floatingBookStylesBtn) floatingBookStylesBtn.classList.add('visible');
+                } else {
+                    if (bookStylesBtn) bookStylesBtn.classList.remove('visible');
+                    if (floatingBookStylesBtn) floatingBookStylesBtn.classList.remove('visible');
+                }
+            });
+        });
+    }
+
     /* ============================================
-       LUMINA WEBGL INTERACTIVE STYLES SLIDER
+       LUMINA WEBGL INTERACTIVE SELECTED WORK SLIDER
+       - Applied to #work Section ("Izabrani Radovi / Izabrane Priče")
        - Three.js Shader Displacement & Glass Refraction Engine
        - GSAP Kinetic Typography Animations
        - Performance Optimized: 0% CPU/GPU overhead when off-screen
     ============================================ */
-    const stylesSection = document.getElementById('styles') || document.querySelector('.slider-wrapper');
-    const stylesWrapper = stylesSection;
-    const stylesCanvas = stylesSection ? stylesSection.querySelector('.webgl-canvas') : document.querySelector('.webgl-canvas');
-    const stylesTitleEl = document.getElementById('mainTitle');
-    const stylesDescEl = document.getElementById('mainDesc');
-    const stylesTagEl = document.getElementById('slideTag');
-    const stylesNumEl = document.getElementById('slideNumber');
-    const stylesTotalEl = document.getElementById('slideTotal');
-    const stylesNav = document.getElementById('slidesNav');
-    const btnToggleCurrentStyle = document.getElementById('btnToggleCurrentStyle');
+    const workSection = document.getElementById('work') || document.querySelector('.slider-wrapper');
+    const workWrapper = workSection;
+    const workCanvas = workSection ? workSection.querySelector('.webgl-canvas') : document.querySelector('.webgl-canvas');
+    const workTitleEl = document.getElementById('mainTitle');
+    const workDescEl = document.getElementById('mainDesc');
+    const workTagEl = document.getElementById('slideTag');
+    const workNumEl = document.getElementById('slideNumber');
+    const workTotalEl = document.getElementById('slideTotal');
+    const workNav = document.getElementById('slidesNav');
 
-    const creativeStyleSlides = [
+    const workSlides = [
         {
-            id: 'luxury-minimal',
-            titleKey: 'styles.luxury_minimal',
-            descKey: 'styles.luxury_minimal_desc',
-            tag: '01 · EDITORIAL / MINIMAL',
-            media: 'images/style_luxury_minimal.png',
-            effectType: 0,
-            checkboxValue: 'Luxury Minimal'
+            id: 'personal-brands',
+            titleKey: 'work.personal_name',
+            descKey: 'work.personal_milan',
+            tag: '01 · LIČNI BRENDOVI · MILANO',
+            media: 'images/project-personal.png',
+            effectType: 0
         },
         {
-            id: 'cinematic-essence',
-            titleKey: 'styles.cinematic',
-            descKey: 'styles.cinematic_desc',
-            tag: '02 · CINEMATIC NARRATIVE',
-            media: 'images/style_cinematic_essence.png',
-            effectType: 1,
-            checkboxValue: 'Cinematic Essence'
+            id: 'fashion',
+            titleKey: 'work.fashion_editorial',
+            descKey: 'work.fashion_milan',
+            tag: '02 · MODA · MILANO',
+            media: 'images/project-fashion.png',
+            effectType: 1
         },
         {
-            id: 'urban-street',
-            titleKey: 'styles.urban',
-            descKey: 'styles.urban_desc',
-            tag: '03 · RAW STREET CULTURE',
-            media: 'images/style_urban_street.png',
-            effectType: 2,
-            checkboxValue: 'Urban Street'
+            id: 'beauty',
+            titleKey: 'work.beauty_campaign',
+            descKey: 'work.beauty_ny',
+            tag: '03 · LEPOTA · NJUJORK',
+            media: 'images/project-beauty.png',
+            effectType: 2
         },
         {
-            id: 'classic-elegance',
-            titleKey: 'styles.classic',
-            descKey: 'styles.classic_desc',
-            tag: '04 · TIMELESS SOPHISTICATION',
-            media: 'images/style_classic_elegance.png',
-            effectType: 0,
-            checkboxValue: 'Classic Elegance'
+            id: 'jewelry',
+            titleKey: 'work.jewelry_name',
+            descKey: 'work.jewelry_paris',
+            tag: '04 · NAKIT · PARIZ',
+            media: 'images/project-jewelry.png',
+            effectType: 0
         },
         {
-            id: 'natural-harmony',
-            titleKey: 'styles.natural',
-            descKey: 'styles.natural_desc',
-            tag: '05 · ORGANIC LIGHT & TONES',
-            media: 'images/style_natural_harmony.png',
-            effectType: 1,
-            checkboxValue: 'Natural Harmony'
+            id: 'hospitality-como',
+            titleKey: 'work.hospitality_como_name',
+            descKey: 'work.hospitality_como',
+            tag: '05 · UGOSTITELJSTVO · JEZERO KOMO',
+            media: 'images/project-hospitality1.png',
+            effectType: 1
         },
         {
-            id: 'artistic-direction',
-            titleKey: 'styles.artistic',
-            descKey: 'styles.artistic_desc',
-            tag: '06 · AVANT-GARDE VISION',
-            media: 'images/style_artistic_direction.png',
-            effectType: 2,
-            checkboxValue: 'Artistic Direction'
+            id: 'luxury-mobility',
+            titleKey: 'work.mobility_name',
+            descKey: 'work.mobility_monaco',
+            tag: '06 · LUKSUZNA MOBILNOST · MONAKO',
+            media: 'images/project-mobility.png',
+            effectType: 2
         },
         {
-            id: 'hot-bold',
-            titleKey: 'styles.hot_bold',
-            descKey: 'styles.hot_bold_desc',
-            tag: '07 · HIGH CONTRAST & ENERGY',
-            media: 'images/style_hot_bold.png',
-            effectType: 0,
-            checkboxValue: 'Hot & Bold'
+            id: 'interior-design',
+            titleKey: 'work.interior_name',
+            descKey: 'work.interior_london',
+            tag: '07 · DIZAJN ENTERIJERA · LONDON',
+            media: 'images/project-interior.png',
+            effectType: 0
         },
         {
-            id: 'retro-revival',
-            titleKey: 'styles.retro',
-            descKey: 'styles.retro_desc',
-            tag: '08 · NOSTALGIC ANALOG AESTHETICS',
-            media: 'images/style_retro_revival.png',
-            effectType: 1,
-            checkboxValue: 'Retro Revival'
+            id: 'architecture',
+            titleKey: 'work.architecture_name',
+            descKey: 'work.architecture_dubai',
+            tag: '08 · ARHITEKTURA · DUBAI',
+            media: 'images/project-architecture.png',
+            effectType: 1
         },
         {
-            id: 'futuristic-glow',
-            titleKey: 'styles.futuristic',
-            descKey: 'styles.futuristic_desc',
-            tag: '09 · NEON & FUTURE HORIZONS',
-            media: 'images/style_futuristic_glow.png',
-            effectType: 2,
-            checkboxValue: 'Futuristic Glow'
+            id: 'sport-dining',
+            titleKey: 'work.restaurant_name',
+            descKey: 'work.restaurant_rome',
+            tag: '09 · SPORT & DINING · RIM',
+            media: 'images/project-restaurant.png',
+            effectType: 2
+        },
+        {
+            id: 'technology',
+            titleKey: 'work.tech_name',
+            descKey: 'work.tech_sf',
+            tag: '10 · TEHNOLOGIJA · SAN FRANCISKO',
+            media: 'images/project-technology.png',
+            effectType: 0
         }
     ];
 
-    if (stylesWrapper && stylesCanvas && typeof THREE !== 'undefined') {
-        const SLIDE_SPEED = 5200;
+    if (workWrapper && workCanvas && typeof THREE !== 'undefined') {
+        const SLIDE_SPEED = 5000;
         const PROGRESS_INTERVAL = 40;
         const TRANSITION_DURATION = 1.4;
 
         let currentSlideIdx = 0;
         let isTransitioning = false;
-        let isStylesVisible = false;
+        let isWorkVisible = false;
         let isHovered = false;
         let texturesLoaded = false;
         let slideTextures = [];
@@ -618,10 +648,7 @@ document.addEventListener('DOMContentLoaded', () => {
             uniform vec2 uTexture1Size;
             uniform vec2 uTexture2Size;
             uniform int uEffectType;
-            uniform float uSpeedMultiplier;
             uniform float uDistortionStrength;
-            uniform float uGlassRefraction;
-            uniform float uGlassAberration;
             varying vec2 vUv;
 
             vec2 getCoverUV(vec2 uv, vec2 textureSize) {
@@ -633,40 +660,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             vec4 glassEffect(vec2 uv, float progress) {
-                float time = progress * 4.0 * uSpeedMultiplier;
                 vec2 uv1 = getCoverUV(uv, uTexture1Size);
                 vec2 uv2 = getCoverUV(uv, uTexture2Size);
-                float maxR = length(uResolution) * 0.9;
-                float br = progress * maxR;
-                vec2 p = uv * uResolution;
-                vec2 c = uResolution * 0.5;
-                float d = length(p - c);
-                float nd = d / max(br, 0.001);
-                float param = smoothstep(br + 4.0, br - 4.0, d);
-
-                vec4 img;
-                if (param > 0.0) {
-                    float ro = 0.07 * uGlassRefraction * uDistortionStrength * pow(smoothstep(0.2, 1.0, nd), 1.4);
-                    vec2 dir = (d > 0.0) ? (p - c) / d : vec2(0.0);
-                    vec2 distUV = uv2 - dir * ro;
-                    distUV += vec2(sin(time + nd * 8.0), cos(time * 0.8 + nd * 6.0)) * 0.012 * uSpeedMultiplier * nd * param;
-                    float ca = 0.018 * uGlassAberration * pow(smoothstep(0.25, 1.0, nd), 1.2);
-                    img = vec4(
-                        texture2D(uTexture2, distUV + dir * ca * 1.2).r,
-                        texture2D(uTexture2, distUV + dir * ca * 0.2).g,
-                        texture2D(uTexture2, distUV - dir * ca * 0.8).b,
-                        1.0
-                    );
-                    float rim = smoothstep(0.94, 1.0, nd) * (1.0 - smoothstep(1.0, 1.01, nd));
-                    img.rgb += rim * 0.1 * vec3(0.85, 0.82, 0.75);
-                } else {
-                    img = texture2D(uTexture2, uv2);
-                }
-                vec4 oldImg = texture2D(uTexture1, uv1);
-                if (progress > 0.95) {
-                    img = mix(img, texture2D(uTexture2, uv2), (progress - 0.95) / 0.05);
-                }
-                return mix(oldImg, img, param);
+                float p = smoothstep(0.0, 1.0, progress);
+                vec2 offset = vec2(sin(p * 3.14159) * 0.05 * uDistortionStrength);
+                return mix(texture2D(uTexture1, uv1 + offset), texture2D(uTexture2, uv2 - offset), p);
             }
 
             vec4 timeshiftEffect(vec2 uv, float progress) {
@@ -678,14 +676,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 vec4 col1 = vec4(
                     texture2D(uTexture1, uv1 + offset * 1.2).r,
-                    texture2D(uTexture1, uv1 + offset * 0.5).g,
-                    texture2D(uTexture1, uv1).b,
+                    texture2D(uTexture1, uv1 + offset * 0.4).g,
+                    texture2D(uTexture1, uv1 - offset * 0.8).b,
                     1.0
                 );
                 vec4 col2 = vec4(
                     texture2D(uTexture2, uv2 - offset * 1.2).r,
-                    texture2D(uTexture2, uv2 - offset * 0.5).g,
-                    texture2D(uTexture2, uv2).b,
+                    texture2D(uTexture2, uv2 - offset * 0.4).g,
+                    texture2D(uTexture2, uv2 + offset * 0.8).b,
                     1.0
                 );
                 return mix(col1, col2, p);
@@ -694,13 +692,12 @@ document.addEventListener('DOMContentLoaded', () => {
             vec4 rippleEffect(vec2 uv, float progress) {
                 vec2 uv1 = getCoverUV(uv, uTexture1Size);
                 vec2 uv2 = getCoverUV(uv, uTexture2Size);
-                float p = smoothstep(0.0, 1.0, progress);
-                vec2 c = vec2(0.5);
-                float d = distance(uv, c);
-                float wave = sin(d * 24.0 - progress * 14.0) * (1.0 - progress) * 0.025 * uDistortionStrength;
-                vec2 warpedUV1 = uv1 + wave * normalize(uv - c + 0.001);
-                vec2 warpedUV2 = uv2 - wave * normalize(uv - c + 0.001);
-                return mix(texture2D(uTexture1, warpedUV1), texture2D(uTexture2, warpedUV2), p);
+                vec2 p = uv - 0.5;
+                float d = length(p);
+                float wave = sin(d * 30.0 - progress * 15.0) * 0.02 * (1.0 - progress) * uDistortionStrength;
+                vec2 dist1 = uv1 + p * wave;
+                vec2 dist2 = uv2 - p * wave;
+                return mix(texture2D(uTexture1, dist1), texture2D(uTexture2, dist2), smoothstep(0.0, 1.0, progress));
             }
 
             void main() {
@@ -714,9 +711,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         `;
 
-        // Split text into span elements for kinetic typography
+        // Helper for splitting characters for kinetic text
         const splitText = (text) => {
-            return text.split('').map(char => `<span style="display: inline-block; opacity: 0;">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
+            return text.split('').map(char => {
+                if (char === ' ') return '<span style="display:inline-block;">&nbsp;</span>';
+                return `<span style="display:inline-block;opacity:0;">${char}</span>`;
+            }).join('');
         };
 
         const getLocalizedText = (key, fallback) => {
@@ -726,83 +726,66 @@ document.addEventListener('DOMContentLoaded', () => {
             return fallback;
         };
 
-        const updateStyleToggleBtn = (idx) => {
-            if (!btnToggleCurrentStyle) return;
-            const slide = creativeStyleSlides[idx];
-            const isSelected = selectedStyles.has(slide.checkboxValue);
-            const iconEl = btnToggleCurrentStyle.querySelector('.btn-style-icon');
-            const labelEl = btnToggleCurrentStyle.querySelector('.btn-style-label');
-
-            if (isSelected) {
-                btnToggleCurrentStyle.classList.add('is-selected');
-                if (iconEl) iconEl.textContent = '✓';
-                if (labelEl) labelEl.textContent = getLocalizedText('styles.style_selected', 'Izabran stil');
-            } else {
-                btnToggleCurrentStyle.classList.remove('is-selected');
-                if (iconEl) iconEl.textContent = '+';
-                if (labelEl) labelEl.textContent = getLocalizedText('styles.select_this_style', 'Izaberi ovaj stil');
-            }
-        };
-
+        // Update Slide Content with Kinetic Typography Animations
         const updateContent = (idx) => {
-            if (!stylesTitleEl || !stylesDescEl) return;
-            const slide = creativeStyleSlides[idx];
+            if (!workTitleEl || !workDescEl) return;
+            const slide = workSlides[idx];
+            if (!slide) return;
+
             const titleText = getLocalizedText(slide.titleKey, slide.id);
             const descText = getLocalizedText(slide.descKey, '');
 
-            if (stylesTagEl) stylesTagEl.textContent = slide.tag;
-            if (stylesNumEl) stylesNumEl.textContent = String(idx + 1).padStart(2, '0');
-            if (stylesTotalEl) stylesTotalEl.textContent = String(creativeStyleSlides.length).padStart(2, '0');
-
-            updateStyleToggleBtn(idx);
+            if (workTagEl) workTagEl.textContent = slide.tag;
+            if (workNumEl) workNumEl.textContent = String(idx + 1).padStart(2, '0');
+            if (workTotalEl) workTotalEl.textContent = String(workSlides.length).padStart(2, '0');
 
             if (typeof gsap !== 'undefined') {
-                gsap.to(stylesTitleEl.children, { y: -16, opacity: 0, duration: 0.35, stagger: 0.015, ease: 'power2.in' });
-                gsap.to(stylesDescEl, { y: -8, opacity: 0, duration: 0.3, ease: 'power2.in' });
+                gsap.to(workTitleEl.children, { y: -16, opacity: 0, duration: 0.35, stagger: 0.015, ease: 'power2.in' });
+                gsap.to(workDescEl, { y: -8, opacity: 0, duration: 0.3, ease: 'power2.in' });
 
                 setTimeout(() => {
-                    stylesTitleEl.innerHTML = splitText(titleText);
-                    stylesDescEl.textContent = descText;
+                    workTitleEl.innerHTML = splitText(titleText);
+                    workDescEl.textContent = descText;
 
-                    const children = stylesTitleEl.children;
+                    const children = workTitleEl.children;
                     const animType = idx % 6;
 
                     switch (animType) {
                         case 0: // Stagger Up
                             gsap.set(children, { y: 22, opacity: 0 });
                             gsap.to(children, { y: 0, opacity: 1, duration: 0.7, stagger: 0.025, ease: 'power3.out' });
-                            gsap.fromTo(stylesDescEl, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, delay: 0.15, ease: 'power3.out' });
+                            gsap.fromTo(workDescEl, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, delay: 0.15, ease: 'power3.out' });
                             break;
                         case 1: // Stagger Down with Back ease
                             gsap.set(children, { y: -20, opacity: 0 });
                             gsap.to(children, { y: 0, opacity: 1, duration: 0.7, stagger: 0.025, ease: 'back.out(1.5)' });
-                            gsap.fromTo(stylesDescEl, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, delay: 0.15, ease: 'power3.out' });
+                            gsap.fromTo(workDescEl, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, delay: 0.15, ease: 'power3.out' });
                             break;
                         case 2: // Blur Reveal
                             gsap.set(children, { filter: 'blur(8px)', scale: 1.2, opacity: 0, y: 0 });
                             gsap.to(children, { filter: 'blur(0px)', scale: 1, opacity: 1, duration: 0.8, stagger: { amount: 0.4, from: 'random' }, ease: 'power2.out' });
-                            gsap.fromTo(stylesDescEl, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: 'power2.out' });
+                            gsap.fromTo(workDescEl, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: 'power2.out' });
                             break;
                         case 3: // Scale In
                             gsap.set(children, { scale: 0.3, opacity: 0, y: 0 });
                             gsap.to(children, { scale: 1, opacity: 1, duration: 0.6, stagger: 0.03, ease: 'back.out(1.6)' });
-                            gsap.fromTo(stylesDescEl, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, delay: 0.15, ease: 'power3.out' });
+                            gsap.fromTo(workDescEl, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, delay: 0.15, ease: 'power3.out' });
                             break;
                         case 4: // 3D Flip (Rotate X)
                             gsap.set(children, { rotationX: 80, y: 0, opacity: 0, transformOrigin: '50% 50%' });
                             gsap.to(children, { rotationX: 0, opacity: 1, duration: 0.7, stagger: 0.03, ease: 'power2.out' });
-                            gsap.fromTo(stylesDescEl, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, delay: 0.15, ease: 'power2.out' });
+                            gsap.fromTo(workDescEl, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, delay: 0.15, ease: 'power2.out' });
                             break;
                         case 5: // Side Slide In
                             gsap.set(children, { x: 24, opacity: 0, y: 0 });
                             gsap.to(children, { x: 0, opacity: 1, duration: 0.7, stagger: 0.025, ease: 'power3.out' });
-                            gsap.fromTo(stylesDescEl, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, delay: 0.15, ease: 'power3.out' });
+                            gsap.fromTo(workDescEl, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, delay: 0.15, ease: 'power3.out' });
                             break;
                     }
                 }, 320);
             } else {
-                stylesTitleEl.textContent = titleText;
-                stylesDescEl.textContent = descText;
+                workTitleEl.textContent = titleText;
+                workDescEl.textContent = descText;
             }
         };
 
@@ -813,7 +796,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const renderLoop = () => {
-            if (!isStylesVisible) {
+            if (!isWorkVisible) {
                 animFrameId = null;
                 return;
             }
@@ -822,7 +805,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const startRenderLoop = () => {
-            if (!animFrameId && isStylesVisible) {
+            if (!animFrameId && isWorkVisible) {
                 animFrameId = requestAnimationFrame(renderLoop);
             }
         };
@@ -848,7 +831,7 @@ document.addEventListener('DOMContentLoaded', () => {
             shaderMaterial.uniforms.uTexture2.value = targetTex;
             shaderMaterial.uniforms.uTexture1Size.value = curTex.userData.size;
             shaderMaterial.uniforms.uTexture2Size.value = targetTex.userData.size;
-            shaderMaterial.uniforms.uEffectType.value = creativeStyleSlides[targetIdx].effectType;
+            shaderMaterial.uniforms.uEffectType.value = workSlides[targetIdx].effectType;
 
             currentSlideIdx = targetIdx;
             updateContent(currentSlideIdx);
@@ -883,16 +866,16 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const createSlidesNavigation = () => {
-            if (!stylesNav) return;
-            stylesNav.innerHTML = '';
-            creativeStyleSlides.forEach((slide, i) => {
+            if (!workNav) return;
+            workNav.innerHTML = '';
+            workSlides.forEach((slide, i) => {
                 const item = document.createElement('div');
-                item.className = `styles-nav-item${i === 0 ? ' active' : ''}`;
+                item.className = `slide-nav-item${i === 0 ? ' active' : ''}`;
                 item.dataset.slideIndex = String(i);
                 const title = getLocalizedText(slide.titleKey, slide.id);
                 item.innerHTML = `
-                    <div class="styles-progress-line"><div class="styles-progress-fill"></div></div>
-                    <div class="styles-nav-title" data-i18n="${slide.titleKey}">${title}</div>
+                    <div class="slide-progress-line"><div class="slide-progress-fill"></div></div>
+                    <div class="slide-nav-title" data-i18n="${slide.titleKey}">${title}</div>
                 `;
                 item.addEventListener('click', (e) => {
                     e.stopPropagation();
@@ -900,18 +883,18 @@ document.addEventListener('DOMContentLoaded', () => {
                         navigateToSlide(i);
                     }
                 });
-                stylesNav.appendChild(item);
+                workNav.appendChild(item);
             });
         };
 
         const updateNavigationState = (idx) => {
-            document.querySelectorAll('.styles-nav-item').forEach((el, i) => {
+            document.querySelectorAll('.slide-nav-item').forEach((el, i) => {
                 el.classList.toggle('active', i === idx);
             });
         };
 
         const updateSlideProgress = (idx, prog) => {
-            const el = document.querySelectorAll('.styles-nav-item')[idx]?.querySelector('.styles-progress-fill');
+            const el = document.querySelectorAll('.slide-nav-item')[idx]?.querySelector('.slide-progress-fill');
             if (el) {
                 el.style.width = `${prog}%`;
                 el.style.opacity = '1';
@@ -919,20 +902,20 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const resetProgressLine = (idx) => {
-            const el = document.querySelectorAll('.styles-nav-item')[idx]?.querySelector('.styles-progress-fill');
+            const el = document.querySelectorAll('.slide-nav-item')[idx]?.querySelector('.slide-progress-fill');
             if (el) {
                 el.style.width = '0%';
             }
         };
 
         const startAutoSlideTimer = () => {
-            if (!texturesLoaded || isHovered || !isStylesVisible) return;
+            if (!texturesLoaded || isHovered || !isWorkVisible) return;
             stopAutoSlideTimer();
             currentProgress = 0;
             const increment = (100 / SLIDE_SPEED) * PROGRESS_INTERVAL;
 
             progressAnimation = setInterval(() => {
-                if (isHovered || !isStylesVisible) return;
+                if (isHovered || !isWorkVisible) return;
                 currentProgress += increment;
                 updateSlideProgress(currentSlideIdx, currentProgress);
                 if (currentProgress >= 100) {
@@ -940,7 +923,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     progressAnimation = null;
                     resetProgressLine(currentSlideIdx);
                     if (!isTransitioning) {
-                        const nextIdx = (currentSlideIdx + 1) % creativeStyleSlides.length;
+                        const nextIdx = (currentSlideIdx + 1) % workSlides.length;
                         navigateToSlide(nextIdx);
                     }
                 }
@@ -960,7 +943,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const safeStartTimer = (delay = 0) => {
             stopAutoSlideTimer();
-            if (isStylesVisible && texturesLoaded && !isHovered) {
+            if (isWorkVisible && texturesLoaded && !isHovered) {
                 if (delay > 0) {
                     autoSlideTimer = setTimeout(startAutoSlideTimer, delay);
                 } else {
@@ -983,7 +966,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 undefined,
                 () => {
-                    // Fallback procedural texture if image fails
                     const canvas = document.createElement('canvas');
                     canvas.width = 1920;
                     canvas.height = 1080;
@@ -999,14 +981,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Initialize WebGL Scene
         const initWebGL = async () => {
-            const rect = stylesWrapper.getBoundingClientRect();
+            const rect = workWrapper.getBoundingClientRect();
             const width = rect.width || window.innerWidth;
-            const height = rect.height || 700;
+            const height = rect.height || window.innerHeight;
 
             scene = new THREE.Scene();
             camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
             renderer = new THREE.WebGLRenderer({
-                canvas: stylesCanvas,
+                canvas: workCanvas,
                 antialias: false,
                 alpha: false,
                 powerPreference: 'high-performance'
@@ -1024,10 +1006,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     uTexture1Size: { value: new THREE.Vector2(1920, 1080) },
                     uTexture2Size: { value: new THREE.Vector2(1920, 1080) },
                     uEffectType: { value: 0 },
-                    uSpeedMultiplier: { value: 1.0 },
-                    uDistortionStrength: { value: 1.0 },
-                    uGlassRefraction: { value: 1.0 },
-                    uGlassAberration: { value: 1.0 }
+                    uDistortionStrength: { value: 1.0 }
                 },
                 vertexShader,
                 fragmentShader,
@@ -1038,7 +1017,7 @@ document.addEventListener('DOMContentLoaded', () => {
             scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), shaderMaterial));
 
             // Preload all textures
-            for (const s of creativeStyleSlides) {
+            for (const s of workSlides) {
                 const tex = await loadTexture(s.media);
                 slideTextures.push(tex);
             }
@@ -1050,17 +1029,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 shaderMaterial.uniforms.uTexture2Size.value = slideTextures[1].userData.size;
                 texturesLoaded = true;
                 renderFrame();
-                if (isStylesVisible) safeStartTimer(400);
+                if (isWorkVisible) safeStartTimer(400);
             }
         };
 
         // Resize handler
         let resizeTimeout;
         const handleResize = () => {
-            if (!renderer || !stylesWrapper) return;
-            const rect = stylesWrapper.getBoundingClientRect();
+            if (!renderer || !workWrapper) return;
+            const rect = workWrapper.getBoundingClientRect();
             const width = rect.width || window.innerWidth;
-            const height = rect.height || 700;
+            const height = rect.height || window.innerHeight;
 
             renderer.setSize(width, height);
             renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
@@ -1075,59 +1054,13 @@ document.addEventListener('DOMContentLoaded', () => {
             resizeTimeout = setTimeout(handleResize, 150);
         }, { passive: true });
 
-        // Prev / Next Buttons
-        if (stylesPrevBtn) {
-            stylesPrevBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const prevIdx = (currentSlideIdx - 1 + creativeStyleSlides.length) % creativeStyleSlides.length;
-                navigateToSlide(prevIdx);
-            });
-        }
-
-        if (stylesNextBtn) {
-            stylesNextBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const nextIdx = (currentSlideIdx + 1) % creativeStyleSlides.length;
-                navigateToSlide(nextIdx);
-            });
-        }
-
-        // Toggle Selected Style button on current slide
-        if (btnToggleCurrentStyle) {
-            btnToggleCurrentStyle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const slide = creativeStyleSlides[currentSlideIdx];
-                const styleName = slide.checkboxValue;
-
-                if (selectedStyles.has(styleName)) {
-                    selectedStyles.delete(styleName);
-                } else {
-                    selectedStyles.add(styleName);
-                }
-
-                updateStyleToggleBtn(currentSlideIdx);
-
-                const count = selectedStyles.size;
-                if (selectedStylesCount) selectedStylesCount.textContent = `(${count})`;
-                if (floatingSelectedStylesCount) floatingSelectedStylesCount.textContent = `(${count})`;
-
-                if (count > 0) {
-                    if (bookStylesBtn) bookStylesBtn.classList.add('visible');
-                    if (floatingBookStylesBtn) floatingBookStylesBtn.classList.add('visible');
-                } else {
-                    if (bookStylesBtn) bookStylesBtn.classList.remove('visible');
-                    if (floatingBookStylesBtn) floatingBookStylesBtn.classList.remove('visible');
-                }
-            });
-        }
-
         // Pause auto-slide on hover for optimal user control
-        stylesWrapper.addEventListener('mouseenter', () => {
+        workWrapper.addEventListener('mouseenter', () => {
             isHovered = true;
             stopAutoSlideTimer();
         });
 
-        stylesWrapper.addEventListener('mouseleave', () => {
+        workWrapper.addEventListener('mouseleave', () => {
             isHovered = false;
             safeStartTimer(200);
         });
@@ -1136,27 +1069,27 @@ document.addEventListener('DOMContentLoaded', () => {
         let touchStartX = 0;
         let touchEndX = 0;
 
-        stylesWrapper.addEventListener('touchstart', (e) => {
+        workWrapper.addEventListener('touchstart', (e) => {
             touchStartX = e.changedTouches[0].screenX;
         }, { passive: true });
 
-        stylesWrapper.addEventListener('touchend', (e) => {
+        workWrapper.addEventListener('touchend', (e) => {
             touchEndX = e.changedTouches[0].screenX;
             const diff = touchStartX - touchEndX;
             if (Math.abs(diff) > 45 && !isTransitioning) {
                 if (diff > 0) {
-                    navigateToSlide((currentSlideIdx + 1) % creativeStyleSlides.length);
+                    navigateToSlide((currentSlideIdx + 1) % workSlides.length);
                 } else {
-                    navigateToSlide((currentSlideIdx - 1 + creativeStyleSlides.length) % creativeStyleSlides.length);
+                    navigateToSlide((currentSlideIdx - 1 + workSlides.length) % workSlides.length);
                 }
             }
         }, { passive: true });
 
         // Visibility Intersection Observer — ZERO CPU/GPU wasted when scrolled away
-        const stylesObserver = new IntersectionObserver((entries) => {
+        const workObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                isStylesVisible = entry.isIntersecting;
-                if (isStylesVisible) {
+                isWorkVisible = entry.isIntersecting;
+                if (isWorkVisible) {
                     startRenderLoop();
                     safeStartTimer(300);
                 } else {
@@ -1166,15 +1099,15 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }, { threshold: 0.1 });
 
-        if (stylesSection) {
-            stylesObserver.observe(stylesSection);
+        if (workSection) {
+            workObserver.observe(workSection);
         }
 
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
                 stopRenderLoop();
                 stopAutoSlideTimer();
-            } else if (isStylesVisible) {
+            } else if (isWorkVisible) {
                 startRenderLoop();
                 safeStartTimer(200);
             }
