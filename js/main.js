@@ -488,8 +488,8 @@ document.addEventListener('DOMContentLoaded', () => {
        - GSAP Kinetic Typography Animations
     ============================================ */
     const initLuminaSlider = async () => {
-        const sliderContainer = document.getElementById('stylesSliderWrapper') || document.getElementById('styles');
-        const canvas = sliderContainer ? sliderContainer.querySelector('.webgl-canvas') : document.querySelector('.webgl-canvas');
+        const sliderContainer = document.getElementById('styles');
+        const canvas = document.querySelector('.creative-styles-fullscreen .webgl-canvas') || document.querySelector('.webgl-canvas');
         if (!sliderContainer || !canvas || typeof THREE === 'undefined') return;
 
         const SLIDER_CONFIG = {
@@ -536,7 +536,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 titleKey: 'styles.luxury_minimal',
                 descKey: 'styles.luxury_minimal_desc',
                 defaultTitle: 'Luksuzni Minimalizam',
-                defaultDesc: 'Čiste kompozicije inspirisane visokom modom i modnim editorijalima.',
+                defaultDesc: 'Čiste kompozicije inspirisane modnim editorijalima.',
                 media: 'images/style_luxury_minimal.png',
                 effect: 'glass',
                 checkboxValue: 'Luxury Minimal'
@@ -546,7 +546,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 titleKey: 'styles.cinematic',
                 descKey: 'styles.cinematic_desc',
                 defaultTitle: 'Filmska Esencija',
-                defaultDesc: 'Storytelling inspirisan filmom sa dramatičnim osvetljenjem i narativom.',
+                defaultDesc: 'Storytelling inspirisan filmom sa dramatičnim osvetljenjem.',
                 media: 'images/style_cinematic_essence.png',
                 effect: 'timeshift',
                 checkboxValue: 'Cinematic Essence'
@@ -556,7 +556,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 titleKey: 'styles.urban',
                 descKey: 'styles.urban_desc',
                 defaultTitle: 'Urbani Ulični',
-                defaultDesc: 'Sirova energija i autentična gradska kultura uhvaćena u dinamičnom pokretu.',
+                defaultDesc: 'Sirova energija i gradska kultura uhvaćena u pokretu.',
                 media: 'images/style_urban_street.png',
                 effect: 'ripple',
                 checkboxValue: 'Urban Street'
@@ -566,7 +566,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 titleKey: 'styles.classic',
                 descKey: 'styles.classic_desc',
                 defaultTitle: 'Klasična Elegancija',
-                defaultDesc: 'Vanvremenska sofisticiranost sa savršenom ravnotežom svetla i forme.',
+                defaultDesc: 'Vanvremenska sofisticiranost sa rafiniranm kompozicijama.',
                 media: 'images/style_classic_elegance.png',
                 effect: 'frost',
                 checkboxValue: 'Classic Elegance'
@@ -576,7 +576,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 titleKey: 'styles.natural',
                 descKey: 'styles.natural_desc',
                 defaultTitle: 'Prirodna Harmonija',
-                defaultDesc: 'Organski tonovi, tople teksture i prirodno svetlo u svakom kadru.',
+                defaultDesc: 'Organski tonovi i prirodno svetlo u svakom kadru.',
                 media: 'images/style_natural_harmony.png',
                 effect: 'plasma',
                 checkboxValue: 'Natural Harmony'
@@ -586,7 +586,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 titleKey: 'styles.artistic',
                 descKey: 'styles.artistic_desc',
                 defaultTitle: 'Umetnička Direkcija',
-                defaultDesc: 'Smela kreativna vizija koja ruši konvencije i stvara ikonične vizuale.',
+                defaultDesc: 'Smela kreativna vizija koja izaziva konvencije.',
                 media: 'images/style_artistic_direction.png',
                 effect: 'glass',
                 checkboxValue: 'Artistic Direction'
@@ -594,9 +594,9 @@ document.addEventListener('DOMContentLoaded', () => {
             {
                 id: 'hot-bold',
                 titleKey: 'styles.hot_bold',
-                defaultTitle: 'Vatreno i Smelo',
-                defaultDesc: 'Živopisne boje, bogat kontrast i samouvereni vizuelni izrazi.',
                 descKey: 'styles.hot_bold_desc',
+                defaultTitle: 'Vatreno i Smelo',
+                defaultDesc: 'Živahne boje i samouvereni vizuelni iskazi.',
                 media: 'images/style_hot_bold.png',
                 effect: 'plasma',
                 checkboxValue: 'Hot & Bold'
@@ -606,7 +606,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 titleKey: 'styles.retro',
                 descKey: 'styles.retro_desc',
                 defaultTitle: 'Retro Povratak',
-                defaultDesc: 'Nostalgična analogna estetika ponovo osmišljena za savremene brendove.',
+                defaultDesc: 'Nostalgična estetika osmišljena za moderne brendove.',
                 media: 'images/style_retro_revival.png',
                 effect: 'timeshift',
                 checkboxValue: 'Retro Revival'
@@ -616,7 +616,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 titleKey: 'styles.futuristic',
                 descKey: 'styles.futuristic_desc',
                 defaultTitle: 'Futuristički Sjaj',
-                defaultDesc: 'Neonski vizuali, futurističke distorzije i estetika sutrašnjice.',
+                defaultDesc: 'Neonski vizuali i estetika budućnosti.',
                 media: 'images/style_futuristic_glow.png',
                 effect: 'ripple',
                 checkboxValue: 'Futuristic Glow'
@@ -753,6 +753,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             void main() {
+                if (uProgress <= 0.001) {
+                    gl_FragColor = texture2D(uTexture1, getCoverUV(vUv, uTexture1Size));
+                    return;
+                }
+                if (uProgress >= 0.999) {
+                    gl_FragColor = texture2D(uTexture2, getCoverUV(vUv, uTexture2Size));
+                    return;
+                }
+
                 if (uEffectType == 0) gl_FragColor = glassEffect(vUv, uProgress);
                 else if (uEffectType == 1) gl_FragColor = frostEffect(vUv, uProgress);
                 else if (uEffectType == 2) gl_FragColor = rippleEffect(vUv, uProgress);
@@ -779,7 +788,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const splitText = (text) => {
-            return text.split('').map(char => `<span style="display: inline-block; opacity: 0;">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
+            return text.split('').map(char => `<span style="display: inline-block;">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
         };
 
         const getLocalizedText = (key, fallback) => {
@@ -1136,9 +1145,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 safeStartTimer(500);
             }
 
+            let isSectionInView = true;
+            if ('IntersectionObserver' in window) {
+                const stylesObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        isSectionInView = entry.isIntersecting;
+                        if (isSectionInView) {
+                            if (!isTransitioning && texturesLoaded) safeStartTimer(200);
+                        } else {
+                            stopAutoSlideTimer();
+                        }
+                    });
+                }, { threshold: 0.1 });
+                stylesObserver.observe(sliderContainer);
+            }
+
             const render = () => {
                 requestAnimationFrame(render);
-                if (renderer && scene && camera) {
+                if (isSectionInView && renderer && scene && camera) {
                     renderer.render(scene, camera);
                 }
             };

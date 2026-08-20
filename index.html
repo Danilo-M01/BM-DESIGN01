@@ -588,35 +588,24 @@
             <!-- ============================================
                  4. CREATIVE STYLES — Lumina WebGL Interactive Section
             ============================================ -->
-            <section id="styles" class="creative-styles">
-                <div class="styles-header container">
+            <section id="styles" class="creative-styles-fullscreen">
+                <canvas class="webgl-canvas"></canvas>
+                
+                <!-- Ambient Lighting Gradient Overlay (Clean & Bright) -->
+                <div class="styles-ambient-overlay"></div>
+
+                <!-- 1. Top Bar: Header, Badge, Counter & Book Button -->
+                <div class="styles-top-bar">
                     <div class="styles-header-left">
                         <div class="section-label" data-i18n="styles.label">Izbor Kreativnog Stila</div>
-                        <h2 class="styles-title reveal-text">
-                            <span class="reveal-text-inner" data-i18n="styles.title1">IZABERITE VIZUELNI JEZIK</span>
-                        </h2>
-                        <h2 class="styles-title reveal-text">
-                            <span class="reveal-text-inner" data-i18n="styles.title2">KOJI DEFINIŠE VAŠ SADRŽAJ.</span>
+                        <h2 class="styles-title">
+                            <span data-i18n="styles.title1">IZABERITE VIZUELNI JEZIK</span>
+                            <span class="styles-title-sub" data-i18n="styles.title2">KOJI DEFINIŠE VAŠ SADRŽAJ.</span>
                         </h2>
                     </div>
-                    <div class="styles-header-right fade-up">
-                        <button type="button" class="btn-book-styles" id="bookStylesBtn">
-                            <span data-i18n="styles.book_selected">Rezerviši Izabrane Stilove</span> <span id="selectedStylesCount">(0)</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Lumina WebGL Interactive Slider & Gallery Canvas Experience -->
-                <div class="styles-lumina-container container">
-                    <div class="styles-slider-wrapper" id="stylesSliderWrapper">
-                        <canvas class="webgl-canvas"></canvas>
-                        
-                        <!-- Vignette / Light Overlay -->
-                        <div class="styles-slider-overlay"></div>
-
-                        <!-- Top Meta Header / Counter -->
-                        <div class="styles-slider-meta">
-                            <div class="styles-slider-badge">
+                    <div class="styles-header-right">
+                        <div class="styles-top-meta">
+                            <div class="styles-badge">
                                 <span class="badge-dot"></span>
                                 <span class="badge-text" data-i18n="styles.badge">BM KREATIVNA DIREKCIJA</span>
                             </div>
@@ -626,37 +615,42 @@
                                 <span class="slide-total" id="slideTotal">09</span>
                             </div>
                         </div>
-
-                        <!-- Center Dynamic Kinetic Typography & Style Action -->
-                        <div class="styles-slide-content">
-                            <div class="styles-slide-tag" id="slideTag">01 · EDITORIAL & MINIMAL</div>
-                            <h3 class="styles-slide-title" id="mainTitle"></h3>
-                            <p class="styles-slide-description" id="mainDesc"></p>
-                            <div class="styles-slide-actions">
-                                <button type="button" class="btn-toggle-style" id="btnToggleCurrentStyle">
-                                    <span class="btn-style-icon">+</span>
-                                    <span class="btn-style-label" data-i18n="styles.select_this_style">Izaberi ovaj stil</span>
-                                </button>
-                                <a href="#contact" class="btn-secondary btn-style-partnership">
-                                    <span data-i18n="hero.start_partnership">Započni Partnerstvo</span> <span class="btn-arrow"></span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <!-- Navigation Controls (Prev / Next Arrows) -->
-                        <div class="styles-slider-arrows">
-                            <button type="button" class="styles-arrow-btn prev" id="stylesPrevBtn" aria-label="Prethodni stil">
-                                <svg viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </button>
-                            <button type="button" class="styles-arrow-btn next" id="stylesNextBtn" aria-label="Sledeći stil">
-                                <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </button>
-                        </div>
-
-                        <!-- Bottom Navigation with Progress Indicators & Titles -->
-                        <nav class="styles-navigation" id="slidesNav"></nav>
+                        <button type="button" class="btn-book-styles" id="bookStylesBtn">
+                            <span data-i18n="styles.book_selected">Rezerviši Izabrane Stilove</span> <span id="selectedStylesCount">(0)</span>
+                        </button>
                     </div>
                 </div>
+
+                <!-- 2. Middle Content Area: Dynamic Typography + Actions + Nav Arrows -->
+                <div class="styles-middle-area">
+                    <div class="styles-slide-content">
+                        <div class="styles-slide-tag" id="slideTag">01 · LUKSUZNI MINIMALIZAM</div>
+                        <h3 class="styles-slide-title" id="mainTitle">Luksuzni Minimalizam</h3>
+                        <p class="styles-slide-description" id="mainDesc">Čiste kompozicije inspirisane modnim editorijalima.</p>
+                        <div class="styles-slide-actions">
+                            <button type="button" class="btn-toggle-style" id="btnToggleCurrentStyle">
+                                <span class="btn-style-icon">+</span>
+                                <span class="btn-style-label" data-i18n="styles.select_this_style">Izaberi ovaj stil</span>
+                            </button>
+                            <a href="#contact" class="btn-primary btn-style-partnership">
+                                <span data-i18n="hero.start_partnership">Započni Partnerstvo</span> <span class="btn-arrow"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Left / Right Controls -->
+                    <div class="styles-slider-arrows">
+                        <button type="button" class="styles-arrow-btn prev" id="stylesPrevBtn" aria-label="Prethodni stil">
+                            <svg viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                        <button type="button" class="styles-arrow-btn next" id="stylesNextBtn" aria-label="Sledeći stil">
+                            <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3. Bottom Navigation Tabs with Progress Indicators -->
+                <nav class="styles-navigation" id="slidesNav"></nav>
             </section>
 
             <!-- ============================================
