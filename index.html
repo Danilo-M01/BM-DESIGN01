@@ -239,25 +239,158 @@
             </section>
 
             <!-- ============================================
-                 2. SELECTED STORIES / WORK — Lumina WebGL Interactive Section
+                 2. SELECTED WORK
             ============================================ -->
-            <section id="work" class="slider-wrapper">
-                <canvas class="webgl-canvas"></canvas>
-                <span class="slide-number" id="slideNumber">01</span>
-                <span class="slide-total" id="slideTotal">10</span>
-                
-                <div class="slide-content">
-                    <div class="slide-tag" id="slideTag" data-i18n="work.label">Izabrani Radovi</div>
-                    <h2 class="slide-title" id="mainTitle"></h2>
-                    <p class="slide-description" id="mainDesc"></p>
-                    <div class="slide-actions">
-                        <a href="#contact" class="btn-primary">
-                            <span data-i18n="hero.start_partnership">Započni Partnerstvo</span> <span class="btn-arrow"></span>
-                        </a>
+            <section id="work" class="work">
+                <div class="work-header container">
+                    <div class="work-header-left">
+                        <div class="section-label" data-i18n="work.label">Izabrani Radovi</div>
+                        <h2 class="work-title reveal-text">
+                            <span class="reveal-text-inner" data-i18n="work.title">IZABRANE PRIČE</span>
+                        </h2>
                     </div>
+                    <a href="#work" class="work-link fade-up" data-i18n="work.view_all">Pogledaj Sve Projekte</a>
                 </div>
-               
-                <nav class="slides-navigation" id="slidesNav"></nav>
+                <div class="work-filters container fade-up">
+                    <button class="filter-btn active" data-filter="all" data-i18n="filter.all">Sve</button>
+                    <button class="filter-btn" data-filter="personal-brands" data-i18n="filter.personal_brands">Lični Brendovi</button>
+                    <button class="filter-btn" data-filter="fashion" data-i18n="filter.fashion">Moda</button>
+                    <button class="filter-btn" data-filter="beauty" data-i18n="filter.beauty">Lepota</button>
+                    <button class="filter-btn" data-filter="jewelry" data-i18n="filter.jewelry">Nakit</button>
+                    <button class="filter-btn" data-filter="hospitality" data-i18n="filter.hospitality">Ugostiteljstvo</button>
+                    <button class="filter-btn" data-filter="wellness" data-i18n="filter.wellness">Velnes</button>
+                    <button class="filter-btn" data-filter="luxury-mobility" data-i18n="filter.luxury_mobility">Luksuzna Mobilnost</button>
+                    <button class="filter-btn" data-filter="interior-design" data-i18n="filter.interior_design">Dizajn Enterijera</button>
+                    <button class="filter-btn" data-filter="architecture" data-i18n="filter.architecture">Arhitektura</button>
+                    <button class="filter-btn" data-filter="restaurants" data-i18n="filter.restaurants">Restorani</button>
+                    <button class="filter-btn" data-filter="technology" data-i18n="filter.technology">Tehnologija</button>
+                </div>
+
+                <!-- Editorial Layout Grid -->
+                <div class="work-editorial" id="workGrid">
+
+                    <!-- Personal Brands -->
+                    <div class="work-item fade-up" data-category="personal-brands">
+                        <img src="images/project-personal.png" alt="Alessio Ferrari Personal Brand" class="work-item-img" loading="lazy">
+                        <div class="work-overlay"></div>
+                        <div class="work-item-info">
+                            <div class="work-item-cat" data-i18n="work.personal_milan">Lični Brendovi · Milano, Italija</div>
+                            <h4 class="work-item-name" data-i18n="work.personal_name">Alessio Ferrari Lični Brend</h4>
+                        </div>
+                    </div>
+
+                    <!-- Fashion -->
+                    <div class="work-item fade-up" data-category="fashion">
+                        <img src="images/project-fashion.png" alt="Maison Noir Fashion Editorial" class="work-item-img" loading="lazy">
+                        <div class="work-overlay"></div>
+                        <div class="work-item-info">
+                            <div class="work-item-cat" data-i18n="work.fashion_milan">Moda · Milano, Italija</div>
+                            <h4 class="work-item-name" data-i18n="work.fashion_editorial">Maison Noir Modni Editorijal</h4>
+                        </div>
+                    </div>
+
+                    <!-- Beauty -->
+                    <div class="work-item fade-up" data-category="beauty">
+                        <img src="images/project-beauty.png" alt="Noir Parfum Brand Campaign" class="work-item-img" loading="lazy">
+                        <div class="work-overlay"></div>
+                        <div class="work-item-info">
+                            <div class="work-item-cat" data-i18n="work.beauty_ny">Lepota · Njujork, SAD</div>
+                            <h4 class="work-item-name" data-i18n="work.beauty_campaign">Noir Parfum Brendirana Kampanja</h4>
+                        </div>
+                    </div>
+
+                    <!-- Jewelry -->
+                    <div class="work-item fade-up" data-category="jewelry">
+                        <img src="images/project-jewelry.png" alt="Lumière Jewelry Collection" class="work-item-img" loading="lazy">
+                        <div class="work-overlay"></div>
+                        <div class="work-item-info">
+                            <div class="work-item-cat" data-i18n="work.jewelry_paris">Nakit · Pariz, Francuska</div>
+                            <h4 class="work-item-name" data-i18n="work.jewelry_name">Lumière Kolekcija Nakita</h4>
+                        </div>
+                    </div>
+
+                    <!-- Hospitality (Como) -->
+                    <div class="work-item fade-up" data-category="hospitality">
+                        <img src="images/project-hospitality1.png" alt="Villa Como Hotel Campaign" class="work-item-img" loading="lazy">
+                        <div class="work-overlay"></div>
+                        <div class="work-item-info">
+                            <div class="work-item-cat" data-i18n="work.hospitality_como">Ugostiteljstvo · Jezero Komo, Italija</div>
+                            <h4 class="work-item-name" data-i18n="work.hospitality_como_name">Villa Como Hotelska Kampanja</h4>
+                        </div>
+                    </div>
+
+                    <!-- Hospitality (The Saint) -->
+                    <div class="work-item fade-up" data-category="hospitality">
+                        <img src="images/project-hospitality2.png" alt="The Saint Hotel Brand Identity" class="work-item-img" loading="lazy">
+                        <div class="work-overlay"></div>
+                        <div class="work-item-info">
+                            <div class="work-item-cat" data-i18n="work.hospitality_paris">Ugostiteljstvo · Pariz, Francuska</div>
+                            <h4 class="work-item-name" data-i18n="work.hospitality_paris_name">The Saint Hotel Identitet Brenda</h4>
+                        </div>
+                    </div>
+
+                    <!-- Wellness -->
+                    <div class="work-item fade-up" data-category="wellness">
+                        <img src="images/project-wellness.png" alt="Serene Wellness Retreat" class="work-item-img" loading="lazy">
+                        <div class="work-overlay"></div>
+                        <div class="work-item-info">
+                            <div class="work-item-cat" data-i18n="work.wellness_bali">Velnes · Bali, Indonezija</div>
+                            <h4 class="work-item-name" data-i18n="work.wellness_name">Serene Velnes Utočište</h4>
+                        </div>
+                    </div>
+
+                    <!-- Luxury Mobility -->
+                    <div class="work-item fade-up" data-category="luxury-mobility">
+                        <img src="images/project-mobility.png" alt="Azure Motors Brand Launch" class="work-item-img" loading="lazy">
+                        <div class="work-overlay"></div>
+                        <div class="work-item-info">
+                            <div class="work-item-cat" data-i18n="work.mobility_monaco">Luksuzna Mobilnost · Monako</div>
+                            <h4 class="work-item-name" data-i18n="work.mobility_name">Azure Motors Lansiranje Brenda</h4>
+                        </div>
+                    </div>
+
+                    <!-- Interior Design -->
+                    <div class="work-item fade-up" data-category="interior-design">
+                        <img src="images/project-interior.png" alt="Casa Moderna Interior" class="work-item-img" loading="lazy">
+                        <div class="work-overlay"></div>
+                        <div class="work-item-info">
+                            <div class="work-item-cat" data-i18n="work.interior_london">Dizajn Enterijera · London, UK</div>
+                            <h4 class="work-item-name" data-i18n="work.interior_name">Casa Moderna Enterijer</h4>
+                        </div>
+                    </div>
+
+                    <!-- Architecture -->
+                    <div class="work-item fade-up" data-category="architecture">
+                        <img src="images/project-architecture.png" alt="Atelier Studio Architecture" class="work-item-img" loading="lazy">
+                        <div class="work-overlay"></div>
+                        <div class="work-item-info">
+                            <div class="work-item-cat" data-i18n="work.architecture_dubai">Arhitektura · Dubai, UAE</div>
+                            <h4 class="work-item-name" data-i18n="work.architecture_name">Atelier Studio Arhitektura</h4>
+                        </div>
+                    </div>
+
+                    <!-- Restaurants -->
+                    <div class="work-item fade-up" data-category="restaurants">
+                        <img src="images/project-restaurant.png" alt="Oro Restaurant Identity" class="work-item-img" loading="lazy">
+                        <div class="work-overlay"></div>
+                        <div class="work-item-info">
+                            <div class="work-item-cat" data-i18n="work.restaurant_rome">Restorani · Rim, Italija</div>
+                            <h4 class="work-item-name" data-i18n="work.restaurant_name">Oro Restoran Identitet</h4>
+                        </div>
+                    </div>
+
+                    <!-- Technology -->
+                    <div class="work-item fade-up" data-category="technology">
+                        <img src="images/project-technology.png" alt="Nexus Tech Brand Identity" class="work-item-img" loading="lazy">
+                        <div class="work-overlay"></div>
+                        <div class="work-item-info">
+                            <div class="work-item-cat" data-i18n="work.tech_sf">Tehnologija · San Francisko, SAD</div>
+                            <h4 class="work-item-name" data-i18n="work.tech_name">Nexus Tech Identitet Brenda</h4>
+                        </div>
+                    </div>
+                </div>                  </div>
+
+                </div>
             </section>
 
             <!-- ============================================
@@ -453,99 +586,47 @@
             </section>
 
             <!-- ============================================
-                 4. CREATIVE STYLES
+                 4. CREATIVE STYLES — Lumina WebGL Interactive Section
             ============================================ -->
-            <section id="styles" class="creative-styles">
-                <div class="styles-header container">
-                    <div class="styles-header-left">
-                        <div class="section-label" data-i18n="styles.label">Izbor Kreativnog Stila</div>
-                        <h2 class="styles-title reveal-text">
-                            <span class="reveal-text-inner" data-i18n="styles.title1">IZABERITE VIZUELNI JEZIK</span>
-                        </h2>
-                        <h2 class="styles-title reveal-text">
-                            <span class="reveal-text-inner" data-i18n="styles.title2">KOJI DEFINIŠE VAŠ SADRŽAJ.</span>
-                        </h2>
+            <section id="styles" class="slider-wrapper">
+                <canvas class="webgl-canvas"></canvas>
+
+                <!-- Section Header Overlay -->
+                <div class="styles-section-header">
+                    <div class="styles-section-header-left">
+                        <div class="styles-section-label" data-i18n="styles.label">Izbor Kreativnog Stila</div>
+                        <h2 class="styles-section-title" data-i18n="styles.title1">IZABERITE VIZUELNI JEZIK</h2>
                     </div>
-                    <div class="styles-header-right fade-up">
+                    <div class="styles-section-header-right">
                         <button type="button" class="btn-book-styles" id="bookStylesBtn">
                             <span data-i18n="styles.book_selected">Rezerviši Izabrane Stilove</span> <span id="selectedStylesCount">(0)</span>
                         </button>
                     </div>
                 </div>
 
-                <div class="styles-grid container">
-                    <div class="style-card fade-up">
-                        <div class="style-card-visual style-luxury-minimal"></div>
-                        <div class="style-card-info">
-                            <h4 class="style-card-name" data-i18n="styles.luxury_minimal">Luksuzni Minimalizam</h4>
-                            <p class="style-card-desc" data-i18n="styles.luxury_minimal_desc">Čiste kompozicije inspirisane modnim editorijalima.</p>
-                        </div>
-                    </div>
-
-                    <div class="style-card fade-up">
-                        <div class="style-card-visual style-cinematic-essence"></div>
-                        <div class="style-card-info">
-                            <h4 class="style-card-name" data-i18n="styles.cinematic">Filmska Esencija</h4>
-                            <p class="style-card-desc" data-i18n="styles.cinematic_desc">Storytelling inspirisan filmom sa dramatičnim osvetljenjem.</p>
-                        </div>
-                    </div>
-
-                    <div class="style-card fade-up">
-                        <div class="style-card-visual style-urban-street"></div>
-                        <div class="style-card-info">
-                            <h4 class="style-card-name" data-i18n="styles.urban">Urbani Ulični</h4>
-                            <p class="style-card-desc" data-i18n="styles.urban_desc">Sirova energija i gradska kultura uhvaćena u pokretu.</p>
-                        </div>
-                    </div>
-
-                    <div class="style-card fade-up">
-                        <div class="style-card-visual style-classic-elegance"></div>
-                        <div class="style-card-info">
-                            <h4 class="style-card-name" data-i18n="styles.classic">Klasična Elegancija</h4>
-                            <p class="style-card-desc" data-i18n="styles.classic_desc">Vanvremenska sofisticiranost sa rafiniranim kompozicijama.</p>
-                        </div>
-                    </div>
-
-                    <div class="style-card fade-up">
-                        <div class="style-card-visual style-natural-harmony"></div>
-                        <div class="style-card-info">
-                            <h4 class="style-card-name" data-i18n="styles.natural">Prirodna Harmonija</h4>
-                            <p class="style-card-desc" data-i18n="styles.natural_desc">Organski tonovi i prirodno svetlo u svakom kadru.</p>
-                        </div>
-                    </div>
-
-                    <div class="style-card fade-up">
-                        <div class="style-card-visual style-artistic-direction"></div>
-                        <div class="style-card-info">
-                            <h4 class="style-card-name" data-i18n="styles.artistic">Umetnička Direkcija</h4>
-                            <p class="style-card-desc" data-i18n="styles.artistic_desc">Smela kreativna vizija koja izaziva konvencije.</p>
-                        </div>
-                    </div>
-
-                    <div class="style-card fade-up">
-                        <div class="style-card-visual style-hot-bold"></div>
-                        <div class="style-card-info">
-                            <h4 class="style-card-name" data-i18n="styles.hot_bold">Vatreno i Smelo</h4>
-                            <p class="style-card-desc" data-i18n="styles.hot_bold_desc">Živahne boje i samouvereni vizuelni iskazi.</p>
-                        </div>
-                    </div>
-
-                    <div class="style-card fade-up">
-                        <div class="style-card-visual style-retro-revival"></div>
-                        <div class="style-card-info">
-                            <h4 class="style-card-name" data-i18n="styles.retro">Retro Povratak</h4>
-                            <p class="style-card-desc" data-i18n="styles.retro_desc">Nostalgična estetika osmišljena za moderne brendove.</p>
-                        </div>
-                    </div>
-
-                    <div class="style-card fade-up">
-                        <div class="style-card-visual style-futuristic-glow"></div>
-                        <div class="style-card-info">
-                            <h4 class="style-card-name" data-i18n="styles.futuristic">Futuristički Sjaj</h4>
-                            <p class="style-card-desc" data-i18n="styles.futuristic_desc">Neonski vizuali i estetika budućnosti.</p>
-                        </div>
+                <!-- Slide Counter Badge -->
+                <div class="slide-counter">
+                    <span class="slide-number" id="slideNumber">01</span>
+                    <span class="slide-counter-sep">/</span>
+                    <span class="slide-total" id="slideTotal">09</span>
+                </div>
+                
+                <div class="slide-content">
+                    <div class="slide-tag" id="slideTag" data-i18n="styles.label">Izbor Kreativnog Stila</div>
+                    <h2 class="slide-title" id="mainTitle"></h2>
+                    <p class="slide-description" id="mainDesc"></p>
+                    <div class="slide-actions">
+                        <button type="button" class="btn-toggle-style" id="btnToggleCurrentStyle">
+                            <span class="btn-style-icon">+</span>
+                            <span class="btn-style-label" data-i18n="styles.select_this_style">Izaberi ovaj stil</span>
+                        </button>
+                        <a href="#contact" class="btn-primary">
+                            <span data-i18n="hero.start_partnership">Započni Partnerstvo</span> <span class="btn-arrow"></span>
+                        </a>
                     </div>
                 </div>
+               
+                <nav class="slides-navigation" id="slidesNav"></nav>
             </section>
 
             <!-- ============================================

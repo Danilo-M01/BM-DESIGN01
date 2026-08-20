@@ -482,21 +482,697 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 3. Style Cards Click Selection for #styles Section
-    const styleCardsSelection = document.querySelectorAll('.creative-styles .style-card');
-    if (styleCardsSelection.length > 0) {
-        styleCardsSelection.forEach(card => {
-            card.addEventListener('click', () => {
-                const nameEl = card.querySelector('.style-card-name');
-                const styleName = nameEl ? nameEl.textContent.trim() : '';
+    /* ============================================
+       LUMINA WEBGL INTERACTIVE STYLES SLIDER
+       - Direct Three.js Shader Displacement & Glass Refraction Engine
+       - GSAP Kinetic Typography Animations
+    ============================================ */
+    const initLuminaSlider = async () => {
+        const sliderContainer = document.getElementById('styles') || document.querySelector('.slider-wrapper');
+        const canvas = document.querySelector('.webgl-canvas');
+        if (!sliderContainer || !canvas || typeof THREE === 'undefined') return;
 
-                if (card.classList.contains('is-selected')) {
-                    card.classList.remove('is-selected');
+        const SLIDER_CONFIG = {
+            settings: {
+                transitionDuration: 2.0,
+                autoSlideSpeed: 5000,
+                currentEffect: "glass",
+                currentEffectPreset: "Default",
+                globalIntensity: 1.0,
+                speedMultiplier: 1.0,
+                distortionStrength: 1.0,
+                colorEnhancement: 1.0,
+                glassRefractionStrength: 1.0,
+                glassChromaticAberration: 1.0,
+                glassBubbleClarity: 1.0,
+                glassEdgeGlow: 1.0,
+                glassLiquidFlow: 1.0,
+                frostIntensity: 1.5,
+                frostCrystalSize: 1.0,
+                frostIceCoverage: 1.0,
+                frostTemperature: 1.0,
+                frostTexture: 1.0,
+                rippleFrequency: 25.0,
+                rippleAmplitude: 0.08,
+                rippleWaveSpeed: 1.0,
+                rippleRippleCount: 1.0,
+                rippleDecay: 1.0,
+                plasmaIntensity: 1.2,
+                plasmaSpeed: 0.8,
+                plasmaEnergyIntensity: 0.4,
+                plasmaContrastBoost: 0.3,
+                plasmaTurbulence: 1.0,
+                timeshiftDistortion: 1.6,
+                timeshiftBlur: 1.5,
+                timeshiftFlow: 1.4,
+                timeshiftChromatic: 1.5,
+                timeshiftTurbulence: 1.4
+            }
+        };
+
+        const slides = [
+            {
+                id: 'luxury-minimal',
+                titleKey: 'styles.luxury_minimal',
+                descKey: 'styles.luxury_minimal_desc',
+                defaultTitle: 'Luksuzni Minimalizam',
+                defaultDesc: 'Čiste kompozicije inspirisane visokom modom i modnim editorijalima.',
+                media: 'images/style_luxury_minimal.png',
+                effect: 'glass',
+                checkboxValue: 'Luxury Minimal'
+            },
+            {
+                id: 'cinematic-essence',
+                titleKey: 'styles.cinematic',
+                descKey: 'styles.cinematic_desc',
+                defaultTitle: 'Filmska Esencija',
+                defaultDesc: 'Storytelling inspirisan filmom sa dramatičnim osvetljenjem i narativom.',
+                media: 'images/style_cinematic_essence.png',
+                effect: 'timeshift',
+                checkboxValue: 'Cinematic Essence'
+            },
+            {
+                id: 'urban-street',
+                titleKey: 'styles.urban',
+                descKey: 'styles.urban_desc',
+                defaultTitle: 'Urbani Ulični',
+                defaultDesc: 'Sirova energija i autentična gradska kultura uhvaćena u dinamičnom pokretu.',
+                media: 'images/style_urban_street.png',
+                effect: 'ripple',
+                checkboxValue: 'Urban Street'
+            },
+            {
+                id: 'classic-elegance',
+                titleKey: 'styles.classic',
+                descKey: 'styles.classic_desc',
+                defaultTitle: 'Klasična Elegancija',
+                defaultDesc: 'Vanvremenska sofisticiranost sa savršenom ravnotežom svetla i forme.',
+                media: 'images/style_classic_elegance.png',
+                effect: 'frost',
+                checkboxValue: 'Classic Elegance'
+            },
+            {
+                id: 'natural-harmony',
+                titleKey: 'styles.natural',
+                descKey: 'styles.natural_desc',
+                defaultTitle: 'Prirodna Harmonija',
+                defaultDesc: 'Organski tonovi, tople teksture i prirodno svetlo u svakom kadru.',
+                media: 'images/style_natural_harmony.png',
+                effect: 'plasma',
+                checkboxValue: 'Natural Harmony'
+            },
+            {
+                id: 'artistic-direction',
+                titleKey: 'styles.artistic',
+                descKey: 'styles.artistic_desc',
+                defaultTitle: 'Umetnička Direkcija',
+                defaultDesc: 'Smela kreativna vizija koja ruši konvencije i stvara ikonične vizuale.',
+                media: 'images/style_artistic_direction.png',
+                effect: 'glass',
+                checkboxValue: 'Artistic Direction'
+            },
+            {
+                id: 'hot-bold',
+                titleKey: 'styles.hot_bold',
+                defaultTitle: 'Vatreno i Smelo',
+                defaultDesc: 'Živopisne boje, bogat kontrast i samouvereni vizuelni izrazi.',
+                descKey: 'styles.hot_bold_desc',
+                media: 'images/style_hot_bold.png',
+                effect: 'plasma',
+                checkboxValue: 'Hot & Bold'
+            },
+            {
+                id: 'retro-revival',
+                titleKey: 'styles.retro',
+                descKey: 'styles.retro_desc',
+                defaultTitle: 'Retro Povratak',
+                defaultDesc: 'Nostalgična analogna estetika ponovo osmišljena za savremene brendove.',
+                media: 'images/style_retro_revival.png',
+                effect: 'timeshift',
+                checkboxValue: 'Retro Revival'
+            },
+            {
+                id: 'futuristic-glow',
+                titleKey: 'styles.futuristic',
+                descKey: 'styles.futuristic_desc',
+                defaultTitle: 'Futuristički Sjaj',
+                defaultDesc: 'Neonski vizuali, futurističke distorzije i estetika sutrašnjice.',
+                media: 'images/style_futuristic_glow.png',
+                effect: 'ripple',
+                checkboxValue: 'Futuristic Glow'
+            }
+        ];
+
+        let currentSlideIndex = 0;
+        let isTransitioning = false;
+        let shaderMaterial, renderer, scene, camera;
+        let slideTextures = [];
+        let texturesLoaded = false;
+        let autoSlideTimer = null;
+        let progressAnimation = null;
+        let sliderEnabled = false;
+
+        const SLIDE_DURATION = () => SLIDER_CONFIG.settings.autoSlideSpeed;
+        const PROGRESS_UPDATE_INTERVAL = 50;
+        const TRANSITION_DURATION = () => SLIDER_CONFIG.settings.transitionDuration;
+
+        const vertexShader = `
+            varying vec2 vUv;
+            void main() {
+                vUv = uv;
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+            }
+        `;
+
+        const fragmentShader = `
+            uniform sampler2D uTexture1, uTexture2;
+            uniform float uProgress;
+            uniform vec2 uResolution, uTexture1Size, uTexture2Size;
+            uniform int uEffectType;
+            uniform float uGlobalIntensity, uSpeedMultiplier, uDistortionStrength, uColorEnhancement;
+            uniform float uGlassRefractionStrength, uGlassChromaticAberration, uGlassBubbleClarity, uGlassEdgeGlow, uGlassLiquidFlow;
+            uniform float uFrostIntensity, uFrostCrystalSize, uFrostIceCoverage, uFrostTemperature, uFrostTexture;
+            uniform float uRippleFrequency, uRippleAmplitude, uRippleWaveSpeed, uRippleRippleCount, uRippleDecay;
+            uniform float uPlasmaIntensity, uPlasmaSpeed, uPlasmaEnergyIntensity, uPlasmaContrastBoost, uPlasmaTurbulence;
+            uniform float uTimeshiftDistortion, uTimeshiftBlur, uTimeshiftFlow, uTimeshiftChromatic, uTimeshiftTurbulence;
+            varying vec2 vUv;
+
+            vec2 getCoverUV(vec2 uv, vec2 textureSize) {
+                vec2 s = uResolution / max(textureSize, vec2(1.0, 1.0));
+                float scale = max(s.x, s.y);
+                vec2 scaledSize = textureSize * scale;
+                vec2 offset = (uResolution - scaledSize) * 0.5;
+                return (uv * uResolution - offset) / max(scaledSize, vec2(1.0, 1.0));
+            }
+
+            vec4 glassEffect(vec2 uv, float progress) {
+                float time = progress * 5.0 * uSpeedMultiplier;
+                vec2 uv1 = getCoverUV(uv, uTexture1Size);
+                vec2 uv2 = getCoverUV(uv, uTexture2Size);
+                float maxR = length(uResolution) * 0.85;
+                float br = progress * maxR;
+                vec2 p = uv * uResolution;
+                vec2 c = uResolution * 0.5;
+                float d = length(p - c);
+                float nd = d / max(br, 0.001);
+                float param = smoothstep(br + 3.0, br - 3.0, d);
+                vec4 img;
+                if (param > 0.0) {
+                     float ro = 0.08 * uGlassRefractionStrength * uDistortionStrength * uGlobalIntensity * pow(smoothstep(0.3 * uGlassBubbleClarity, 1.0, nd), 1.5);
+                     vec2 dir = (d > 0.0) ? (p - c) / d : vec2(0.0);
+                     vec2 distUV = uv2 - dir * ro;
+                     distUV += vec2(sin(time + nd * 10.0), cos(time * 0.8 + nd * 8.0)) * 0.015 * uGlassLiquidFlow * uSpeedMultiplier * nd * param;
+                     float ca = 0.02 * uGlassChromaticAberration * uGlobalIntensity * pow(smoothstep(0.3, 1.0, nd), 1.2);
+                     img = vec4(
+                         texture2D(uTexture2, distUV + dir * ca * 1.2).r,
+                         texture2D(uTexture2, distUV + dir * ca * 0.2).g,
+                         texture2D(uTexture2, distUV - dir * ca * 0.8).b,
+                         1.0
+                     );
+                     if (uGlassEdgeGlow > 0.0) {
+                        float rim = smoothstep(0.95, 1.0, nd) * (1.0 - smoothstep(1.0, 1.01, nd));
+                        img.rgb += rim * 0.08 * uGlassEdgeGlow * uGlobalIntensity;
+                     }
+                } else {
+                    img = texture2D(uTexture2, uv2);
+                }
+                vec4 oldImg = texture2D(uTexture1, uv1);
+                if (progress > 0.95) img = mix(img, texture2D(uTexture2, uv2), (progress - 0.95) / 0.05);
+                return mix(oldImg, img, param);
+            }
+
+            vec4 frostEffect(vec2 uv, float progress) {
+                vec2 uv1 = getCoverUV(uv, uTexture1Size);
+                vec2 uv2 = getCoverUV(uv, uTexture2Size);
+                float p = smoothstep(0.0, 1.0, progress);
+                float n = fract(sin(dot(uv, vec2(12.9898, 78.233))) * 43758.5453);
+                vec2 blur1 = uv1 + (vec2(n) - 0.5) * 0.02 * (1.0 - p);
+                vec2 blur2 = uv2 + (vec2(n) - 0.5) * 0.02 * p;
+                return mix(texture2D(uTexture1, blur1), texture2D(uTexture2, blur2), p);
+            }
+
+            vec4 rippleEffect(vec2 uv, float progress) {
+                vec2 uv1 = getCoverUV(uv, uTexture1Size);
+                vec2 uv2 = getCoverUV(uv, uTexture2Size);
+                float p = smoothstep(0.0, 1.0, progress);
+                vec2 c = vec2(0.5);
+                float d = distance(uv, c);
+                float wave = sin(d * uRippleFrequency - progress * 12.0 * uRippleWaveSpeed) * (1.0 - progress) * uRippleAmplitude;
+                vec2 warped1 = uv1 + wave * normalize(uv - c + 0.001);
+                vec2 warped2 = uv2 - wave * normalize(uv - c + 0.001);
+                return mix(texture2D(uTexture1, warped1), texture2D(uTexture2, warped2), p);
+            }
+
+            vec4 plasmaEffect(vec2 uv, float progress) {
+                vec2 uv1 = getCoverUV(uv, uTexture1Size);
+                vec2 uv2 = getCoverUV(uv, uTexture2Size);
+                float p = smoothstep(0.0, 1.0, progress);
+                vec2 offset = vec2(sin(uv.y * 10.0 + progress * 6.0), cos(uv.x * 10.0 + progress * 6.0)) * 0.03 * sin(p * 3.14159);
+                return mix(texture2D(uTexture1, uv1 + offset), texture2D(uTexture2, uv2 - offset), p);
+            }
+
+            vec4 timeshiftEffect(vec2 uv, float progress) {
+                vec2 uv1 = getCoverUV(uv, uTexture1Size);
+                vec2 uv2 = getCoverUV(uv, uTexture2Size);
+                float p = smoothstep(0.0, 1.0, progress);
+                vec2 dir = normalize(uv - 0.5);
+                vec2 offset = dir * sin(p * 3.14159) * 0.03 * uTimeshiftDistortion;
+                vec4 col1 = vec4(
+                    texture2D(uTexture1, uv1 + offset * 1.2).r,
+                    texture2D(uTexture1, uv1 + offset * 0.5).g,
+                    texture2D(uTexture1, uv1).b,
+                    1.0
+                );
+                vec4 col2 = vec4(
+                    texture2D(uTexture2, uv2 - offset * 1.2).r,
+                    texture2D(uTexture2, uv2 - offset * 0.5).g,
+                    texture2D(uTexture2, uv2).b,
+                    1.0
+                );
+                return mix(col1, col2, p);
+            }
+
+            void main() {
+                if (uEffectType == 0) gl_FragColor = glassEffect(vUv, uProgress);
+                else if (uEffectType == 1) gl_FragColor = frostEffect(vUv, uProgress);
+                else if (uEffectType == 2) gl_FragColor = rippleEffect(vUv, uProgress);
+                else if (uEffectType == 3) gl_FragColor = plasmaEffect(vUv, uProgress);
+                else gl_FragColor = timeshiftEffect(vUv, uProgress);
+            }
+        `;
+
+        const getEffectIndex = (effectName) => {
+            const map = { glass: 0, frost: 1, ripple: 2, plasma: 3, timeshift: 4 };
+            return map[effectName] !== undefined ? map[effectName] : 0;
+        };
+
+        const updateShaderUniforms = () => {
+            if (!shaderMaterial) return;
+            const s = SLIDER_CONFIG.settings;
+            const u = shaderMaterial.uniforms;
+            for (const key in s) {
+                const uName = 'u' + key.charAt(0).toUpperCase() + key.slice(1);
+                if (u[uName]) u[uName].value = s[key];
+            }
+            const currentEffectName = slides[currentSlideIndex]?.effect || 'glass';
+            u.uEffectType.value = getEffectIndex(currentEffectName);
+        };
+
+        const splitText = (text) => {
+            return text.split('').map(char => `<span style="display: inline-block; opacity: 0;">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
+        };
+
+        const getLocalizedText = (key, fallback) => {
+            if (window.BM_i18n && typeof window.BM_i18n.t === 'function') {
+                return window.BM_i18n.t(key, window.BM_i18n.getCurrentLang()) || fallback;
+            }
+            return fallback;
+        };
+
+        const btnToggleCurrentStyle = document.getElementById('btnToggleCurrentStyle');
+        const updateStyleToggleBtn = (idx) => {
+            if (!btnToggleCurrentStyle) return;
+            const slide = slides[idx];
+            const isSelected = selectedStyles.has(slide.checkboxValue);
+            const iconEl = btnToggleCurrentStyle.querySelector('.btn-style-icon');
+            const labelEl = btnToggleCurrentStyle.querySelector('.btn-style-label');
+
+            if (isSelected) {
+                btnToggleCurrentStyle.classList.add('is-selected');
+                if (iconEl) iconEl.textContent = '✓';
+                if (labelEl) labelEl.textContent = getLocalizedText('styles.style_selected', 'Izabran stil');
+            } else {
+                btnToggleCurrentStyle.classList.remove('is-selected');
+                if (iconEl) iconEl.textContent = '+';
+                if (labelEl) labelEl.textContent = getLocalizedText('styles.select_this_style', 'Izaberi ovaj stil');
+            }
+        };
+
+        const updateContent = (idx) => {
+            const titleEl = document.getElementById('mainTitle');
+            const descEl = document.getElementById('mainDesc');
+            if (!titleEl || !descEl) return;
+
+            const slide = slides[idx];
+            const titleText = getLocalizedText(slide.titleKey, slide.defaultTitle);
+            const descText = getLocalizedText(slide.descKey, slide.defaultDesc);
+
+            updateStyleToggleBtn(idx);
+
+            if (typeof gsap !== 'undefined') {
+                gsap.to(titleEl.children, { y: -20, opacity: 0, duration: 0.4, stagger: 0.02, ease: "power2.in" });
+                gsap.to(descEl, { y: -10, opacity: 0, duration: 0.3, ease: "power2.in" });
+
+                setTimeout(() => {
+                    titleEl.innerHTML = splitText(titleText);
+                    descEl.textContent = descText;
+
+                    gsap.set(titleEl.children, { opacity: 0 });
+                    gsap.set(descEl, { y: 20, opacity: 0 });
+
+                    const children = titleEl.children;
+                    switch (idx % 6) {
+                        case 0: // Stagger Up
+                            gsap.set(children, { y: 20 });
+                            gsap.to(children, { y: 0, opacity: 1, duration: 0.8, stagger: 0.03, ease: "power3.out" });
+                            gsap.to(descEl, { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: "power3.out" });
+                            break;
+                        case 1: // Stagger Down
+                            gsap.set(children, { y: -20 });
+                            gsap.to(children, { y: 0, opacity: 1, duration: 0.8, stagger: 0.03, ease: "back.out(1.7)" });
+                            gsap.to(descEl, { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: "power3.out" });
+                            break;
+                        case 2: // Blur Reveal
+                            gsap.set(children, { filter: "blur(10px)", scale: 1.4, y: 0 });
+                            gsap.to(children, { filter: "blur(0px)", scale: 1, opacity: 1, duration: 0.9, stagger: { amount: 0.4, from: "random" }, ease: "power2.out" });
+                            gsap.to(descEl, { y: 0, opacity: 1, duration: 0.8, delay: 0.3, ease: "power2.out" });
+                            break;
+                        case 3: // Scale In
+                            gsap.set(children, { scale: 0, y: 0 });
+                            gsap.to(children, { scale: 1, opacity: 1, duration: 0.6, stagger: 0.04, ease: "back.out(1.5)" });
+                            gsap.to(descEl, { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: "power3.out" });
+                            break;
+                        case 4: // Rotate X (Flip)
+                            gsap.set(children, { rotationX: 90, y: 0, transformOrigin: "50% 50%" });
+                            gsap.to(children, { rotationX: 0, opacity: 1, duration: 0.8, stagger: 0.04, ease: "power2.out" });
+                            gsap.to(descEl, { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: "power2.out" });
+                            break;
+                        case 5: // Side Reveal
+                            gsap.set(children, { x: 30, y: 0 });
+                            gsap.to(children, { x: 0, opacity: 1, duration: 0.8, stagger: 0.03, ease: "power3.out" });
+                            gsap.to(descEl, { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: "power3.out" });
+                            break;
+                        default:
+                            gsap.set(children, { y: 20 });
+                            gsap.to(children, { y: 0, opacity: 1, duration: 0.8, stagger: 0.03, ease: "power3.out" });
+                            gsap.to(descEl, { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: "power3.out" });
+                    }
+                }, 350);
+            } else {
+                titleEl.textContent = titleText;
+                descEl.textContent = descText;
+            }
+        };
+
+        const updateCounter = (idx) => {
+            const sn = document.getElementById("slideNumber");
+            if (sn) sn.textContent = String(idx + 1).padStart(2, "0");
+            const st = document.getElementById("slideTotal");
+            if (st) st.textContent = String(slides.length).padStart(2, "0");
+        };
+
+        const updateNavigationState = (idx) => {
+            document.querySelectorAll(".slide-nav-item").forEach((el, i) => {
+                el.classList.toggle("active", i === idx);
+            });
+        };
+
+        const updateSlideProgress = (idx, prog) => {
+            const el = document.querySelectorAll(".slide-nav-item")[idx]?.querySelector(".slide-progress-fill");
+            if (el) {
+                el.style.width = `${prog}%`;
+                el.style.opacity = '1';
+            }
+        };
+
+        const fadeSlideProgress = (idx) => {
+            const el = document.querySelectorAll(".slide-nav-item")[idx]?.querySelector(".slide-progress-fill");
+            if (el) {
+                el.style.opacity = '0';
+                setTimeout(() => { el.style.width = "0%"; }, 300);
+            }
+        };
+
+        const quickResetProgress = (idx) => {
+            const el = document.querySelectorAll(".slide-nav-item")[idx]?.querySelector(".slide-progress-fill");
+            if (el) {
+                el.style.transition = "width 0.2s ease-out";
+                el.style.width = "0%";
+                setTimeout(() => {
+                    el.style.transition = "width 0.1s ease, opacity 0.3s ease";
+                }, 200);
+            }
+        };
+
+        const stopAutoSlideTimer = () => {
+            if (progressAnimation) clearInterval(progressAnimation);
+            if (autoSlideTimer) clearTimeout(autoSlideTimer);
+            progressAnimation = null;
+            autoSlideTimer = null;
+        };
+
+        const startAutoSlideTimer = () => {
+            if (!texturesLoaded || !sliderEnabled) return;
+            stopAutoSlideTimer();
+            let progress = 0;
+            const increment = (100 / SLIDE_DURATION()) * PROGRESS_UPDATE_INTERVAL;
+
+            progressAnimation = setInterval(() => {
+                if (!sliderEnabled) {
+                    stopAutoSlideTimer();
+                    return;
+                }
+                progress += increment;
+                updateSlideProgress(currentSlideIndex, progress);
+                if (progress >= 100) {
+                    clearInterval(progressAnimation);
+                    progressAnimation = null;
+                    fadeSlideProgress(currentSlideIndex);
+                    if (!isTransitioning) handleSlideChange();
+                }
+            }, PROGRESS_UPDATE_INTERVAL);
+        };
+
+        const safeStartTimer = (delay = 0) => {
+            stopAutoSlideTimer();
+            if (sliderEnabled && texturesLoaded) {
+                if (delay > 0) {
+                    autoSlideTimer = setTimeout(startAutoSlideTimer, delay);
+                } else {
+                    startAutoSlideTimer();
+                }
+            }
+        };
+
+        const navigateToSlide = (targetIndex) => {
+            if (isTransitioning || targetIndex === currentSlideIndex) return;
+            stopAutoSlideTimer();
+            quickResetProgress(currentSlideIndex);
+
+            const currentTexture = slideTextures[currentSlideIndex];
+            const targetTexture = slideTextures[targetIndex];
+            if (!currentTexture || !targetTexture) return;
+
+            isTransitioning = true;
+            shaderMaterial.uniforms.uTexture1.value = currentTexture;
+            shaderMaterial.uniforms.uTexture2.value = targetTexture;
+            shaderMaterial.uniforms.uTexture1Size.value = currentTexture.userData.size;
+            shaderMaterial.uniforms.uTexture2Size.value = targetTexture.userData.size;
+            
+            const effectName = slides[targetIndex].effect || 'glass';
+            shaderMaterial.uniforms.uEffectType.value = getEffectIndex(effectName);
+
+            updateContent(targetIndex);
+            currentSlideIndex = targetIndex;
+            updateCounter(currentSlideIndex);
+            updateNavigationState(currentSlideIndex);
+
+            if (typeof gsap !== 'undefined') {
+                gsap.fromTo(shaderMaterial.uniforms.uProgress,
+                    { value: 0 },
+                    {
+                        value: 1,
+                        duration: TRANSITION_DURATION(),
+                        ease: "power2.inOut",
+                        onComplete: () => {
+                            shaderMaterial.uniforms.uProgress.value = 0;
+                            shaderMaterial.uniforms.uTexture1.value = targetTexture;
+                            shaderMaterial.uniforms.uTexture1Size.value = targetTexture.userData.size;
+                            isTransitioning = false;
+                            safeStartTimer(100);
+                        }
+                    }
+                );
+            } else {
+                shaderMaterial.uniforms.uProgress.value = 0;
+                shaderMaterial.uniforms.uTexture1.value = targetTexture;
+                shaderMaterial.uniforms.uTexture1Size.value = targetTexture.userData.size;
+                isTransitioning = false;
+                safeStartTimer(100);
+            }
+        };
+
+        const handleSlideChange = () => {
+            if (isTransitioning || !texturesLoaded || !sliderEnabled) return;
+            navigateToSlide((currentSlideIndex + 1) % slides.length);
+        };
+
+        const createSlidesNavigation = () => {
+            const nav = document.getElementById("slidesNav");
+            if (!nav) return;
+            nav.innerHTML = "";
+            slides.forEach((slide, i) => {
+                const item = document.createElement("div");
+                item.className = `slide-nav-item${i === currentSlideIndex ? " active" : ""}`;
+                item.dataset.slideIndex = String(i);
+                const title = getLocalizedText(slide.titleKey, slide.defaultTitle);
+                item.innerHTML = `
+                    <div class="slide-progress-line"><div class="slide-progress-fill"></div></div>
+                    <div class="slide-nav-title">${title}</div>
+                `;
+                item.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    if (!isTransitioning && i !== currentSlideIndex) {
+                        stopAutoSlideTimer();
+                        quickResetProgress(currentSlideIndex);
+                        navigateToSlide(i);
+                    }
+                });
+                nav.appendChild(item);
+            });
+        };
+
+        const loadImageTexture = (src) => new Promise((resolve) => {
+            const loader = new THREE.TextureLoader();
+            loader.load(
+                src,
+                (t) => {
+                    t.minFilter = THREE.LinearFilter;
+                    t.magFilter = THREE.LinearFilter;
+                    t.generateMipmaps = false;
+                    t.userData = { size: new THREE.Vector2(t.image ? t.image.width : 1920, t.image ? t.image.height : 1080) };
+                    resolve(t);
+                },
+                undefined,
+                (err) => {
+                    console.warn("Failed texture:", src, err);
+                    const c = document.createElement('canvas');
+                    c.width = 1920;
+                    c.height = 1080;
+                    const ctx = c.getContext('2d');
+                    ctx.fillStyle = '#11100f';
+                    ctx.fillRect(0, 0, 1920, 1080);
+                    const t = new THREE.CanvasTexture(c);
+                    t.userData = { size: new THREE.Vector2(1920, 1080) };
+                    resolve(t);
+                }
+            );
+        });
+
+        const initRenderer = async () => {
+            scene = new THREE.Scene();
+            camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+            renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: false });
+            
+            const w = sliderContainer.clientWidth || window.innerWidth;
+            const h = sliderContainer.clientHeight || window.innerHeight;
+            renderer.setSize(w, h);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+            shaderMaterial = new THREE.ShaderMaterial({
+                uniforms: {
+                    uTexture1: { value: null },
+                    uTexture2: { value: null },
+                    uProgress: { value: 0 },
+                    uResolution: { value: new THREE.Vector2(w, h) },
+                    uTexture1Size: { value: new THREE.Vector2(w, h) },
+                    uTexture2Size: { value: new THREE.Vector2(w, h) },
+                    uEffectType: { value: 0 },
+                    uGlobalIntensity: { value: 1.0 },
+                    uSpeedMultiplier: { value: 1.0 },
+                    uDistortionStrength: { value: 1.0 },
+                    uColorEnhancement: { value: 1.0 },
+                    uGlassRefractionStrength: { value: 1.0 },
+                    uGlassChromaticAberration: { value: 1.0 },
+                    uGlassBubbleClarity: { value: 1.0 },
+                    uGlassEdgeGlow: { value: 1.0 },
+                    uGlassLiquidFlow: { value: 1.0 },
+                    uFrostIntensity: { value: 1.5 },
+                    uFrostCrystalSize: { value: 1.0 },
+                    uFrostIceCoverage: { value: 1.0 },
+                    uFrostTemperature: { value: 1.0 },
+                    uFrostTexture: { value: 1.0 },
+                    uRippleFrequency: { value: 25.0 },
+                    uRippleAmplitude: { value: 0.08 },
+                    uRippleWaveSpeed: { value: 1.0 },
+                    uRippleRippleCount: { value: 1.0 },
+                    uRippleDecay: { value: 1.0 },
+                    uPlasmaIntensity: { value: 1.2 },
+                    uPlasmaSpeed: { value: 0.8 },
+                    uPlasmaEnergyIntensity: { value: 0.4 },
+                    uPlasmaContrastBoost: { value: 0.3 },
+                    uPlasmaTurbulence: { value: 1.0 },
+                    uTimeshiftDistortion: { value: 1.6 },
+                    uTimeshiftBlur: { value: 1.5 },
+                    uTimeshiftFlow: { value: 1.4 },
+                    uTimeshiftChromatic: { value: 1.5 },
+                    uTimeshiftTurbulence: { value: 1.4 }
+                },
+                vertexShader,
+                fragmentShader
+            });
+
+            scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), shaderMaterial));
+
+            for (const s of slides) {
+                const tex = await loadImageTexture(s.media);
+                slideTextures.push(tex);
+            }
+
+            if (slideTextures.length >= 2) {
+                shaderMaterial.uniforms.uTexture1.value = slideTextures[0];
+                shaderMaterial.uniforms.uTexture2.value = slideTextures[1];
+                shaderMaterial.uniforms.uTexture1Size.value = slideTextures[0].userData.size;
+                shaderMaterial.uniforms.uTexture2Size.value = slideTextures[1].userData.size;
+                texturesLoaded = true;
+                sliderEnabled = true;
+                updateShaderUniforms();
+                safeStartTimer(500);
+            }
+
+            const render = () => {
+                requestAnimationFrame(render);
+                if (renderer && scene && camera) {
+                    renderer.render(scene, camera);
+                }
+            };
+            render();
+        };
+
+        createSlidesNavigation();
+        updateCounter(0);
+
+        const tEl = document.getElementById('mainTitle');
+        const dEl = document.getElementById('mainDesc');
+        if (tEl && dEl) {
+            const initTitle = getLocalizedText(slides[0].titleKey, slides[0].defaultTitle);
+            const initDesc = getLocalizedText(slides[0].descKey, slides[0].defaultDesc);
+            tEl.innerHTML = splitText(initTitle);
+            dEl.textContent = initDesc;
+            updateStyleToggleBtn(0);
+
+            if (typeof gsap !== 'undefined') {
+                gsap.fromTo(tEl.children, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.03, ease: "power3.out", delay: 0.5 });
+                gsap.fromTo(dEl, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 0.8 });
+            }
+        }
+
+        initRenderer();
+
+        // Style select toggle button hook
+        if (btnToggleCurrentStyle) {
+            btnToggleCurrentStyle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const slide = slides[currentSlideIndex];
+                const styleName = slide.checkboxValue;
+
+                if (selectedStyles.has(styleName)) {
                     selectedStyles.delete(styleName);
                 } else {
-                    card.classList.add('is-selected');
                     selectedStyles.add(styleName);
                 }
+
+                updateStyleToggleBtn(currentSlideIndex);
 
                 const count = selectedStyles.size;
                 if (selectedStylesCount) selectedStylesCount.textContent = `(${count})`;
@@ -510,621 +1186,34 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (floatingBookStylesBtn) floatingBookStylesBtn.classList.remove('visible');
                 }
             });
-        });
-    }
-
-    /* ============================================
-       LUMINA WEBGL INTERACTIVE SELECTED WORK SLIDER
-       - Applied to #work Section ("Izabrani Radovi / Izabrane Priče")
-       - Three.js Shader Displacement & Glass Refraction Engine
-       - GSAP Kinetic Typography Animations
-       - Performance Optimized: 0% CPU/GPU overhead when off-screen
-    ============================================ */
-    const workSection = document.getElementById('work') || document.querySelector('.slider-wrapper');
-    const workWrapper = workSection;
-    const workCanvas = workSection ? workSection.querySelector('.webgl-canvas') : document.querySelector('.webgl-canvas');
-    const workTitleEl = document.getElementById('mainTitle');
-    const workDescEl = document.getElementById('mainDesc');
-    const workTagEl = document.getElementById('slideTag');
-    const workNumEl = document.getElementById('slideNumber');
-    const workTotalEl = document.getElementById('slideTotal');
-    const workNav = document.getElementById('slidesNav');
-
-    const workSlides = [
-        {
-            id: 'personal-brands',
-            titleKey: 'work.personal_name',
-            descKey: 'work.personal_milan',
-            tag: '01 · LIČNI BRENDOVI · MILANO',
-            media: 'images/project-personal.png',
-            effectType: 0
-        },
-        {
-            id: 'fashion',
-            titleKey: 'work.fashion_editorial',
-            descKey: 'work.fashion_milan',
-            tag: '02 · MODA · MILANO',
-            media: 'images/project-fashion.png',
-            effectType: 1
-        },
-        {
-            id: 'beauty',
-            titleKey: 'work.beauty_campaign',
-            descKey: 'work.beauty_ny',
-            tag: '03 · LEPOTA · NJUJORK',
-            media: 'images/project-beauty.png',
-            effectType: 2
-        },
-        {
-            id: 'jewelry',
-            titleKey: 'work.jewelry_name',
-            descKey: 'work.jewelry_paris',
-            tag: '04 · NAKIT · PARIZ',
-            media: 'images/project-jewelry.png',
-            effectType: 0
-        },
-        {
-            id: 'hospitality-como',
-            titleKey: 'work.hospitality_como_name',
-            descKey: 'work.hospitality_como',
-            tag: '05 · UGOSTITELJSTVO · JEZERO KOMO',
-            media: 'images/project-hospitality1.png',
-            effectType: 1
-        },
-        {
-            id: 'luxury-mobility',
-            titleKey: 'work.mobility_name',
-            descKey: 'work.mobility_monaco',
-            tag: '06 · LUKSUZNA MOBILNOST · MONAKO',
-            media: 'images/project-mobility.png',
-            effectType: 2
-        },
-        {
-            id: 'interior-design',
-            titleKey: 'work.interior_name',
-            descKey: 'work.interior_london',
-            tag: '07 · DIZAJN ENTERIJERA · LONDON',
-            media: 'images/project-interior.png',
-            effectType: 0
-        },
-        {
-            id: 'architecture',
-            titleKey: 'work.architecture_name',
-            descKey: 'work.architecture_dubai',
-            tag: '08 · ARHITEKTURA · DUBAI',
-            media: 'images/project-architecture.png',
-            effectType: 1
-        },
-        {
-            id: 'sport-dining',
-            titleKey: 'work.restaurant_name',
-            descKey: 'work.restaurant_rome',
-            tag: '09 · SPORT & DINING · RIM',
-            media: 'images/project-restaurant.png',
-            effectType: 2
-        },
-        {
-            id: 'technology',
-            titleKey: 'work.tech_name',
-            descKey: 'work.tech_sf',
-            tag: '10 · TEHNOLOGIJA · SAN FRANCISKO',
-            media: 'images/project-technology.png',
-            effectType: 0
-        }
-    ];
-
-    if (workWrapper && workCanvas && typeof THREE !== 'undefined') {
-        const SLIDE_SPEED = 5000;
-        const PROGRESS_INTERVAL = 40;
-        const TRANSITION_DURATION = 1.4;
-
-        let currentSlideIdx = 0;
-        let isTransitioning = false;
-        let isWorkVisible = false;
-        let isHovered = false;
-        let texturesLoaded = false;
-        let slideTextures = [];
-        let autoSlideTimer = null;
-        let progressAnimation = null;
-        let currentProgress = 0;
-        let animFrameId = null;
-
-        let scene, camera, renderer, shaderMaterial;
-
-        // GLSL Shaders
-        const vertexShader = `
-            varying vec2 vUv;
-            void main() {
-                vUv = uv;
-                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-            }
-        `;
-
-        const fragmentShader = `
-            uniform sampler2D uTexture1;
-            uniform sampler2D uTexture2;
-            uniform float uProgress;
-            uniform vec2 uResolution;
-            uniform vec2 uTexture1Size;
-            uniform vec2 uTexture2Size;
-            uniform int uEffectType;
-            uniform float uDistortionStrength;
-            varying vec2 vUv;
-
-            vec2 getCoverUV(vec2 uv, vec2 textureSize) {
-                vec2 s = uResolution / textureSize;
-                float scale = max(s.x, s.y);
-                vec2 scaledSize = textureSize * scale;
-                vec2 offset = (uResolution - scaledSize) * 0.5;
-                return (uv * uResolution - offset) / scaledSize;
-            }
-
-            vec4 glassEffect(vec2 uv, float progress) {
-                vec2 uv1 = getCoverUV(uv, uTexture1Size);
-                vec2 uv2 = getCoverUV(uv, uTexture2Size);
-                float p = smoothstep(0.0, 1.0, progress);
-                vec2 offset = vec2(sin(p * 3.14159) * 0.05 * uDistortionStrength);
-                return mix(texture2D(uTexture1, uv1 + offset), texture2D(uTexture2, uv2 - offset), p);
-            }
-
-            vec4 timeshiftEffect(vec2 uv, float progress) {
-                vec2 uv1 = getCoverUV(uv, uTexture1Size);
-                vec2 uv2 = getCoverUV(uv, uTexture2Size);
-                float p = smoothstep(0.0, 1.0, progress);
-                vec2 dir = normalize(uv - 0.5);
-                vec2 offset = dir * sin(p * 3.14159) * 0.035 * uDistortionStrength;
-                
-                vec4 col1 = vec4(
-                    texture2D(uTexture1, uv1 + offset * 1.2).r,
-                    texture2D(uTexture1, uv1 + offset * 0.4).g,
-                    texture2D(uTexture1, uv1 - offset * 0.8).b,
-                    1.0
-                );
-                vec4 col2 = vec4(
-                    texture2D(uTexture2, uv2 - offset * 1.2).r,
-                    texture2D(uTexture2, uv2 - offset * 0.4).g,
-                    texture2D(uTexture2, uv2 + offset * 0.8).b,
-                    1.0
-                );
-                return mix(col1, col2, p);
-            }
-
-            vec4 rippleEffect(vec2 uv, float progress) {
-                vec2 uv1 = getCoverUV(uv, uTexture1Size);
-                vec2 uv2 = getCoverUV(uv, uTexture2Size);
-                vec2 p = uv - 0.5;
-                float d = length(p);
-                float wave = sin(d * 30.0 - progress * 15.0) * 0.02 * (1.0 - progress) * uDistortionStrength;
-                vec2 dist1 = uv1 + p * wave;
-                vec2 dist2 = uv2 - p * wave;
-                return mix(texture2D(uTexture1, dist1), texture2D(uTexture2, dist2), smoothstep(0.0, 1.0, progress));
-            }
-
-            void main() {
-                if (uEffectType == 0) {
-                    gl_FragColor = glassEffect(vUv, uProgress);
-                } else if (uEffectType == 1) {
-                    gl_FragColor = timeshiftEffect(vUv, uProgress);
-                } else {
-                    gl_FragColor = rippleEffect(vUv, uProgress);
-                }
-            }
-        `;
-
-        // Helper for splitting characters for kinetic text
-        const splitText = (text) => {
-            return text.split('').map(char => {
-                if (char === ' ') return '<span style="display:inline-block;">&nbsp;</span>';
-                return `<span style="display:inline-block;opacity:0;">${char}</span>`;
-            }).join('');
-        };
-
-        const getLocalizedText = (key, fallback) => {
-            if (window.BM_i18n && typeof window.BM_i18n.t === 'function') {
-                return window.BM_i18n.t(key, window.BM_i18n.getCurrentLang()) || fallback;
-            }
-            return fallback;
-        };
-
-        // Update Slide Content with Kinetic Typography Animations
-        const updateContent = (idx) => {
-            if (!workTitleEl || !workDescEl) return;
-            const slide = workSlides[idx];
-            if (!slide) return;
-
-            const titleText = getLocalizedText(slide.titleKey, slide.id);
-            const descText = getLocalizedText(slide.descKey, '');
-
-            if (workTagEl) workTagEl.textContent = slide.tag;
-            if (workNumEl) workNumEl.textContent = String(idx + 1).padStart(2, '0');
-            if (workTotalEl) workTotalEl.textContent = String(workSlides.length).padStart(2, '0');
-
-            if (typeof gsap !== 'undefined') {
-                gsap.to(workTitleEl.children, { y: -16, opacity: 0, duration: 0.35, stagger: 0.015, ease: 'power2.in' });
-                gsap.to(workDescEl, { y: -8, opacity: 0, duration: 0.3, ease: 'power2.in' });
-
-                setTimeout(() => {
-                    workTitleEl.innerHTML = splitText(titleText);
-                    workDescEl.textContent = descText;
-
-                    const children = workTitleEl.children;
-                    const animType = idx % 6;
-
-                    switch (animType) {
-                        case 0: // Stagger Up
-                            gsap.set(children, { y: 22, opacity: 0 });
-                            gsap.to(children, { y: 0, opacity: 1, duration: 0.7, stagger: 0.025, ease: 'power3.out' });
-                            gsap.fromTo(workDescEl, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, delay: 0.15, ease: 'power3.out' });
-                            break;
-                        case 1: // Stagger Down with Back ease
-                            gsap.set(children, { y: -20, opacity: 0 });
-                            gsap.to(children, { y: 0, opacity: 1, duration: 0.7, stagger: 0.025, ease: 'back.out(1.5)' });
-                            gsap.fromTo(workDescEl, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, delay: 0.15, ease: 'power3.out' });
-                            break;
-                        case 2: // Blur Reveal
-                            gsap.set(children, { filter: 'blur(8px)', scale: 1.2, opacity: 0, y: 0 });
-                            gsap.to(children, { filter: 'blur(0px)', scale: 1, opacity: 1, duration: 0.8, stagger: { amount: 0.4, from: 'random' }, ease: 'power2.out' });
-                            gsap.fromTo(workDescEl, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: 'power2.out' });
-                            break;
-                        case 3: // Scale In
-                            gsap.set(children, { scale: 0.3, opacity: 0, y: 0 });
-                            gsap.to(children, { scale: 1, opacity: 1, duration: 0.6, stagger: 0.03, ease: 'back.out(1.6)' });
-                            gsap.fromTo(workDescEl, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, delay: 0.15, ease: 'power3.out' });
-                            break;
-                        case 4: // 3D Flip (Rotate X)
-                            gsap.set(children, { rotationX: 80, y: 0, opacity: 0, transformOrigin: '50% 50%' });
-                            gsap.to(children, { rotationX: 0, opacity: 1, duration: 0.7, stagger: 0.03, ease: 'power2.out' });
-                            gsap.fromTo(workDescEl, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, delay: 0.15, ease: 'power2.out' });
-                            break;
-                        case 5: // Side Slide In
-                            gsap.set(children, { x: 24, opacity: 0, y: 0 });
-                            gsap.to(children, { x: 0, opacity: 1, duration: 0.7, stagger: 0.025, ease: 'power3.out' });
-                            gsap.fromTo(workDescEl, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, delay: 0.15, ease: 'power3.out' });
-                            break;
-                    }
-                }, 320);
-            } else {
-                workTitleEl.textContent = titleText;
-                workDescEl.textContent = descText;
-            }
-        };
-
-        const renderFrame = () => {
-            if (renderer && scene && camera) {
-                renderer.render(scene, camera);
-            }
-        };
-
-        const renderLoop = () => {
-            if (!isWorkVisible) {
-                animFrameId = null;
-                return;
-            }
-            renderFrame();
-            animFrameId = requestAnimationFrame(renderLoop);
-        };
-
-        const startRenderLoop = () => {
-            if (!animFrameId && isWorkVisible) {
-                animFrameId = requestAnimationFrame(renderLoop);
-            }
-        };
-
-        const stopRenderLoop = () => {
-            if (animFrameId) {
-                cancelAnimationFrame(animFrameId);
-                animFrameId = null;
-            }
-        };
-
-        const navigateToSlide = (targetIdx) => {
-            if (isTransitioning || targetIdx === currentSlideIdx || !texturesLoaded) return;
-            stopAutoSlideTimer();
-            resetProgressLine(currentSlideIdx);
-
-            const curTex = slideTextures[currentSlideIdx];
-            const targetTex = slideTextures[targetIdx];
-            if (!curTex || !targetTex) return;
-
-            isTransitioning = true;
-            shaderMaterial.uniforms.uTexture1.value = curTex;
-            shaderMaterial.uniforms.uTexture2.value = targetTex;
-            shaderMaterial.uniforms.uTexture1Size.value = curTex.userData.size;
-            shaderMaterial.uniforms.uTexture2Size.value = targetTex.userData.size;
-            shaderMaterial.uniforms.uEffectType.value = workSlides[targetIdx].effectType;
-
-            currentSlideIdx = targetIdx;
-            updateContent(currentSlideIdx);
-            updateNavigationState(currentSlideIdx);
-
-            startRenderLoop();
-
-            if (typeof gsap !== 'undefined') {
-                gsap.fromTo(shaderMaterial.uniforms.uProgress,
-                    { value: 0 },
-                    {
-                        value: 1,
-                        duration: TRANSITION_DURATION,
-                        ease: 'power2.inOut',
-                        onComplete: () => {
-                            shaderMaterial.uniforms.uProgress.value = 0;
-                            shaderMaterial.uniforms.uTexture1.value = targetTex;
-                            shaderMaterial.uniforms.uTexture1Size.value = targetTex.userData.size;
-                            isTransitioning = false;
-                            renderFrame();
-                            safeStartTimer(200);
-                        }
-                    }
-                );
-            } else {
-                shaderMaterial.uniforms.uTexture1.value = targetTex;
-                shaderMaterial.uniforms.uTexture1Size.value = targetTex.userData.size;
-                isTransitioning = false;
-                renderFrame();
-                safeStartTimer(200);
-            }
-        };
-
-        const createSlidesNavigation = () => {
-            if (!workNav) return;
-            workNav.innerHTML = '';
-            workSlides.forEach((slide, i) => {
-                const item = document.createElement('div');
-                item.className = `slide-nav-item${i === 0 ? ' active' : ''}`;
-                item.dataset.slideIndex = String(i);
-                const title = getLocalizedText(slide.titleKey, slide.id);
-                item.innerHTML = `
-                    <div class="slide-progress-line"><div class="slide-progress-fill"></div></div>
-                    <div class="slide-nav-title" data-i18n="${slide.titleKey}">${title}</div>
-                `;
-                item.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    if (!isTransitioning && i !== currentSlideIdx) {
-                        navigateToSlide(i);
-                    }
-                });
-                workNav.appendChild(item);
-            });
-        };
-
-        const updateNavigationState = (idx) => {
-            document.querySelectorAll('.slide-nav-item').forEach((el, i) => {
-                el.classList.toggle('active', i === idx);
-            });
-        };
-
-        const updateSlideProgress = (idx, prog) => {
-            const el = document.querySelectorAll('.slide-nav-item')[idx]?.querySelector('.slide-progress-fill');
-            if (el) {
-                el.style.width = `${prog}%`;
-                el.style.opacity = '1';
-            }
-        };
-
-        const resetProgressLine = (idx) => {
-            const el = document.querySelectorAll('.slide-nav-item')[idx]?.querySelector('.slide-progress-fill');
-            if (el) {
-                el.style.width = '0%';
-            }
-        };
-
-        const startAutoSlideTimer = () => {
-            if (!texturesLoaded || isHovered || !isWorkVisible) return;
-            stopAutoSlideTimer();
-            currentProgress = 0;
-            const increment = (100 / SLIDE_SPEED) * PROGRESS_INTERVAL;
-
-            progressAnimation = setInterval(() => {
-                if (isHovered || !isWorkVisible) return;
-                currentProgress += increment;
-                updateSlideProgress(currentSlideIdx, currentProgress);
-                if (currentProgress >= 100) {
-                    clearInterval(progressAnimation);
-                    progressAnimation = null;
-                    resetProgressLine(currentSlideIdx);
-                    if (!isTransitioning) {
-                        const nextIdx = (currentSlideIdx + 1) % workSlides.length;
-                        navigateToSlide(nextIdx);
-                    }
-                }
-            }, PROGRESS_INTERVAL);
-        };
-
-        const stopAutoSlideTimer = () => {
-            if (progressAnimation) {
-                clearInterval(progressAnimation);
-                progressAnimation = null;
-            }
-            if (autoSlideTimer) {
-                clearTimeout(autoSlideTimer);
-                autoSlideTimer = null;
-            }
-        };
-
-        const safeStartTimer = (delay = 0) => {
-            stopAutoSlideTimer();
-            if (isWorkVisible && texturesLoaded && !isHovered) {
-                if (delay > 0) {
-                    autoSlideTimer = setTimeout(startAutoSlideTimer, delay);
-                } else {
-                    startAutoSlideTimer();
-                }
-            }
-        };
-
-        // Texture Loader
-        const loadTexture = (src) => new Promise((resolve) => {
-            const loader = new THREE.TextureLoader();
-            loader.load(
-                src,
-                (tex) => {
-                    tex.minFilter = THREE.LinearFilter;
-                    tex.magFilter = THREE.LinearFilter;
-                    tex.generateMipmaps = false;
-                    tex.userData = { size: new THREE.Vector2(tex.image.width || 1920, tex.image.height || 1080) };
-                    resolve(tex);
-                },
-                undefined,
-                () => {
-                    const canvas = document.createElement('canvas');
-                    canvas.width = 1920;
-                    canvas.height = 1080;
-                    const ctx = canvas.getContext('2d');
-                    ctx.fillStyle = '#141312';
-                    ctx.fillRect(0, 0, 1920, 1080);
-                    const tex = new THREE.CanvasTexture(canvas);
-                    tex.userData = { size: new THREE.Vector2(1920, 1080) };
-                    resolve(tex);
-                }
-            );
-        });
-
-        // Initialize WebGL Scene
-        const initWebGL = async () => {
-            const rect = workWrapper.getBoundingClientRect();
-            const width = rect.width || window.innerWidth;
-            const height = rect.height || window.innerHeight;
-
-            scene = new THREE.Scene();
-            camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-            renderer = new THREE.WebGLRenderer({
-                canvas: workCanvas,
-                antialias: false,
-                alpha: false,
-                powerPreference: 'high-performance'
-            });
-
-            renderer.setSize(width, height);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
-
-            shaderMaterial = new THREE.ShaderMaterial({
-                uniforms: {
-                    uTexture1: { value: null },
-                    uTexture2: { value: null },
-                    uProgress: { value: 0 },
-                    uResolution: { value: new THREE.Vector2(width, height) },
-                    uTexture1Size: { value: new THREE.Vector2(1920, 1080) },
-                    uTexture2Size: { value: new THREE.Vector2(1920, 1080) },
-                    uEffectType: { value: 0 },
-                    uDistortionStrength: { value: 1.0 }
-                },
-                vertexShader,
-                fragmentShader,
-                depthTest: false,
-                depthWrite: false
-            });
-
-            scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), shaderMaterial));
-
-            // Preload all textures
-            for (const s of workSlides) {
-                const tex = await loadTexture(s.media);
-                slideTextures.push(tex);
-            }
-
-            if (slideTextures.length >= 2) {
-                shaderMaterial.uniforms.uTexture1.value = slideTextures[0];
-                shaderMaterial.uniforms.uTexture2.value = slideTextures[1];
-                shaderMaterial.uniforms.uTexture1Size.value = slideTextures[0].userData.size;
-                shaderMaterial.uniforms.uTexture2Size.value = slideTextures[1].userData.size;
-                texturesLoaded = true;
-                renderFrame();
-                if (isWorkVisible) safeStartTimer(400);
-            }
-        };
-
-        // Resize handler
-        let resizeTimeout;
-        const handleResize = () => {
-            if (!renderer || !workWrapper) return;
-            const rect = workWrapper.getBoundingClientRect();
-            const width = rect.width || window.innerWidth;
-            const height = rect.height || window.innerHeight;
-
-            renderer.setSize(width, height);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
-            if (shaderMaterial) {
-                shaderMaterial.uniforms.uResolution.value.set(width, height);
-            }
-            renderFrame();
-        };
-
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(handleResize, 150);
-        }, { passive: true });
-
-        // Pause auto-slide on hover for optimal user control
-        workWrapper.addEventListener('mouseenter', () => {
-            isHovered = true;
-            stopAutoSlideTimer();
-        });
-
-        workWrapper.addEventListener('mouseleave', () => {
-            isHovered = false;
-            safeStartTimer(200);
-        });
-
-        // Touch Swipe Gestures
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        workWrapper.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        }, { passive: true });
-
-        workWrapper.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            const diff = touchStartX - touchEndX;
-            if (Math.abs(diff) > 45 && !isTransitioning) {
-                if (diff > 0) {
-                    navigateToSlide((currentSlideIdx + 1) % workSlides.length);
-                } else {
-                    navigateToSlide((currentSlideIdx - 1 + workSlides.length) % workSlides.length);
-                }
-            }
-        }, { passive: true });
-
-        // Visibility Intersection Observer — ZERO CPU/GPU wasted when scrolled away
-        const workObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                isWorkVisible = entry.isIntersecting;
-                if (isWorkVisible) {
-                    startRenderLoop();
-                    safeStartTimer(300);
-                } else {
-                    stopRenderLoop();
-                    stopAutoSlideTimer();
-                }
-            });
-        }, { threshold: 0.1 });
-
-        if (workSection) {
-            workObserver.observe(workSection);
         }
 
-        document.addEventListener('visibilitychange', () => {
+        // Window resize and visibility hooks
+        window.addEventListener("resize", () => {
+            if (renderer && shaderMaterial && sliderContainer) {
+                const nw = sliderContainer.clientWidth || window.innerWidth;
+                const nh = sliderContainer.clientHeight || window.innerHeight;
+                renderer.setSize(nw, nh);
+                shaderMaterial.uniforms.uResolution.value.set(nw, nh);
+            }
+        });
+
+        document.addEventListener("visibilitychange", () => {
             if (document.hidden) {
-                stopRenderLoop();
                 stopAutoSlideTimer();
-            } else if (isWorkVisible) {
-                startRenderLoop();
+            } else if (!isTransitioning) {
                 safeStartTimer(200);
             }
         });
 
-        // Language change event hook
         window.addEventListener('languageChanged', () => {
-            updateContent(currentSlideIdx);
+            updateContent(currentSlideIndex);
             createSlidesNavigation();
-            updateNavigationState(currentSlideIdx);
+            updateNavigationState(currentSlideIndex);
         });
+    };
 
-        // Init UI and WebGL
-        createSlidesNavigation();
-        updateContent(0);
-        initWebGL();
-    }
+    initLuminaSlider();
 
     // 4. Book Selected Styles Button
     if (bookStylesBtn) {
