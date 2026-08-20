@@ -586,9 +586,12 @@
             </section>
 
             <!-- ============================================
-                 4. CREATIVE STYLES — Lumina WebGL Interactive Section
+                 4. CREATIVE STYLES — Interactive Selection Grid & WebGL Ambient Flow
             ============================================ -->
             <section id="styles" class="creative-styles">
+                <!-- Lumina WebGL Ambient Shader Animation across the entire section -->
+                <canvas class="creative-styles-canvas" id="stylesBackgroundCanvas"></canvas>
+
                 <div class="styles-header container">
                     <div class="styles-header-left">
                         <div class="section-label" data-i18n="styles.label">Izbor Kreativnog Stila</div>
@@ -606,40 +609,77 @@
                     </div>
                 </div>
 
-                <!-- Lumina WebGL Interactive Slider & Gallery Canvas Experience -->
-                <div class="styles-lumina-container container">
-                    <div class="slider-wrapper" id="stylesSliderWrapper">
-                        <canvas class="webgl-canvas"></canvas>
-                        <span class="slide-number" id="slideNumber">01</span>
-                        <span class="slide-total" id="slideTotal">09</span>
-                        
-                        <div class="slide-content">
-                            <div class="slide-tag" id="slideTag">01 · LUKSUZNI MINIMALIZAM</div>
-                            <h3 class="slide-title" id="mainTitle"></h3>
-                            <p class="slide-description" id="mainDesc"></p>
-                            <div class="slide-actions">
-                                <button type="button" class="btn-toggle-style" id="btnToggleCurrentStyle">
-                                    <span class="btn-style-icon">+</span>
-                                    <span class="btn-style-label" data-i18n="styles.select_this_style">Izaberi ovaj stil</span>
-                                </button>
-                                <a href="#contact" class="btn-primary">
-                                    <span data-i18n="hero.start_partnership">Započni Partnerstvo</span> <span class="btn-arrow"></span>
-                                </a>
-                            </div>
+                <div class="styles-grid container">
+                    <div class="style-card fade-up" data-style="Luxury Minimal">
+                        <div class="style-card-visual style-luxury-minimal"></div>
+                        <div class="style-card-info">
+                            <h4 class="style-card-name" data-i18n="styles.luxury_minimal">Luksuzni Minimalizam</h4>
+                            <p class="style-card-desc" data-i18n="styles.luxury_minimal_desc">Čiste kompozicije inspirisane modnim editorijalima.</p>
                         </div>
+                    </div>
 
-                        <!-- Navigation Controls (Prev / Next Arrows) -->
-                        <div class="styles-slider-arrows">
-                            <button type="button" class="styles-arrow-btn prev" id="stylesPrevBtn" aria-label="Prethodni stil">
-                                <svg viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </button>
-                            <button type="button" class="styles-arrow-btn next" id="stylesNextBtn" aria-label="Sledeći stil">
-                                <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </button>
+                    <div class="style-card fade-up" data-style="Cinematic Essence">
+                        <div class="style-card-visual style-cinematic-essence"></div>
+                        <div class="style-card-info">
+                            <h4 class="style-card-name" data-i18n="styles.cinematic">Filmska Esencija</h4>
+                            <p class="style-card-desc" data-i18n="styles.cinematic_desc">Storytelling inspirisan filmom sa dramatičnim osvetljenjem.</p>
                         </div>
+                    </div>
 
-                        <!-- Bottom Navigation with Progress Indicators & Titles -->
-                        <nav class="slides-navigation" id="slidesNav"></nav>
+                    <div class="style-card fade-up" data-style="Urban Street">
+                        <div class="style-card-visual style-urban-street"></div>
+                        <div class="style-card-info">
+                            <h4 class="style-card-name" data-i18n="styles.urban">Urbani Ulični</h4>
+                            <p class="style-card-desc" data-i18n="styles.urban_desc">Sirova energija i gradska kultura uhvaćena u pokretu.</p>
+                        </div>
+                    </div>
+
+                    <div class="style-card fade-up" data-style="Classic Elegance">
+                        <div class="style-card-visual style-classic-elegance"></div>
+                        <div class="style-card-info">
+                            <h4 class="style-card-name" data-i18n="styles.classic">Klasična Elegancija</h4>
+                            <p class="style-card-desc" data-i18n="styles.classic_desc">Vanvremenska sofisticiranost sa rafiniranm kompozicijama.</p>
+                        </div>
+                    </div>
+
+                    <div class="style-card fade-up" data-style="Natural Harmony">
+                        <div class="style-card-visual style-natural-harmony"></div>
+                        <div class="style-card-info">
+                            <h4 class="style-card-name" data-i18n="styles.natural">Prirodna Harmonija</h4>
+                            <p class="style-card-desc" data-i18n="styles.natural_desc">Organski tonovi i prirodno svetlo u svakom kadru.</p>
+                        </div>
+                    </div>
+
+                    <div class="style-card fade-up" data-style="Artistic Direction">
+                        <div class="style-card-visual style-artistic-direction"></div>
+                        <div class="style-card-info">
+                            <h4 class="style-card-name" data-i18n="styles.artistic">Umetnička Direkcija</h4>
+                            <p class="style-card-desc" data-i18n="styles.artistic_desc">Smela kreativna vizija koja izaziva konvencije.</p>
+                        </div>
+                    </div>
+
+                    <div class="style-card fade-up" data-style="Hot & Bold">
+                        <div class="style-card-visual style-hot-bold"></div>
+                        <div class="style-card-info">
+                            <h4 class="style-card-name" data-i18n="styles.hot_bold">Vatreno i Smelo</h4>
+                            <p class="style-card-desc" data-i18n="styles.hot_bold_desc">Živahne boje i samouvereni vizuelni iskazi.</p>
+                        </div>
+                    </div>
+
+                    <div class="style-card fade-up" data-style="Retro Revival">
+                        <div class="style-card-visual style-retro-revival"></div>
+                        <div class="style-card-info">
+                            <h4 class="style-card-name" data-i18n="styles.retro">Retro Povratak</h4>
+                            <p class="style-card-desc" data-i18n="styles.retro_desc">Nostalgična estetika osmišljena za moderne brendove.</p>
+                        </div>
+                    </div>
+
+                    <div class="style-card fade-up" data-style="Futuristic Glow">
+                        <div class="style-card-visual style-futuristic-glow"></div>
+                        <div class="style-card-info">
+                            <h4 class="style-card-name" data-i18n="styles.futuristic">Futuristički Sjaj</h4>
+                            <p class="style-card-desc" data-i18n="styles.futuristic_desc">Neonski vizuali i estetika budućnosti.</p>
+                        </div>
                     </div>
                 </div>
             </section>
