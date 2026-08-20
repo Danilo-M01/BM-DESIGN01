@@ -2,9 +2,6 @@
   "rewrites": [
     { "source": "/Home", "destination": "/index.html" }
   ],
-  "redirects": [
-    { "source": "/", "destination": "/Home", "statusCode": 308 }
-  ],
   "headers": [
     {
       "source": "/(.*)",
