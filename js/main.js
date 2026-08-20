@@ -701,57 +701,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return mix(oldImg, img, param);
             }
 
-            vec4 frostEffect(vec2 uv, float progress) {
-                vec2 uv1 = getCoverUV(uv, uTexture1Size);
-                vec2 uv2 = getCoverUV(uv, uTexture2Size);
-                float p = smoothstep(0.0, 1.0, progress);
-                float n = fract(sin(dot(uv, vec2(12.9898, 78.233))) * 43758.5453);
-                vec2 blur1 = uv1 + (vec2(n) - 0.5) * 0.02 * (1.0 - p);
-                vec2 blur2 = uv2 + (vec2(n) - 0.5) * 0.02 * p;
-                return mix(texture2D(uTexture1, blur1), texture2D(uTexture2, blur2), p);
-            }
-
-            vec4 rippleEffect(vec2 uv, float progress) {
-                vec2 uv1 = getCoverUV(uv, uTexture1Size);
-                vec2 uv2 = getCoverUV(uv, uTexture2Size);
-                float p = smoothstep(0.0, 1.0, progress);
-                vec2 c = vec2(0.5);
-                float d = distance(uv, c);
-                float wave = sin(d * uRippleFrequency - progress * 12.0 * uRippleWaveSpeed) * (1.0 - progress) * uRippleAmplitude;
-                vec2 warped1 = uv1 + wave * normalize(uv - c + 0.001);
-                vec2 warped2 = uv2 - wave * normalize(uv - c + 0.001);
-                return mix(texture2D(uTexture1, warped1), texture2D(uTexture2, warped2), p);
-            }
-
-            vec4 plasmaEffect(vec2 uv, float progress) {
-                vec2 uv1 = getCoverUV(uv, uTexture1Size);
-                vec2 uv2 = getCoverUV(uv, uTexture2Size);
-                float p = smoothstep(0.0, 1.0, progress);
-                vec2 offset = vec2(sin(uv.y * 10.0 + progress * 6.0), cos(uv.x * 10.0 + progress * 6.0)) * 0.03 * sin(p * 3.14159);
-                return mix(texture2D(uTexture1, uv1 + offset), texture2D(uTexture2, uv2 - offset), p);
-            }
-
-            vec4 timeshiftEffect(vec2 uv, float progress) {
-                vec2 uv1 = getCoverUV(uv, uTexture1Size);
-                vec2 uv2 = getCoverUV(uv, uTexture2Size);
-                float p = smoothstep(0.0, 1.0, progress);
-                vec2 dir = normalize(uv - 0.5);
-                vec2 offset = dir * sin(p * 3.14159) * 0.03 * uTimeshiftDistortion;
-                vec4 col1 = vec4(
-                    texture2D(uTexture1, uv1 + offset * 1.2).r,
-                    texture2D(uTexture1, uv1 + offset * 0.5).g,
-                    texture2D(uTexture1, uv1).b,
-                    1.0
-                );
-                vec4 col2 = vec4(
-                    texture2D(uTexture2, uv2 - offset * 1.2).r,
-                    texture2D(uTexture2, uv2 - offset * 0.5).g,
-                    texture2D(uTexture2, uv2).b,
-                    1.0
-                );
-                return mix(col1, col2, p);
-            }
-
             void main() {
                 if (uProgress <= 0.001) {
                     gl_FragColor = texture2D(uTexture1, getCoverUV(vUv, uTexture1Size));
@@ -762,18 +711,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                if (uEffectType == 0) gl_FragColor = glassEffect(vUv, uProgress);
-                else if (uEffectType == 1) gl_FragColor = frostEffect(vUv, uProgress);
-                else if (uEffectType == 2) gl_FragColor = rippleEffect(vUv, uProgress);
-                else if (uEffectType == 3) gl_FragColor = plasmaEffect(vUv, uProgress);
-                else gl_FragColor = timeshiftEffect(vUv, uProgress);
+                gl_FragColor = glassEffect(vUv, uProgress);
             }
         `;
-
-        const getEffectIndex = (effectName) => {
-            const map = { glass: 0, frost: 1, ripple: 2, plasma: 3, timeshift: 4 };
-            return map[effectName] !== undefined ? map[effectName] : 0;
-        };
 
         const updateShaderUniforms = () => {
             if (!shaderMaterial) return;
@@ -783,8 +723,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const uName = 'u' + key.charAt(0).toUpperCase() + key.slice(1);
                 if (u[uName]) u[uName].value = s[key];
             }
-            const currentEffectName = slides[currentSlideIndex]?.effect || 'glass';
-            u.uEffectType.value = getEffectIndex(currentEffectName);
+            u.uEffectType.value = 0; // Constant glass effect as requested
         };
 
         const splitText = (text) => {
@@ -841,47 +780,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     titleEl.innerHTML = splitText(titleText);
                     descEl.textContent = descText;
 
-
-                    gsap.set(titleEl.children, { opacity: 0 });
-                    gsap.set(descEl, { y: 20, opacity: 0 });
-
-                    const children = titleEl.children;
-                    switch (idx % 6) {
-                        case 0: // Stagger Up
-                            gsap.set(children, { y: 20 });
-                            gsap.to(children, { y: 0, opacity: 1, duration: 0.8, stagger: 0.03, ease: "power3.out" });
-                            gsap.to(descEl, { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: "power3.out" });
-                            break;
-                        case 1: // Stagger Down
-                            gsap.set(children, { y: -20 });
-                            gsap.to(children, { y: 0, opacity: 1, duration: 0.8, stagger: 0.03, ease: "back.out(1.7)" });
-                            gsap.to(descEl, { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: "power3.out" });
-                            break;
-                        case 2: // Blur Reveal
-                            gsap.set(children, { filter: "blur(10px)", scale: 1.4, y: 0 });
-                            gsap.to(children, { filter: "blur(0px)", scale: 1, opacity: 1, duration: 0.9, stagger: { amount: 0.4, from: "random" }, ease: "power2.out" });
-                            gsap.to(descEl, { y: 0, opacity: 1, duration: 0.8, delay: 0.3, ease: "power2.out" });
-                            break;
-                        case 3: // Scale In
-                            gsap.set(children, { scale: 0, y: 0 });
-                            gsap.to(children, { scale: 1, opacity: 1, duration: 0.6, stagger: 0.04, ease: "back.out(1.5)" });
-                            gsap.to(descEl, { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: "power3.out" });
-                            break;
-                        case 4: // Rotate X (Flip)
-                            gsap.set(children, { rotationX: 90, y: 0, transformOrigin: "50% 50%" });
-                            gsap.to(children, { rotationX: 0, opacity: 1, duration: 0.8, stagger: 0.04, ease: "power2.out" });
-                            gsap.to(descEl, { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: "power2.out" });
-                            break;
-                        case 5: // Side Reveal
-                            gsap.set(children, { x: 30, y: 0 });
-                            gsap.to(children, { x: 0, opacity: 1, duration: 0.8, stagger: 0.03, ease: "power3.out" });
-                            gsap.to(descEl, { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: "power3.out" });
-                            break;
-                        default:
-                            gsap.set(children, { y: 20 });
-                            gsap.to(children, { y: 0, opacity: 1, duration: 0.8, stagger: 0.03, ease: "power3.out" });
-                            gsap.to(descEl, { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: "power3.out" });
-                    }
+                    gsap.fromTo(titleEl.children, 
+                        { y: 20, opacity: 0 }, 
+                        { y: 0, opacity: 1, duration: 0.8, stagger: 0.03, ease: "power3.out" }
+                    );
+                    gsap.fromTo(descEl, 
+                        { y: 20, opacity: 0 }, 
+                        { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: "power3.out" }
+                    );
                 }, 350);
             } else {
                 titleEl.textContent = titleText;
