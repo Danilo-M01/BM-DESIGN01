@@ -1234,7 +1234,7 @@ section {
     font-family: var(--font-display);
     font-size: clamp(20px, 1.8vw, 24px);
     font-weight: 700;
-    color: var(--accent);
+    color: #E7E7E7;
     margin: 4px 0 12px;
     letter-spacing: -0.01em;
 }
@@ -1243,7 +1243,7 @@ section {
     font-size: 14px;
     font-weight: 400;
     color: #E7E7E7;
-    opacity: 0.9;
+    opacity: 0.95;
     letter-spacing: 0.02em;
 }
 
@@ -1260,7 +1260,7 @@ section {
     font-weight: 300;
     line-height: 1.7;
     color: #E7E7E7;
-    opacity: 0.75;
+    opacity: 0.85;
     margin-bottom: 28px;
     font-style: italic;
 }
@@ -1274,7 +1274,7 @@ section {
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.2em;
-    color: var(--accent);
+    color: #E7E7E7;
     text-transform: uppercase;
     display: block;
     margin-bottom: 16px;
@@ -1303,7 +1303,7 @@ section {
     top: 9px;
     width: 4px;
     height: 4px;
-    background: var(--accent);
+    background: #E7E7E7;
     border-radius: 50%;
 }
 
@@ -1314,17 +1314,18 @@ section {
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0.2em;
-    color: var(--accent);
+    color: #E7E7E7;
     text-decoration: none;
     text-transform: uppercase;
     padding-top: 24px;
-    border-top: 1px solid var(--border);
-    transition: color 0.3s ease;
+    border-top: 1px solid rgba(231, 231, 231, 0.2);
+    transition: color 0.3s ease, border-color 0.3s ease;
     margin-top: auto;
 }
 
 .collection-card-cta:hover {
-    color: var(--text-primary);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.4);
 }
 
 .collection-card-cta:hover .btn-arrow {
