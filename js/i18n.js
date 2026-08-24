@@ -7,19 +7,19 @@
     'use strict';
 
     const STORAGE_KEY = 'bmdesign01_lang';
-    const DEFAULT_LANG = 'sr';
-    const SUPPORTED_LANGS = ['sr', 'ru', 'en'];
+    const DEFAULT_LANG = 'en';
+    const SUPPORTED_LANGS = ['en', 'sr', 'ru'];
 
     const FLAG_EMOJIS = {
+        en: '🇬🇧',
         sr: '🇷🇸',
-        ru: '🇷🇺',
-        en: '🇬🇧'
+        ru: '🇷🇺'
     };
 
     const LANG_LABELS = {
+        en: 'English',
         sr: 'Srpski',
-        ru: 'Русский',
-        en: 'English'
+        ru: 'Русский'
     };
 
     /**
@@ -148,6 +148,10 @@
                 </svg>
             </button>
             <div class="lang-dropdown" id="langDropdown">
+                <button class="lang-dropdown-item ${currentLang === 'en' ? 'active' : ''}" data-lang="en">
+                    <span class="lang-flag">${FLAG_EMOJIS.en}</span>
+                    <span>${LANG_LABELS.en}</span>
+                </button>
                 <button class="lang-dropdown-item ${currentLang === 'sr' ? 'active' : ''}" data-lang="sr">
                     <span class="lang-flag">${FLAG_EMOJIS.sr}</span>
                     <span>${LANG_LABELS.sr}</span>
@@ -155,10 +159,6 @@
                 <button class="lang-dropdown-item ${currentLang === 'ru' ? 'active' : ''}" data-lang="ru">
                     <span class="lang-flag">${FLAG_EMOJIS.ru}</span>
                     <span>${LANG_LABELS.ru}</span>
-                </button>
-                <button class="lang-dropdown-item ${currentLang === 'en' ? 'active' : ''}" data-lang="en">
-                    <span class="lang-flag">${FLAG_EMOJIS.en}</span>
-                    <span>${LANG_LABELS.en}</span>
                 </button>
             </div>
         `;
