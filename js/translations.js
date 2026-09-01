@@ -544,9 +544,9 @@ const translations = {
         en: "9 edited social media posts"
     },
     "collections.pro_photo": {
-        sr: "Profesionalna fotografija",
-        ru: "Профессиональная фотосъёмка",
-        en: "Professional photography"
+        sr: "Fotografisanje i Video sadržaj",
+        ru: "Фотосъёмка и видеоконтент",
+        en: "Photography & Video Content"
     },
     "collections.short_video": {
         sr: "Kratki video sadržaj",

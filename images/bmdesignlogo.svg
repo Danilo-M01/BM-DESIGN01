@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 84" width="160" height="84" fill="none">
+  <defs>
+    <style>
+      .bm-serif {
+        font-family: 'Cormorant Garamond', 'Playfair Display', 'Bodoni MT', 'Didot', 'Georgia', serif;
+        font-weight: 700;
+        fill: #F4F3F0;
+      }
+      .bm-sans {
+        font-family: 'Manrope', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-weight: 700;
+        font-size: 7.5px;
+        letter-spacing: 0.28em;
+        fill: #F4F3F0;
+      }
+      .bm-num {
+        font-family: 'Cormorant Garamond', 'Playfair Display', 'Bodoni MT', 'Didot', 'Georgia', serif;
+        font-weight: 600;
+        font-size: 28px;
+        letter-spacing: 0.04em;
+        fill: #F4F3F0;
+      }
+    </style>
+  </defs>
+
+  <!-- Large Luxury Serif B -->
+  <text x="2" y="62" class="bm-serif" font-size="68" letter-spacing="-0.02em">B</text>
+
+  <!-- Serif M -->
+  <text x="56" y="28" class="bm-serif" font-size="34" letter-spacing="-0.01em">M</text>
+
+  <!-- Sans-Serif DESIGN -->
+  <text x="57" y="42" class="bm-sans">DESIGN</text>
+
+  <!-- Serif 01 -->
+  <text x="56" y="63" class="bm-num">01</text>
+
+  <!-- Matte Champagne Signature Line (from logo) -->
+  <rect x="0" y="74" width="108" height="3.5" rx="0.5" fill="#B5A383" />
+</svg>

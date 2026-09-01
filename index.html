@@ -15,7 +15,7 @@
     <link rel="canonical" href="https://www.bmdesign01.com">
 
     <!-- Theme Color for Mobile Browsers -->
-    <meta name="theme-color" content="#0C0B0A">
+    <meta name="theme-color" content="#101528">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -35,14 +35,14 @@
 
     <!-- Inline SVG Favicon Badge -->
     <link rel="icon" type="image/svg+xml"
-        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230C0B0A'/%3E%3Ctext y='70' x='15' font-family='sans-serif' font-weight='bold' font-size='55' fill='%23C8C0B4'%3EBM%3C/text%3E%3C/svg%3E">
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23101528'/%3E%3Ctext y='70' x='15' font-family='sans-serif' font-weight='bold' font-size='55' fill='%23B5A383'%3EBM%3C/text%3E%3C/svg%3E">
 
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Serif+Display&family=Manrope:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet">
 
     <!-- Stylesheet -->
@@ -56,7 +56,9 @@
 
     <!-- Loading Screen -->
     <div class="loader" id="pageLoader">
-        <div class="loader-logo">BM DESIGN01</div>
+        <div class="loader-logo-wrap">
+            <img src="images/bmdesignlogo.png" alt="BM DESIGN01" class="loader-logo-img">
+        </div>
         <div class="loader-line"></div>
         <div class="loader-number" id="loaderNumber">00%</div>
     </div>
@@ -72,7 +74,9 @@
 
     <!-- Navigation Header -->
     <nav id="navbar">
-        <a href="#home" class="nav-logo">BM DESIGN01</a>
+        <a href="#home" class="nav-logo" aria-label="BM DESIGN01">
+            <img src="images/bmdesignlogo.png" alt="BM DESIGN01" class="nav-logo-img">
+        </a>
         <ul class="nav-links">
             <li><a href="#work" data-i18n="nav.work">Radovi</a></li>
             <li><a href="#collections" data-i18n="nav.collections">Kolekcije</a></li>
@@ -481,7 +485,7 @@
 
         <div class="collections-grid container">
             <!-- Personal Identity -->
-            <div class="collection-card collection-card-grey fade-up">
+            <div class="collection-card collection-card-grey fade-up" data-has-styles="true">
                 <div class="collection-card-overlay"></div>
                 <div class="collection-card-header">
                     <h3 class="collection-card-title" data-i18n="collections.personal_title">Lični Identitet</h3>
@@ -497,7 +501,7 @@
                     <span class="collection-card-label" data-i18n="collections.includes">Uključuje</span>
                     <ul>
                         <li data-i18n="collections.9_posts">9 editovanih objava za društvene mreže</li>
-                        <li data-i18n="collections.pro_photo">Profesionalna fotografija</li>
+                        <li data-i18n="collections.pro_photo">Fotografisanje i Video sadržaj</li>
                         <li data-i18n="collections.short_video">Kratki video sadržaj</li>
                         <li data-i18n="collections.one_style">Jedan kreativni stil po vašem izboru</li>
                     </ul>
@@ -509,7 +513,7 @@
             </div>
 
             <!-- Brand Presence -->
-            <div class="collection-card collection-card-blue fade-up">
+            <div class="collection-card collection-card-blue fade-up" data-has-styles="false">
                 <div class="collection-card-overlay"></div>
                 <div class="collection-card-header">
                     <h3 class="collection-card-title" data-i18n="collections.brand_title">Prisustvo Brenda</h3>
@@ -524,10 +528,8 @@
                     <span class="collection-card-label" data-i18n="collections.includes">Uključuje</span>
                     <ul>
                         <li data-i18n="collections.9_posts">9 editovanih objava za društvene mreže</li>
-                        <li data-i18n="collections.pro_photo">Profesionalna fotografija</li>
-                        <li data-i18n="collections.short_video">Kratki video sadržaj</li>
+                        <li data-i18n="collections.pro_photo">Fotografisanje i Video sadržaj</li>
                         <li data-i18n="collections.advertising">Reklamiranje i oglašavanje</li>
-                        <li data-i18n="collections.one_style">Jedan kreativni stil po vašem izboru</li>
                     </ul>
                 </div>
                 <a href="#contact" class="collection-card-cta">
@@ -537,7 +539,7 @@
             </div>
 
             <!-- Custom System -->
-            <div class="collection-card collection-card-accent collection-card-gold fade-up">
+            <div class="collection-card collection-card-accent collection-card-gold fade-up" data-has-styles="true">
                 <div class="collection-card-overlay"></div>
                 <div class="collection-card-header">
                     <h3 class="collection-card-title" data-i18n="collections.custom_title">Prilagođen Sistem</h3>
@@ -577,7 +579,7 @@
 
         <div class="collections-grid container">
             <!-- Iconic Personal Identity -->
-            <div class="collection-card collection-card-red fade-up">
+            <div class="collection-card collection-card-red fade-up" data-has-styles="true">
                 <div class="collection-card-overlay"></div>
                 <div class="collection-card-header">
                     <h3 class="collection-card-title" data-i18n="collections.iconic_title">Ikonični Lični Identitet</h3>
@@ -593,7 +595,7 @@
                     <span class="collection-card-label" data-i18n="collections.includes">Uključuje</span>
                     <ul>
                         <li data-i18n="collections.iconic_9posts">9 objava</li>
-                        <li data-i18n="collections.pro_photo">Profesionalna fotografija</li>
+                        <li data-i18n="collections.pro_photo">Fotografisanje i Video sadržaj</li>
                         <li data-i18n="collections.iconic_cinema">Filmska video produkcija</li>
                         <li data-i18n="collections.iconic_3styles">Do 3 kreativna stila</li>
                         <li data-i18n="collections.iconic_direction">Kreativna direkcija tokom cele produkcije</li>
@@ -606,7 +608,7 @@
             </div>
 
             <!-- Brand Campaign -->
-            <div class="collection-card collection-card-emerald fade-up">
+            <div class="collection-card collection-card-emerald fade-up" data-has-styles="true">
                 <div class="collection-card-overlay"></div>
                 <div class="collection-card-header">
                     <h3 class="collection-card-title" data-i18n="collections.brand_campaign_title">Brendirana Kampanja
@@ -623,7 +625,7 @@
                     <span class="collection-card-label" data-i18n="collections.includes">Uključuje</span>
                     <ul>
                         <li data-i18n="collections.iconic_9posts">9 objava</li>
-                        <li data-i18n="collections.pro_photo">Profesionalna fotografija</li>
+                        <li data-i18n="collections.pro_photo">Fotografisanje i Video sadržaj</li>
                         <li data-i18n="collections.iconic_cinema">Filmska video produkcija</li>
                         <li data-i18n="collections.iconic_3styles">Do 3 kreativna stila</li>
                         <li data-i18n="collections.advertising">Reklamiranje i oglašavanje</li>
@@ -638,7 +640,7 @@
             </div>
 
             <!-- Event Storytelling -->
-            <div class="collection-card collection-card-warm fade-up">
+            <div class="collection-card collection-card-warm fade-up" data-has-styles="false">
                 <div class="collection-card-overlay"></div>
                 <div class="collection-card-header">
                     <h3 class="collection-card-title" data-i18n="collections.event_title">Pripovedanje Događaja</h3>
@@ -1207,7 +1209,9 @@
     <footer>
         <div class="footer-inner container">
             <div class="footer-brand">
-                <div class="footer-logo">BM DESIGN01</div>
+                <a href="#home" class="footer-logo-link" aria-label="BM DESIGN01">
+                    <img src="images/bmdesignlogo.png" alt="BM DESIGN01" class="footer-logo-img">
+                </a>
                 <div class="footer-tagline" data-i18n="footer.tagline">Kreativni Studio</div>
             </div>
             <div class="footer-links">
@@ -1248,7 +1252,7 @@
                         <span class="booking-modal-includes-label" data-i18n="collections.includes">Uključuje</span>
                         <ul id="modalServiceIncludes">
                             <li>9 edited social media posts</li>
-                            <li>Professional photography</li>
+                            <li>Fotografisanje i Video sadržaj</li>
                             <li>Short-form video content</li>
                             <li>One creative style of your choice</li>
                         </ul>
@@ -1281,7 +1285,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group form-group-full">
+                        <div class="form-group form-group-full modal-styles-group" id="modalStylesGroup">
                             <label data-i18n="modal.styles_label">Kreativni Stilovi po Izboru</label>
                             <div class="modal-styles-checkbox-grid">
                                 <label class="style-checkbox-label">

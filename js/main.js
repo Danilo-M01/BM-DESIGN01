@@ -345,7 +345,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.ok) {
                     const successText = window.BM_i18n ? (window.BM_i18n.t('contact.sent', window.BM_i18n.getCurrentLang()) || 'Message Sent ✓') : 'Message Sent ✓';
                     submitBtn.innerHTML = successText;
-                    submitBtn.style.background = 'rgba(215, 210, 200, 0.2)';
+                    submitBtn.style.background = 'rgba(181, 163, 131, 0.18)';
                     submitBtn.style.color = 'var(--accent)';
 
                     setTimeout(() => {
@@ -388,6 +388,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalServiceIncludes = document.getElementById('modalServiceIncludes');
     const modalServiceIncludesContainer = document.getElementById('modalServiceIncludesContainer');
     const modalServiceInput = document.getElementById('modalServiceInput');
+    const modalStylesGroup = document.getElementById('modalStylesGroup');
 
     const bookStylesBtn = document.getElementById('bookStylesBtn');
     const selectedStylesCount = document.getElementById('selectedStylesCount');
@@ -398,7 +399,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedStyles = new Set();
 
     // Open booking modal
-    const openBookingModal = (serviceName, goalText, includesHtml, priceText = '', initialStyles = []) => {
+    const openBookingModal = (serviceName, goalText, includesHtml, priceText = '', initialStyles = [], hasStyles = true) => {
         if (!bookingModal) return;
 
         // Reset form and styles checkboxes
@@ -406,8 +407,13 @@ document.addEventListener('DOMContentLoaded', () => {
             bookingForm.reset();
             const checkBoxes = bookingForm.querySelectorAll('input[type="checkbox"][name="styles"]');
             checkBoxes.forEach(cb => {
-                cb.checked = initialStyles.includes(cb.value);
+                cb.checked = hasStyles ? initialStyles.includes(cb.value) : false;
             });
+        }
+
+        // Hide/Show Styles selection based on whether this service requires style selection
+        if (modalStylesGroup) {
+            modalStylesGroup.style.display = hasStyles ? '' : 'none';
         }
 
         // Set service info
@@ -466,8 +472,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const includesEl = card.querySelector('.collection-card-includes ul');
                 const includesHtml = includesEl ? includesEl.innerHTML : '';
 
+                // Check if this service excludes styles (e.g. Brand Presence)
+                const hasStyles = card.getAttribute('data-has-styles') !== 'false';
+
                 // Open modal with this collection details
-                openBookingModal(title, goal, includesHtml, price);
+                openBookingModal(title, goal, includesHtml, price, [], hasStyles);
             }
         });
     });
@@ -602,13 +611,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     float fluid = n1 * 0.5 + n2 * 0.3 + n3 * 0.2 + mouseWave;
 
-                    // BM Design gold & warm luxury accents
-                    vec3 colorDark = vec3(0.047, 0.043, 0.039); // #0C0B0A
-                    vec3 colorGold = vec3(0.831, 0.686, 0.216); // #D4AF37
-                    vec3 colorWarm = vec3(0.55, 0.42, 0.20);
+                    // BM Design deep navy #101528 & matte champagne #B5A383
+                    vec3 colorNavy = vec3(0.063, 0.082, 0.157); // #101528
+                    vec3 colorChampagne = vec3(0.710, 0.639, 0.514); // #B5A383
+                    vec3 colorDark = vec3(0.043, 0.055, 0.106); // #0B0E1B
 
-                    vec3 finalColor = mix(colorDark, colorWarm, smoothstep(-0.4, 0.6, fluid));
-                    finalColor = mix(finalColor, colorGold, smoothstep(0.3, 0.9, fluid) * 0.6);
+                    vec3 finalColor = mix(colorDark, colorNavy, smoothstep(-0.4, 0.6, fluid));
+                    finalColor = mix(finalColor, colorChampagne, smoothstep(0.35, 0.95, fluid) * 0.45);
 
                     // Vignette & edge fade
                     float vignette = 1.0 - smoothstep(0.2, 0.9, length(uv - 0.5));
@@ -761,7 +770,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.ok) {
                     const successText = window.BM_i18n ? (window.BM_i18n.t('modal.booking_requested', window.BM_i18n.getCurrentLang()) || 'Booking Requested ✓') : 'Booking Requested ✓';
                     submitBtn.innerHTML = successText;
-                    submitBtn.style.background = 'rgba(215, 210, 200, 0.2)';
+                    submitBtn.style.background = 'rgba(181, 163, 131, 0.18)';
                     submitBtn.style.color = 'var(--accent)';
 
                     setTimeout(() => {
