@@ -320,8 +320,34 @@ document.addEventListener('DOMContentLoaded', () => {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
+            const nameInput = document.getElementById('contactName');
+            const emailInput = document.getElementById('contactEmail');
+
+            const nameVal = nameInput ? nameInput.value.trim() : '';
+            const emailVal = emailInput ? emailInput.value.trim() : '';
+
+            if (!nameVal) {
+                if (nameInput) {
+                    nameInput.focus();
+                    nameInput.style.borderColor = '#ef4444';
+                    setTimeout(() => { nameInput.style.borderColor = ''; }, 2500);
+                }
+                return;
+            }
+
+            if (!emailVal || !emailVal.includes('@')) {
+                if (emailInput) {
+                    emailInput.focus();
+                    emailInput.style.borderColor = '#ef4444';
+                    setTimeout(() => { emailInput.style.borderColor = ''; }, 2500);
+                }
+                return;
+            }
+
             const formData = new FormData(contactForm);
             const data = Object.fromEntries(formData);
+            data.name = nameVal;
+            data.email = emailVal;
 
             // Visual feedback - loading
             const submitBtn = contactForm.querySelector('.form-submit');
@@ -341,7 +367,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify(data)
             })
-            .then(response => {
+            .then(async response => {
+                let responseData = null;
+                try {
+                    responseData = await response.json();
+                } catch (err) {}
+
                 if (response.ok) {
                     const successText = window.BM_i18n ? (window.BM_i18n.t('contact.sent', window.BM_i18n.getCurrentLang()) || 'Message Sent ✓') : 'Message Sent ✓';
                     submitBtn.innerHTML = successText;
@@ -356,11 +387,23 @@ document.addEventListener('DOMContentLoaded', () => {
                         contactForm.reset();
                     }, 3000);
                 } else {
-                    throw new Error('Failed to send');
+                    const serverDetails = responseData?.details || responseData?.error || responseData?.message || `HTTP ${response.status}`;
+                    console.error('Contact form submission failed on server:', {
+                        status: response.status,
+                        statusText: response.statusText,
+                        data: responseData
+                    });
+                    throw new Error(serverDetails);
                 }
             })
             .catch(error => {
                 console.error('Error submitting contact form:', error);
+
+                // Diagnostic tip if testing on localhost or file protocol
+                if (window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                    console.warn('[BM DEBUG] /api/contact je Vercel Serverless funkcija. Ako testirate lokalno na Live Serveru ili otvarate HTML direktno, /api/contact vraća 404. Za lokalno testiranje koristite "vercel dev", ili testirajte na Vercelu sa postavljenim RESEND_API_KEY.');
+                }
+
                 const errorText = window.BM_i18n ? (window.BM_i18n.t('contact.error', window.BM_i18n.getCurrentLang()) || 'Error! Try again.') : 'Error! Try again.';
                 submitBtn.innerHTML = errorText;
                 submitBtn.style.background = 'rgba(239, 68, 68, 0.1)';
@@ -728,8 +771,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const nameInput = document.getElementById('bookingName');
             const emailInput = document.getElementById('bookingEmail');
 
-            if (!nameInput.value.trim() || !emailInput.value.trim()) {
-                const alertMsg = window.BM_i18n ? (window.BM_i18n.t('modal.fill_fields', window.BM_i18n.getCurrentLang()) || 'Please fill out Name and Email.') : 'Please fill out Name and Email.';
+            if (!nameInput.value.trim() || !emailInput.value.trim() || !emailInput.value.includes('@')) {
+                const alertMsg = window.BM_i18n ? (window.BM_i18n.t('modal.fill_fields', window.BM_i18n.getCurrentLang()) || 'Please fill out Name and valid Email.') : 'Please fill out Name and valid Email.';
                 alert(alertMsg);
                 return;
             }
@@ -766,7 +809,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify(data)
             })
-            .then(response => {
+            .then(async response => {
+                let responseData = null;
+                try {
+                    responseData = await response.json();
+                } catch (err) {}
+
                 if (response.ok) {
                     const successText = window.BM_i18n ? (window.BM_i18n.t('modal.booking_requested', window.BM_i18n.getCurrentLang()) || 'Booking Requested ✓') : 'Booking Requested ✓';
                     submitBtn.innerHTML = successText;
@@ -791,11 +839,23 @@ document.addEventListener('DOMContentLoaded', () => {
                         closeBookingModal();
                     }, 2500);
                 } else {
-                    throw new Error('Failed to send booking request');
+                    const serverDetails = responseData?.details || responseData?.error || responseData?.message || `HTTP ${response.status}`;
+                    console.error('Booking form submission failed on server:', {
+                        status: response.status,
+                        statusText: response.statusText,
+                        data: responseData
+                    });
+                    throw new Error(serverDetails);
                 }
             })
             .catch(error => {
                 console.error('Error submitting booking form:', error);
+
+                // Diagnostic tip if testing on localhost or file protocol
+                if (window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                    console.warn('[BM DEBUG] /api/contact je Vercel Serverless funkcija. Ako testirate lokalno na Live Serveru ili otvarate HTML direktno, /api/contact vraća 404. Za lokalno testiranje koristite "vercel dev", ili testirajte na Vercelu sa postavljenim RESEND_API_KEY.');
+                }
+
                 const errorText = window.BM_i18n ? (window.BM_i18n.t('modal.booking_error', window.BM_i18n.getCurrentLang()) || 'Error! Try again.') : 'Error! Try again.';
                 submitBtn.innerHTML = errorText;
                 submitBtn.style.background = 'rgba(239, 68, 68, 0.1)';

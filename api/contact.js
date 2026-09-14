@@ -1,9 +1,19 @@
 // api/contact.js
 
 module.exports = async (req, res) => {
+    // Enable CORS headers for API calls
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,POST');
+    res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
+
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
+
     // Only allow POST requests
     if (req.method !== 'POST') {
-        res.setHeader('Allow', ['POST']);
+        res.setHeader('Allow', ['POST', 'OPTIONS']);
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
 
@@ -11,10 +21,21 @@ module.exports = async (req, res) => {
         const apiKey = process.env.RESEND_API_KEY;
         if (!apiKey) {
             console.error('RESEND_API_KEY is not defined in environment variables.');
-            return res.status(500).json({ error: 'Server configuration error (missing API key)' });
+            return res.status(500).json({ 
+                error: 'Server configuration error (missing API key)',
+                details: 'RESEND_API_KEY nije definisan u Vercel Environment Variables. Dodajte ga u Vercel Dashboard -> Settings -> Environment Variables.'
+            });
         }
 
-        const data = req.body;
+        let data = req.body;
+        if (typeof data === 'string') {
+            try {
+                data = JSON.parse(data);
+            } catch (e) {
+                console.warn('Could not parse req.body as JSON string:', e);
+            }
+        }
+
         if (!data || !data.name || !data.email) {
             return res.status(400).json({ error: 'Name and Email are required fields.' });
         }
@@ -118,6 +139,11 @@ module.exports = async (req, res) => {
             `;
         }
 
+        // Format from header nicely if display name isn't already included
+        const formattedFrom = fromEmail.includes('<') 
+            ? fromEmail 
+            : `BM DESIGN01 <${fromEmail}>`;
+
         // Send to Resend API
         const response = await fetch('https://api.resend.com/emails', {
             method: 'POST',
@@ -126,15 +152,15 @@ module.exports = async (req, res) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                from: fromEmail,
-                to: toEmail,
+                from: formattedFrom,
+                to: [toEmail],
                 subject: subject,
                 html: htmlContent,
                 reply_to: data.email
             })
         });
 
-        // Some error handling logic for response content
+        // Parse response from Resend
         let responseData;
         const textContent = await response.text();
         try {
@@ -147,9 +173,18 @@ module.exports = async (req, res) => {
             return res.status(200).json({ success: true, message: 'Email sent successfully', id: responseData.id });
         } else {
             console.error('Resend API error response:', responseData);
+            
+            let suggestion = '';
+            if (responseData && responseData.message && responseData.message.toLowerCase().includes('domain')) {
+                suggestion = 'Domen nije verifikovan na Resend-u. Dodajte i verifikujte domen na https://resend.com/domains ili za privremeni test postavite RESEND_FROM_EMAIL na "onboarding@resend.dev".';
+            } else if (response.status === 401) {
+                suggestion = 'Neispravan RESEND_API_KEY. Proverite API ključ u Vercel Environment Variables.';
+            }
+
             return res.status(response.status).json({ 
                 error: 'Failed to send email via Resend', 
-                details: responseData.message || responseData 
+                details: responseData.message || responseData,
+                suggestion: suggestion || undefined
             });
         }
 
