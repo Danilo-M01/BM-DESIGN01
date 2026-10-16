@@ -106,23 +106,21 @@
             <section id="home" class="hero">
                 <div class="hero-video-container">
                     <video autoplay muted loop playsinline class="hero-video" id="heroVideo">
-                        <source src="images/herobackground.webm" type="video/webm">
+                        <source id="heroVideoSource" src="images/herobackground.webm" type="video/webm">
                     </video>
-                    <img id="heroImg" class="hero-video" alt="BM DESIGN01 Visual" style="display: none;" fetchpriority="high">
                     <script>
                         (function() {
                             try {
                                 var l = localStorage.getItem('bmdesign01_lang');
-                                if (l === 'ru') {
-                                    var v = document.getElementById('heroVideo');
-                                    var i = document.getElementById('heroImg');
-                                    if (v) v.style.display = 'none';
-                                    if (i) { i.src = 'images/herobackgroundrussian.gif'; i.style.display = 'block'; }
-                                } else if (l === 'sr') {
-                                    var v = document.getElementById('heroVideo');
-                                    var i = document.getElementById('heroImg');
-                                    if (v) v.style.display = 'none';
-                                    if (i) { i.src = 'images/herobackgroundsrpski.gif'; i.style.display = 'block'; }
+                                var s = document.getElementById('heroVideoSource');
+                                if (s) {
+                                    if (l === 'ru') {
+                                        s.src = 'images/herobackgroundrussian.mp4';
+                                        s.type = 'video/mp4';
+                                    } else if (l === 'sr') {
+                                        s.src = 'images/herobackgroundsrpski.mp4';
+                                        s.type = 'video/mp4';
+                                    }
                                 }
                             } catch(e) {}
                         })();

@@ -86,47 +86,41 @@
     }
 
     /**
-     * Update hero background media depending on current language:
-     * - Russian ('ru'): images/herobackgroundrussian.gif
-     * - Serbian ('sr'): images/herobackgroundsrpski.gif
-     * - English ('en') / Default: images/herobackground.webm (video)
+     * Update hero background video depending on current language:
+     * - Russian ('ru'): images/herobackgroundrussian.mp4
+     * - Serbian ('sr'): images/herobackgroundsrpski.mp4
+     * - English ('en') / Default: images/herobackground.webm
      */
     function updateHeroBackground(lang) {
         const video = document.getElementById('heroVideo');
-        const img = document.getElementById('heroImg');
-        if (!video && !img) return;
+        if (!video) return;
+
+        let targetSrc = 'images/herobackground.webm';
+        let targetType = 'video/webm';
 
         if (lang === 'ru') {
-            if (video) {
-                video.pause();
-                video.style.display = 'none';
-            }
-            if (img) {
-                if (!img.src.includes('herobackgroundrussian.gif')) {
-                    img.src = 'images/herobackgroundrussian.gif';
-                }
-                img.style.display = 'block';
-            }
+            targetSrc = 'images/herobackgroundrussian.mp4';
+            targetType = 'video/mp4';
         } else if (lang === 'sr') {
-            if (video) {
-                video.pause();
-                video.style.display = 'none';
+            targetSrc = 'images/herobackgroundsrpski.mp4';
+            targetType = 'video/mp4';
+        }
+
+        const source = video.querySelector('source') || document.getElementById('heroVideoSource');
+        const currentSrc = source ? source.getAttribute('src') : '';
+
+        if (currentSrc !== targetSrc) {
+            if (source) {
+                source.setAttribute('src', targetSrc);
+                source.setAttribute('type', targetType);
+            } else {
+                const s = document.createElement('source');
+                s.src = targetSrc;
+                s.type = targetType;
+                video.appendChild(s);
             }
-            if (img) {
-                if (!img.src.includes('herobackgroundsrpski.gif')) {
-                    img.src = 'images/herobackgroundsrpski.gif';
-                }
-                img.style.display = 'block';
-            }
-        } else {
-            // 'en' or default
-            if (img) {
-                img.style.display = 'none';
-            }
-            if (video) {
-                video.style.display = 'block';
-                video.play().catch(() => {});
-            }
+            video.load();
+            video.play().catch(() => {});
         }
     }
 
