@@ -42,14 +42,7 @@ module.exports = async (req, res) => {
 
         const formType = data.type || 'contact'; // 'contact' or 'booking'
         const fromEmail = process.env.RESEND_FROM_EMAIL || "info@contact.bmdesign01.com";
-        
-        let toRecipients = [];
-        if (process.env.RESEND_TO_EMAIL) {
-            toRecipients = process.env.RESEND_TO_EMAIL.split(',').map(e => e.trim()).filter(Boolean);
-        }
-        if (toRecipients.length === 0) {
-            toRecipients = ["collab@bmdesign01.com", "danilomomirovic95@gmail.com"];
-        }
+        const toEmail = process.env.RESEND_TO_EMAIL || "collab@bmdesign01.com";
 
         // Build email subject and HTML content
         let subject = '';
@@ -146,11 +139,6 @@ module.exports = async (req, res) => {
             `;
         }
 
-        // Format from header nicely if display name isn't already included
-        const formattedFrom = fromEmail.includes('<') 
-            ? fromEmail 
-            : `BM DESIGN01 <${fromEmail}>`;
-
         // Send to Resend API
         const response = await fetch('https://api.resend.com/emails', {
             method: 'POST',
@@ -159,8 +147,8 @@ module.exports = async (req, res) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                from: formattedFrom,
-                to: toRecipients,
+                from: fromEmail,
+                to: toEmail,
                 subject: subject,
                 html: htmlContent,
                 reply_to: data.email
