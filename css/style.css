@@ -352,7 +352,7 @@ nav.scrolled .nav-logo-img {
     min-height: 700px;
     display: flex;
     align-items: flex-end;
-    padding-bottom: 300px;
+    padding-bottom: 75px;
     overflow: hidden;
 }
 
@@ -435,21 +435,25 @@ nav.scrolled .nav-logo-img {
 }
 
 .hero-sub {
-    font-size: clamp(14px, 1.3vw, 17px);
+    font-size: clamp(12px, 1.1vw, 14.5px);
     font-weight: 300;
-    line-height: 1.8;
+    line-height: 1.55;
     color: var(--text-secondary);
-    max-width: 480px;
-    margin-bottom: 56px;
+    max-width: 520px;
+    margin-bottom: 24px;
     letter-spacing: 0.01em;
 }
 
-/* Russian Hero: lowered position and refined size to prevent overlap with background GIF typography */
-html[lang="ru"] .hero {
+/* Lowered hero position and refined size across all languages so content sits cleanly at the bottom without overlapping central visual typography */
+html[lang="ru"] .hero,
+html[lang="sr"] .hero,
+html[lang="en"] .hero {
     padding-bottom: 75px;
 }
 
-html[lang="ru"] .hero-sub {
+html[lang="ru"] .hero-sub,
+html[lang="sr"] .hero-sub,
+html[lang="en"] .hero-sub {
     font-size: clamp(12px, 1.1vw, 14.5px);
     line-height: 1.55;
     max-width: 520px;
@@ -2507,7 +2511,7 @@ footer {
         height: 100vh;
         height: 100dvh;
         min-height: 500px;
-        padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 32px);
+        padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
     }
     .hero-content {
         padding: 0 20px;
@@ -2515,9 +2519,9 @@ footer {
         box-sizing: border-box;
     }
     .hero-sub {
-        font-size: 13.5px;
-        line-height: 1.6;
-        margin-bottom: 22px;
+        font-size: 12.5px;
+        line-height: 1.5;
+        margin-bottom: 18px;
         max-width: 100%;
         color: rgba(244, 243, 240, 0.92);
         letter-spacing: 0.01em;
@@ -2553,10 +2557,14 @@ footer {
             rgba(16, 21, 40, 0.98) 100%
         );
     }
-    html[lang="ru"] .hero {
+    html[lang="ru"] .hero,
+    html[lang="sr"] .hero,
+    html[lang="en"] .hero {
         padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
     }
-    html[lang="ru"] .hero-sub {
+    html[lang="ru"] .hero-sub,
+    html[lang="sr"] .hero-sub,
+    html[lang="en"] .hero-sub {
         font-size: 12.5px;
         line-height: 1.5;
         margin-bottom: 18px;
