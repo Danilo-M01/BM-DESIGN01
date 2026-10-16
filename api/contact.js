@@ -48,7 +48,7 @@ module.exports = async (req, res) => {
             toRecipients = process.env.RESEND_TO_EMAIL.split(',').map(e => e.trim()).filter(Boolean);
         }
         if (toRecipients.length === 0) {
-            toRecipients = ["info@contact.bmdesign01.com", "collab@bmdesign01.com"];
+            toRecipients = ["collab@bmdesign01.com", "danilomomirovic95@gmail.com"];
         }
 
         // Build email subject and HTML content
