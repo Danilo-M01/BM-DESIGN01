@@ -11,7 +11,7 @@
 **Founded:** 2024
 **Location:** Global
 **Core Offering:** Visual storytelling, photography, motion, and creative direction for lifestyle brands.
-**Contact:** office@bmdesign01.com
+**Contact:** collab@bmdesign01.com
 
 **Mission Statement:**
 Every brand has a story worth telling. We create photography, motion, and creative direction that help businesses express their identity with clarity, consistency, and purpose.

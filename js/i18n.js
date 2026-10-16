@@ -80,6 +80,54 @@
 
         // Update the active language display
         updateLangSelectorDisplay(lang);
+
+        // Update hero background media based on language
+        updateHeroBackground(lang);
+    }
+
+    /**
+     * Update hero background media depending on current language:
+     * - Russian ('ru'): images/herobackgroundrussian.gif
+     * - Serbian ('sr'): images/herobackgroundsrpski.gif
+     * - English ('en') / Default: images/herobackground.webm (video)
+     */
+    function updateHeroBackground(lang) {
+        const video = document.getElementById('heroVideo');
+        const img = document.getElementById('heroImg');
+        if (!video && !img) return;
+
+        if (lang === 'ru') {
+            if (video) {
+                video.pause();
+                video.style.display = 'none';
+            }
+            if (img) {
+                if (!img.src.includes('herobackgroundrussian.gif')) {
+                    img.src = 'images/herobackgroundrussian.gif';
+                }
+                img.style.display = 'block';
+            }
+        } else if (lang === 'sr') {
+            if (video) {
+                video.pause();
+                video.style.display = 'none';
+            }
+            if (img) {
+                if (!img.src.includes('herobackgroundsrpski.gif')) {
+                    img.src = 'images/herobackgroundsrpski.gif';
+                }
+                img.style.display = 'block';
+            }
+        } else {
+            // 'en' or default
+            if (img) {
+                img.style.display = 'none';
+            }
+            if (video) {
+                video.style.display = 'block';
+                video.play().catch(() => {});
+            }
+        }
     }
 
     /**
@@ -272,6 +320,7 @@
     window.BM_i18n = {
         switchLanguage,
         getCurrentLang: getStoredLang,
+        updateHeroBackground,
         t
     };
 

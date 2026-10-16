@@ -360,7 +360,12 @@ document.addEventListener('DOMContentLoaded', () => {
             // Add type parameter for server-side routing
             data.type = 'contact';
 
-            fetch('/api/contact', {
+            // Use live API fallback when running locally on Live Server/http.server
+            const apiUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:')
+                ? 'https://www.bmdesign01.com/api/contact'
+                : '/api/contact';
+
+            fetch(apiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -771,9 +776,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const nameInput = document.getElementById('bookingName');
             const emailInput = document.getElementById('bookingEmail');
 
-            if (!nameInput.value.trim() || !emailInput.value.trim() || !emailInput.value.includes('@')) {
-                const alertMsg = window.BM_i18n ? (window.BM_i18n.t('modal.fill_fields', window.BM_i18n.getCurrentLang()) || 'Please fill out Name and valid Email.') : 'Please fill out Name and valid Email.';
-                alert(alertMsg);
+            if (!nameInput.value.trim()) {
+                nameInput.focus();
+                nameInput.style.borderColor = '#ef4444';
+                setTimeout(() => { nameInput.style.borderColor = ''; }, 2500);
+                return;
+            }
+
+            if (!emailInput.value.trim() || !emailInput.value.includes('@')) {
+                emailInput.focus();
+                emailInput.style.borderColor = '#ef4444';
+                setTimeout(() => { emailInput.style.borderColor = ''; }, 2500);
                 return;
             }
 
@@ -802,7 +815,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 details: document.getElementById('bookingDetails').value
             };
 
-            fetch('/api/contact', {
+            // Use live API fallback when running locally on Live Server/http.server
+            const apiUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:')
+                ? 'https://www.bmdesign01.com/api/contact'
+                : '/api/contact';
+
+            fetch(apiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

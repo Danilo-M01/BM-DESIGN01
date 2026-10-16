@@ -105,16 +105,31 @@
             ============================================ -->
             <section id="home" class="hero">
                 <div class="hero-video-container">
-                    <img src="images/hero-bg.jpg" alt="BM DESIGN01 Visual" class="hero-video" fetchpriority="high">
+                    <video autoplay muted loop playsinline class="hero-video" id="heroVideo">
+                        <source src="images/herobackground.webm" type="video/webm">
+                    </video>
+                    <img id="heroImg" class="hero-video" alt="BM DESIGN01 Visual" style="display: none;" fetchpriority="high">
+                    <script>
+                        (function() {
+                            try {
+                                var l = localStorage.getItem('bmdesign01_lang');
+                                if (l === 'ru') {
+                                    var v = document.getElementById('heroVideo');
+                                    var i = document.getElementById('heroImg');
+                                    if (v) v.style.display = 'none';
+                                    if (i) { i.src = 'images/herobackgroundrussian.gif'; i.style.display = 'block'; }
+                                } else if (l === 'sr') {
+                                    var v = document.getElementById('heroVideo');
+                                    var i = document.getElementById('heroImg');
+                                    if (v) v.style.display = 'none';
+                                    if (i) { i.src = 'images/herobackgroundsrpski.gif'; i.style.display = 'block'; }
+                                }
+                            } catch(e) {}
+                        })();
+                    </script>
                 </div>
                 <div class="hero-content">
-                    <div class="hero-label fade-up" data-i18n="hero.label">Globalno · Osnovano 2024.</div>
-                    <h1 class="hero-headline">
-                        <span class="line"><span class="line-inner" data-i18n="hero.line1">GRADIMO
-                                BRENDOVE</span></span>
-                        <span class="line"><span class="line-inner" data-i18n="hero.line2">KROZ</span></span>
-                        <span class="line"><span class="line-inner" data-i18n="hero.line3">ISKUSTVO.</span></span>
-                    </h1>
+
                     <p class="hero-sub fade-up" data-i18n="hero.sub">
                         Kreativni studio izgrađen na putovanjima, kulturi i uverenju da najjači brendovi nastaju iz
                         stvarnih iskustava.
@@ -1223,7 +1238,7 @@
                 <a href="https://www.instagram.com/bmdesign01/" class="footer-link" target="_blank"
                     rel="noopener">Instagram</a>
                 <a href="https://tiktok.com" class="footer-link" target="_blank" rel="noopener">TikTok</a>
-                <a href="mailto:office@bmdesign01.com" class="footer-link">Email</a>
+
             </div>
             <div class="footer-copy" data-i18n="footer.copyright">
                 © 2026 BM DESIGN01. Sva prava zadržana.
