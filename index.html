@@ -105,22 +105,28 @@
             ============================================ -->
             <section id="home" class="hero">
                 <div class="hero-video-container">
-                    <video autoplay muted loop playsinline class="hero-video" id="heroVideo">
-                        <source id="heroVideoSource" src="images/herobackground.webm" type="video/webm">
+                    <video autoplay muted loop playsinline class="hero-video" id="heroVideo" poster="images/hero_poster.jpg">
+                        <source id="heroVideoSource" src="images/herobackground.mp4" type="video/mp4">
                     </video>
                     <script>
                         (function() {
                             try {
-                                var l = localStorage.getItem('bmdesign01_lang');
+                                var l = localStorage.getItem('bmdesign01_lang') || 'en';
+                                var isMob = window.innerWidth <= 768;
+                                var v = document.getElementById('heroVideo');
                                 var s = document.getElementById('heroVideoSource');
-                                if (s) {
-                                    if (l === 'ru') {
-                                        s.src = 'images/herobackgroundrussian.mp4';
-                                        s.type = 'video/mp4';
-                                    } else if (l === 'sr') {
-                                        s.src = 'images/herobackgroundsrpski.mp4';
-                                        s.type = 'video/mp4';
-                                    }
+                                var videoMap = {
+                                    en: isMob ? 'images/herobackground_mob.mp4' : 'images/herobackground.mp4',
+                                    sr: isMob ? 'images/herobackgroundsrpski_mob.mp4' : 'images/herobackgroundsrpski.mp4',
+                                    ru: isMob ? 'images/herobackgroundrussian_mob.mp4' : 'images/herobackgroundrussian.mp4'
+                                };
+                                var target = videoMap[l] || videoMap['en'];
+                                if (v && isMob) {
+                                    v.poster = 'images/hero_poster_mob.jpg';
+                                }
+                                if (s && target) {
+                                    s.src = target;
+                                    if (v) v.load();
                                 }
                             } catch(e) {}
                         })();
@@ -331,44 +337,53 @@
 
                     <!-- Personal Brands -->
                     <div class="work-item fade-up" data-category="personal-brands">
-                        <img src="images/project-personal.png" alt="Alessio Ferrari Personal Brand"
-                            class="work-item-img" loading="lazy">
+                        <picture>
+                            <source srcset="images/project-personal.webp" type="image/webp">
+                            <img src="images/project-personal.jpg" alt="Alessio Ferrari Personal Brand"
+                                class="work-item-img" loading="lazy" decoding="async" width="800" height="1000">
+                        </picture>
                         <div class="work-overlay"></div>
                         <div class="work-item-info">
-                            <div class="work-item-cat" data-i18n="work.personal_milan">Lični Brendovi · Milano, Italija
-                            </div>
+                            <div class="work-item-cat" data-i18n="work.personal_milan">Lični Brendovi · Milano, Italija</div>
                             <h4 class="work-item-name" data-i18n="work.personal_name">Alessio Ferrari Lični Brend</h4>
                         </div>
                     </div>
 
-                    <!-- Fashion -->
+                    <!-- Fashion (New Editorial Dubai Photo) -->
                     <div class="work-item fade-up" data-category="fashion">
-                        <img src="images/project-fashion.png" alt="Maison Noir Fashion Editorial" class="work-item-img"
-                            loading="lazy">
+                        <picture>
+                            <source srcset="images/project-fashion.webp" type="image/webp">
+                            <img src="images/project-fashion.jpg" alt="Maison Noir Fashion Editorial"
+                                class="work-item-img" loading="lazy" decoding="async" width="800" height="1000">
+                        </picture>
                         <div class="work-overlay"></div>
                         <div class="work-item-info">
                             <div class="work-item-cat" data-i18n="work.fashion_milan">Moda · Milano, Italija</div>
-                            <h4 class="work-item-name" data-i18n="work.fashion_editorial">Maison Noir Modni Editorijal
-                            </h4>
+                            <h4 class="work-item-name" data-i18n="work.fashion_editorial">Maison Noir Modni Editorijal</h4>
                         </div>
                     </div>
 
-                    <!-- Beauty -->
+                    <!-- Beauty (New Abstract Artistic Splatter) -->
                     <div class="work-item fade-up" data-category="beauty">
-                        <img src="images/project-beauty.png" alt="Noir Parfum Brand Campaign" class="work-item-img"
-                            loading="lazy">
+                        <picture>
+                            <source srcset="images/project-beauty.webp" type="image/webp">
+                            <img src="images/project-beauty.jpg" alt="Noir Parfum Brand Campaign"
+                                class="work-item-img" loading="lazy" decoding="async" width="800" height="1000">
+                        </picture>
                         <div class="work-overlay"></div>
                         <div class="work-item-info">
                             <div class="work-item-cat" data-i18n="work.beauty_ny">Lepota · Njujork, SAD</div>
-                            <h4 class="work-item-name" data-i18n="work.beauty_campaign">Noir Parfum Brendirana Kampanja
-                            </h4>
+                            <h4 class="work-item-name" data-i18n="work.beauty_campaign">Noir Parfum Brendirana Kampanja</h4>
                         </div>
                     </div>
 
                     <!-- Jewelry -->
                     <div class="work-item fade-up" data-category="jewelry">
-                        <img src="images/project-jewelry.png" alt="Lumière Jewelry Collection" class="work-item-img"
-                            loading="lazy">
+                        <picture>
+                            <source srcset="images/project-jewelry.webp" type="image/webp">
+                            <img src="images/project-jewelry.jpg" alt="Lumière Jewelry Collection"
+                                class="work-item-img" loading="lazy" decoding="async" width="800" height="1000">
+                        </picture>
                         <div class="work-overlay"></div>
                         <div class="work-item-info">
                             <div class="work-item-cat" data-i18n="work.jewelry_paris">Nakit · Pariz, Francuska</div>
@@ -378,34 +393,39 @@
 
                     <!-- Hospitality (Como) -->
                     <div class="work-item fade-up" data-category="hospitality">
-                        <img src="images/project-hospitality1.png" alt="Villa Como Hotel Campaign" class="work-item-img"
-                            loading="lazy">
+                        <picture>
+                            <source srcset="images/project-hospitality1.webp" type="image/webp">
+                            <img src="images/project-hospitality1.jpg" alt="Villa Como Hotel Campaign"
+                                class="work-item-img" loading="lazy" decoding="async" width="800" height="1000">
+                        </picture>
                         <div class="work-overlay"></div>
                         <div class="work-item-info">
-                            <div class="work-item-cat" data-i18n="work.hospitality_como">Ugostiteljstvo · Jezero Komo,
-                                Italija</div>
-                            <h4 class="work-item-name" data-i18n="work.hospitality_como_name">Villa Como Hotelska
-                                Kampanja</h4>
+                            <div class="work-item-cat" data-i18n="work.hospitality_como">Ugostiteljstvo · Jezero Komo, Italija</div>
+                            <h4 class="work-item-name" data-i18n="work.hospitality_como_name">Villa Como Hotelska Kampanja</h4>
                         </div>
                     </div>
 
                     <!-- Hospitality (The Saint) -->
                     <div class="work-item fade-up" data-category="hospitality">
-                        <img src="images/project-hospitality2.png" alt="The Saint Hotel Brand Identity"
-                            class="work-item-img" loading="lazy">
+                        <picture>
+                            <source srcset="images/project-hospitality2.webp" type="image/webp">
+                            <img src="images/project-hospitality2.jpg" alt="The Saint Hotel Brand Identity"
+                                class="work-item-img" loading="lazy" decoding="async" width="800" height="1000">
+                        </picture>
                         <div class="work-overlay"></div>
                         <div class="work-item-info">
-                            <div class="work-item-cat" data-i18n="work.hospitality_paris">Ugostiteljstvo · Pariz,
-                                Francuska</div>
-                            <h4 class="work-item-name" data-i18n="work.hospitality_paris_name">The Saint Hotel Identitet
-                                Brenda</h4>
+                            <div class="work-item-cat" data-i18n="work.hospitality_paris">Ugostiteljstvo · Pariz, Francuska</div>
+                            <h4 class="work-item-name" data-i18n="work.hospitality_paris_name">The Saint Hotel Identitet Brenda</h4>
                         </div>
                     </div>
 
                     <!-- Wellness -->
                     <div class="work-item fade-up" data-category="wellness">
-                        <img src="images/project-wellness.png" alt="Serene Wellness Retreat" class="work-item-img"
-                            loading="lazy">
+                        <picture>
+                            <source srcset="images/project-wellness.webp" type="image/webp">
+                            <img src="images/project-wellness.jpg" alt="Serene Wellness Retreat"
+                                class="work-item-img" loading="lazy" decoding="async" width="800" height="1000">
+                        </picture>
                         <div class="work-overlay"></div>
                         <div class="work-item-info">
                             <div class="work-item-cat" data-i18n="work.wellness_bali">Velnes · Bali, Indonezija</div>
@@ -415,68 +435,75 @@
 
                     <!-- Luxury Mobility -->
                     <div class="work-item fade-up" data-category="luxury-mobility">
-                        <img src="images/project-mobility.png" alt="Azure Motors Brand Launch" class="work-item-img"
-                            loading="lazy">
+                        <picture>
+                            <source srcset="images/project-mobility.webp" type="image/webp">
+                            <img src="images/project-mobility.jpg" alt="Azure Motors Brand Launch"
+                                class="work-item-img" loading="lazy" decoding="async" width="800" height="1000">
+                        </picture>
                         <div class="work-overlay"></div>
                         <div class="work-item-info">
-                            <div class="work-item-cat" data-i18n="work.mobility_monaco">Luksuzna Mobilnost · Monako
-                            </div>
-                            <h4 class="work-item-name" data-i18n="work.mobility_name">Azure Motors Lansiranje Brenda
-                            </h4>
+                            <div class="work-item-cat" data-i18n="work.mobility_monaco">Luksuzna Mobilnost · Monako</div>
+                            <h4 class="work-item-name" data-i18n="work.mobility_name">Azure Motors Lansiranje Brenda</h4>
                         </div>
                     </div>
 
                     <!-- Interior Design -->
                     <div class="work-item fade-up" data-category="interior-design">
-                        <img src="images/project-interior.png" alt="Casa Moderna Interior" class="work-item-img"
-                            loading="lazy">
+                        <picture>
+                            <source srcset="images/project-interior.webp" type="image/webp">
+                            <img src="images/project-interior.jpg" alt="Casa Moderna Interior"
+                                class="work-item-img" loading="lazy" decoding="async" width="800" height="1000">
+                        </picture>
                         <div class="work-overlay"></div>
                         <div class="work-item-info">
-                            <div class="work-item-cat" data-i18n="work.interior_london">Dizajn Enterijera · London, UK
-                            </div>
+                            <div class="work-item-cat" data-i18n="work.interior_london">Dizajn Enterijera · London, UK</div>
                             <h4 class="work-item-name" data-i18n="work.interior_name">Casa Moderna Enterijer</h4>
                         </div>
                     </div>
 
-                    <!-- Architecture -->
+                    <!-- Architecture (New Slavija Dusk Terrace Photo) -->
                     <div class="work-item fade-up" data-category="architecture">
-                        <img src="images/project-architecture.png" alt="Atelier Studio Architecture"
-                            class="work-item-img" loading="lazy">
+                        <picture>
+                            <source srcset="images/project-architecture.webp" type="image/webp">
+                            <img src="images/project-architecture.jpg" alt="Atelier Studio Architecture"
+                                class="work-item-img" loading="lazy" decoding="async" width="800" height="1000">
+                        </picture>
                         <div class="work-overlay"></div>
                         <div class="work-item-info">
-                            <div class="work-item-cat" data-i18n="work.architecture_dubai">Arhitektura · Dubai, UAE
-                            </div>
-                            <h4 class="work-item-name" data-i18n="work.architecture_name">Atelier Studio Arhitektura
-                            </h4>
+                            <div class="work-item-cat" data-i18n="work.architecture_dubai">Arhitektura · Beograd / Global</div>
+                            <h4 class="work-item-name" data-i18n="work.architecture_name">Atelier Studio Arhitektura</h4>
                         </div>
                     </div>
 
-                    <!-- Restaurants -->
+                    <!-- Restaurants (New Luxury Restaurant Dining Photo) -->
                     <div class="work-item fade-up" data-category="restaurants">
-                        <img src="images/project-restaurant.png" alt="Oro Restaurant Identity" class="work-item-img"
-                            loading="lazy">
+                        <picture>
+                            <source srcset="images/project-restaurant.webp" type="image/webp">
+                            <img src="images/project-restaurant.jpg" alt="Oro Restaurant Identity"
+                                class="work-item-img" loading="lazy" decoding="async" width="800" height="1000">
+                        </picture>
                         <div class="work-overlay"></div>
                         <div class="work-item-info">
-                            <div class="work-item-cat" data-i18n="work.restaurant_rome">Restorani · Rim, Italija</div>
+                            <div class="work-item-cat" data-i18n="work.restaurant_rome">Restorani · Rim / Global</div>
                             <h4 class="work-item-name" data-i18n="work.restaurant_name">Oro Restoran Identitet</h4>
                         </div>
                     </div>
 
-                    <!-- Technology -->
+                    <!-- Technology (New Roland Digital Piano Artistry Photo) -->
                     <div class="work-item fade-up" data-category="technology">
-                        <img src="images/project-technology.png" alt="Nexus Tech Brand Identity" class="work-item-img"
-                            loading="lazy">
+                        <picture>
+                            <source srcset="images/project-technology.webp" type="image/webp">
+                            <img src="images/project-technology.jpg" alt="Nexus Tech Brand Identity"
+                                class="work-item-img" loading="lazy" decoding="async" width="800" height="1000">
+                        </picture>
                         <div class="work-overlay"></div>
                         <div class="work-item-info">
-                            <div class="work-item-cat" data-i18n="work.tech_sf">Tehnologija · San Francisko, SAD</div>
-                            <h4 class="work-item-name" data-i18n="work.tech_name">Nexus Tech Identitet Brenda</h4>
+                            <div class="work-item-cat" data-i18n="work.tech_sf">Tehnologija & Akustika · Global</div>
+                            <h4 class="work-item-name" data-i18n="work.tech_name">Nexus Tech & Sound Artistry</h4>
                         </div>
                     </div>
                 </div>
-        </div>
-
-    </div>
-    </section>
+            </section>
 
     <!-- ============================================
                  3. COLLECTIONS

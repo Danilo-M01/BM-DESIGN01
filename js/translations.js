@@ -342,9 +342,9 @@ const translations = {
         en: "Serene Wellness Retreat"
     },
     "work.architecture_dubai": {
-        sr: "Arhitektura · Dubai, UAE",
-        ru: "Архитектура · Дубай, ОАЭ",
-        en: "Architecture · Dubai, UAE"
+        sr: "Arhitektura · Beograd / Global",
+        ru: "Архитектура · Белград / Global",
+        en: "Architecture · Belgrade / Global"
     },
     "work.architecture_name": {
         sr: "Atelier Studio Arhitektura",
@@ -352,9 +352,9 @@ const translations = {
         en: "Atelier Studio Architecture"
     },
     "work.restaurant_rome": {
-        sr: "Restorani · Rim, Italija",
-        ru: "Рестораны · Рим, Италия",
-        en: "Restaurants · Rome, Italy"
+        sr: "Restorani · Rim / Global",
+        ru: "Рестораны · Рим / Global",
+        en: "Restaurants · Rome / Global"
     },
     "work.restaurant_name": {
         sr: "Oro Restoran Identitet",
@@ -382,14 +382,14 @@ const translations = {
         en: "Casa Moderna Interior"
     },
     "work.tech_sf": {
-        sr: "Tehnologija · San Francisko, SAD",
-        ru: "Технологии · Сан-Франциско, США",
-        en: "Technology · San Francisco, USA"
+        sr: "Tehnologija & Zvuk · Global",
+        ru: "Технологии & Звук · Global",
+        en: "Technology & Sound · Global"
     },
     "work.tech_name": {
-        sr: "Nexus Tech Identitet Brenda",
-        ru: "Nexus Tech Идентичность Бренда",
-        en: "Nexus Tech Brand Identity"
+        sr: "Nexus Tech & Sound Artistry",
+        ru: "Nexus Tech & Sound Artistry",
+        en: "Nexus Tech & Sound Artistry"
     },
     "work.hospitality_paris": {
         sr: "Ugostiteljstvo · Pariz, Francuska",

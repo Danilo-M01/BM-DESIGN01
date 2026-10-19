@@ -12,3 +12,8 @@ node_modules/
 
 # Misc
 *.log
+*.zip
+scratch/
+videopocetna.mp4
+herobackground.gif
+Untitled*.gif

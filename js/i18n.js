@@ -86,42 +86,59 @@
     }
 
     /**
-     * Update hero background video depending on current language:
-     * - Russian ('ru'): images/herobackgroundrussian.mp4
-     * - Serbian ('sr'): images/herobackgroundsrpski.mp4
-     * - English ('en') / Default: images/herobackground.webm
+     * Update hero background video depending on current language and device:
+     * - Russian ('ru'): images/herobackgroundrussian_mob.mp4 (mobile) / images/herobackgroundrussian.mp4 (desktop)
+     * - Serbian ('sr'): images/herobackgroundsrpski_mob.mp4 (mobile) / images/herobackgroundsrpski.mp4 (desktop)
+     * - English ('en') / Default: images/herobackground_mob.mp4 (mobile) / images/herobackground.mp4 (desktop)
      */
     function updateHeroBackground(lang) {
         const video = document.getElementById('heroVideo');
         if (!video) return;
 
-        let targetSrc = 'images/herobackground.webm';
-        let targetType = 'video/webm';
+        const isMob = window.innerWidth <= 768;
+        const videoMap = {
+            en: isMob ? 'images/herobackground_mob.mp4' : 'images/herobackground.mp4',
+            sr: isMob ? 'images/herobackgroundsrpski_mob.mp4' : 'images/herobackgroundsrpski.mp4',
+            ru: isMob ? 'images/herobackgroundrussian_mob.mp4' : 'images/herobackgroundrussian.mp4'
+        };
 
-        if (lang === 'ru') {
-            targetSrc = 'images/herobackgroundrussian.mp4';
-            targetType = 'video/mp4';
-        } else if (lang === 'sr') {
-            targetSrc = 'images/herobackgroundsrpski.mp4';
-            targetType = 'video/mp4';
+        const targetSrc = videoMap[lang] || videoMap['en'];
+        const source = video.querySelector('source') || document.getElementById('heroVideoSource');
+        const currentSrc = source ? source.getAttribute('src') : (video.currentSrc || video.getAttribute('src'));
+
+        if (currentSrc && currentSrc.includes(targetSrc)) {
+            return;
         }
 
-        const source = video.querySelector('source') || document.getElementById('heroVideoSource');
-        const currentSrc = source ? source.getAttribute('src') : '';
+        // Silky smooth cross-fade transition
+        video.style.transition = 'opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1)';
+        video.style.opacity = '0.15';
 
-        if (currentSrc !== targetSrc) {
+        setTimeout(() => {
+            if (isMob) {
+                video.poster = 'images/hero_poster_mob.jpg';
+            } else {
+                video.poster = 'images/hero_poster.jpg';
+            }
+
             if (source) {
                 source.setAttribute('src', targetSrc);
-                source.setAttribute('type', targetType);
+                source.setAttribute('type', 'video/mp4');
             } else {
-                const s = document.createElement('source');
-                s.src = targetSrc;
-                s.type = targetType;
-                video.appendChild(s);
+                video.src = targetSrc;
             }
             video.load();
             video.play().catch(() => {});
-        }
+
+            video.oncanplay = function () {
+                video.style.opacity = '1';
+                video.oncanplay = null;
+            };
+
+            setTimeout(() => {
+                video.style.opacity = '1';
+            }, 300);
+        }, 140);
     }
 
     /**
@@ -301,6 +318,20 @@
 
         // Apply initial translations
         applyTranslations(currentLang);
+
+        // Update video if orientation or mobile breakpoint changes
+        let resizeTimer;
+        let lastIsMob = window.innerWidth <= 768;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                const isMob = window.innerWidth <= 768;
+                if (isMob !== lastIsMob) {
+                    lastIsMob = isMob;
+                    updateHeroBackground(getStoredLang());
+                }
+            }, 250);
+        });
     }
 
     // Run after DOM is ready

@@ -139,6 +139,11 @@ module.exports = async (req, res) => {
             `;
         }
 
+        // Format from header nicely if display name isn't already included
+        const formattedFrom = fromEmail.includes('<') 
+            ? fromEmail 
+            : `BM DESIGN01 <${fromEmail}>`;
+
         // Send to Resend API
         const response = await fetch('https://api.resend.com/emails', {
             method: 'POST',
@@ -147,8 +152,8 @@ module.exports = async (req, res) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                from: fromEmail,
-                to: toEmail,
+                from: formattedFrom,
+                to: [toEmail],
                 subject: subject,
                 html: htmlContent,
                 reply_to: data.email
