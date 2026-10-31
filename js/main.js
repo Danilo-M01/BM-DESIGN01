@@ -15,24 +15,41 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextBtn = document.getElementById('nextBtn');
 
     /* ============================================
-       PRELOADER
+       PRELOADER — Smooth & Responsive
     ============================================ */
     let progress = 0;
+    let preloaderFinished = false;
     document.body.style.overflowY = 'hidden';
 
+    const finishPreloader = () => {
+        if (preloaderFinished) return;
+        preloaderFinished = true;
+        progress = 100;
+        if (loaderNum) loaderNum.textContent = '100%';
+        if (loader) loader.classList.add('hide');
+        document.body.style.overflowY = '';
+        revealHero();
+        setTimeout(() => {
+            if (loader) loader.style.display = 'none';
+        }, 800);
+    };
+
     const loadInterval = setInterval(() => {
-        progress += Math.floor(Math.random() * 12) + 3;
+        progress += Math.floor(Math.random() * 12) + 6;
         if (progress >= 100) {
-            progress = 100;
             clearInterval(loadInterval);
-            setTimeout(() => {
-                loader.classList.add('hide');
-                document.body.style.overflowY = '';
-                revealHero();
-            }, 400);
+            finishPreloader();
+        } else if (loaderNum) {
+            loaderNum.textContent = `${String(progress).padStart(2, '0')}%`;
         }
-        loaderNum.textContent = `${String(progress).padStart(2, '0')}%`;
-    }, 40);
+    }, 35);
+
+    // If window already loaded, accelerate completion smoothly
+    window.addEventListener('load', () => {
+        if (!preloaderFinished) {
+            setTimeout(finishPreloader, 250);
+        }
+    }, { once: true });
 
     /* ============================================
        HERO REVEAL
@@ -567,16 +584,56 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // WebGL Three.js Ambient Fluid / Glass Background Flow
+        // WebGL Three.js Ambient Fluid / Glass Background Flow (Optimized & Pausable)
         const canvas = document.getElementById('stylesBackgroundCanvas');
         const section = document.getElementById('styles');
         if (!canvas || !section || typeof THREE === 'undefined') return;
 
+        // On mobile devices, disable WebGL canvas to preserve battery & guarantee 60fps smooth scrolling
+        if (window.innerWidth <= 768) {
+            canvas.style.display = 'none';
+            return;
+        }
+
         let renderer, scene, camera, material, mesh;
         let isSectionInView = false;
+        let isInitialized = false;
+        let animationFrameId = null;
+        let lastTime = 0;
         let mouse = new THREE.Vector2(0.5, 0.5);
 
+        const animate = (time) => {
+            if (!isSectionInView || !renderer) {
+                animationFrameId = null;
+                return;
+            }
+            const dt = (time - lastTime) * 0.001;
+            lastTime = time;
+            if (material) {
+                material.uniforms.uTime.value += Math.min(dt, 0.05);
+            }
+            renderer.render(scene, camera);
+            animationFrameId = requestAnimationFrame(animate);
+        };
+
+        const startAnimation = () => {
+            if (!animationFrameId && isSectionInView && renderer) {
+                lastTime = performance.now();
+                animationFrameId = requestAnimationFrame(animate);
+            }
+        };
+
+        const stopAnimation = () => {
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+            }
+        };
+
         const initWebGL = () => {
+            if (isInitialized) return;
+            isInitialized = true;
+
             const w = section.clientWidth || window.innerWidth;
             const h = section.clientHeight || 800;
 
@@ -590,7 +647,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 powerPreference: "high-performance"
             });
             renderer.setSize(w, h);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+            // Cap at 1.0 to eliminate high-DPI GPU fill-rate hitching
+            renderer.setPixelRatio(1.0);
 
             const vertexShader = `
                 varying vec2 vUv;
@@ -684,49 +742,43 @@ document.addEventListener('DOMContentLoaded', () => {
             mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
             scene.add(mesh);
 
-            // Animate
-            let lastTime = 0;
-            const animate = (time) => {
-                requestAnimationFrame(animate);
-                if (!isSectionInView) return;
-                const dt = (time - lastTime) * 0.001;
-                lastTime = time;
-                material.uniforms.uTime.value += Math.min(dt, 0.1);
-                renderer.render(scene, camera);
-            };
-            requestAnimationFrame(animate);
-
             // Resize observer
             const ro = new ResizeObserver(entries => {
                 for (const entry of entries) {
                     const nw = entry.contentRect.width;
                     const nh = entry.contentRect.height;
-                    if (nw > 0 && nh > 0) {
+                    if (nw > 0 && nh > 0 && renderer) {
                         renderer.setSize(nw, nh);
-                        material.uniforms.uResolution.value.set(nw, nh);
+                        if (material) material.uniforms.uResolution.value.set(nw, nh);
                     }
                 }
             });
             ro.observe(section);
 
-            // Mouse move
+            // Mouse move (passive)
             section.addEventListener('mousemove', (e) => {
                 const rect = section.getBoundingClientRect();
                 mouse.x = (e.clientX - rect.left) / rect.width;
                 mouse.y = 1.0 - (e.clientY - rect.top) / rect.height;
-                material.uniforms.uMouse.value.set(mouse.x, mouse.y);
-            });
-
-            // Intersection observer
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    isSectionInView = entry.isIntersecting;
-                });
-            }, { threshold: 0.05 });
-            observer.observe(section);
+                if (material) material.uniforms.uMouse.value.set(mouse.x, mouse.y);
+            }, { passive: true });
         };
 
-        initWebGL();
+        // Lazy-load WebGL only when approaching the styles section
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                isSectionInView = entry.isIntersecting;
+                if (isSectionInView) {
+                    if (!isInitialized) {
+                        initWebGL();
+                    }
+                    startAnimation();
+                } else {
+                    stopAnimation();
+                }
+            });
+        }, { threshold: 0.01, rootMargin: '250px 0px 250px 0px' });
+        observer.observe(section);
     };
 
     initCreativeStyles();

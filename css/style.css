@@ -134,13 +134,13 @@ img {
 }
 
 .loader.hide {
-    animation: loaderHide 1s var(--ease-smooth) forwards;
+    animation: loaderHide 0.7s var(--ease-smooth) forwards;
     pointer-events: none;
 }
 
 @keyframes loaderHide {
     0% { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 0; transform: translateY(-20px); visibility: hidden; }
 }
 
 /* ============================================
@@ -466,6 +466,11 @@ html[lang="en"] .hero-sub {
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
+}
+
+.hero-buttons .btn-primary,
+.hero-buttons .btn-secondary {
+    border-radius: 100px;
 }
 
 /* Buttons */
@@ -973,6 +978,7 @@ section {
 
 .reveal-text-inner.revealed {
     transform: translate3d(0, 0, 0);
+    will-change: auto;
 }
 
 /* GPU-accelerated fade-up using only transform + opacity */
@@ -986,6 +992,7 @@ section {
 .fade-up.revealed {
     opacity: 1;
     transform: translate3d(0, 0, 0);
+    will-change: auto;
 }
 
 .fade-in {
@@ -996,6 +1003,22 @@ section {
 
 .fade-in.revealed {
     opacity: 1;
+    will-change: auto;
+}
+
+/* Performance: Skip rendering off-screen heavy sections until scrolled near */
+.what-we-build,
+.work,
+.collections,
+.creative-styles,
+.industries,
+.partnerships,
+.build-project,
+.testimonials,
+.faq-section,
+.contact-section {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 700px;
 }
 
 /* ============================================

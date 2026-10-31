@@ -105,8 +105,8 @@
             ============================================ -->
             <section id="home" class="hero">
                 <div class="hero-video-container">
-                    <video autoplay muted loop playsinline class="hero-video" id="heroVideo" poster="images/hero_poster.jpg">
-                        <source id="heroVideoSource" src="images/herobackground.mp4" type="video/mp4">
+                    <video autoplay muted loop playsinline preload="metadata" class="hero-video" id="heroVideo" poster="images/hero_poster.jpg">
+                        <source id="heroVideoSource" type="video/mp4">
                     </video>
                     <script>
                         (function() {
@@ -1403,16 +1403,15 @@
         </div>
     </div>
 
-    <!-- Three.js & GSAP Engine for WebGL Lumina Effects -->
-    <script src="js/three.min.js"></script>
-    <script src="js/gsap.min.js"></script>
+    <!-- Three.js Engine for WebGL Lumina Effects (deferred for fast initial load) -->
+    <script defer src="js/three.min.js"></script>
 
     <!-- Translation scripts (must be loaded before main.js and i18n.js) -->
-    <script src="js/translations.js"></script>
-    <script src="js/i18n.js"></script>
+    <script defer src="js/translations.js"></script>
+    <script defer src="js/i18n.js"></script>
 
     <!-- Script file -->
-    <script src="js/main.js"></script>
+    <script defer src="js/main.js"></script>
 </body>
 
 </html>
