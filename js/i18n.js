@@ -87,9 +87,9 @@
 
     /**
      * Update hero background video depending on current language and device:
-     * - Russian ('ru'): images/herobackgroundrussian_mob.mp4 (mobile) / images/herobackgroundrussian.mp4 (desktop)
-     * - Serbian ('sr'): images/herobackgroundsrpski_mob.mp4 (mobile) / images/herobackgroundsrpski.mp4 (desktop)
-     * - English ('en') / Default: images/herobackground_mob.mp4 (mobile) / images/herobackground.mp4 (desktop)
+     * - Russian ('ru'): images/herobackgrounrusmobile.mp4 (mobile) / images/herobackgroundrussian.mp4 (desktop)
+     * - Serbian ('sr'): images/herobackgroundsrbmobile.mp4 (mobile) / images/herobackgroundsrpski.mp4 (desktop)
+     * - English ('en') / Default: images/herobackgroundengmobile.mp4 (mobile) / images/herobackground.mp4 (desktop)
      */
     function updateHeroBackground(lang) {
         const video = document.getElementById('heroVideo');
@@ -97,9 +97,9 @@
 
         const isMob = window.innerWidth <= 768;
         const videoMap = {
-            en: isMob ? 'images/herobackground_mob.mp4' : 'images/herobackground.mp4',
-            sr: isMob ? 'images/herobackgroundsrpski_mob.mp4' : 'images/herobackgroundsrpski.mp4',
-            ru: isMob ? 'images/herobackgroundrussian_mob.mp4' : 'images/herobackgroundrussian.mp4'
+            en: isMob ? 'images/herobackgroundengmobile.mp4' : 'images/herobackground.mp4',
+            sr: isMob ? 'images/herobackgroundsrbmobile.mp4' : 'images/herobackgroundsrpski.mp4',
+            ru: isMob ? 'images/herobackgrounrusmobile.mp4' : 'images/herobackgroundrussian.mp4'
         };
 
         const targetSrc = videoMap[lang] || videoMap['en'];

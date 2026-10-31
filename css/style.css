@@ -13,6 +13,7 @@
     --bg-card: #141a30;
     --bg-card-hover: #1c2440;
     --text-primary: #F4F3F0;
+    --text-body: #f8f9fa;
     --text-secondary: #A8AFC0;
     --text-muted: #6E768C;
     --text-dark: #101528;
@@ -439,7 +440,7 @@ nav.scrolled .nav-logo-img {
     font-size: clamp(12px, 1.1vw, 14.5px);
     font-weight: 300;
     line-height: 1.55;
-    color: var(--text-secondary);
+    color: var(--text-body);
     max-width: 520px;
     margin-bottom: 24px;
     letter-spacing: 0.01em;
@@ -685,7 +686,7 @@ html[lang="en"] .hero-sub {
     font-size: clamp(15px, 1.3vw, 18px);
     font-weight: 300;
     line-height: 1.7;
-    color: var(--text-secondary);
+    color: var(--text-body);
     max-width: 520px;
 }
 
@@ -781,7 +782,7 @@ html[lang="en"] .hero-sub {
     font-family: 'Inter', sans-serif;
     font-size: clamp(13px, 1.1vw, 15px);
     font-weight: 300;
-    color: var(--text-secondary);
+    color: var(--text-body);
     line-height: 1.6;
 }
 
@@ -1209,7 +1210,7 @@ section {
 .collections-tier-desc {
     font-size: 15px;
     font-weight: 300;
-    color: var(--text-secondary);
+    color: var(--text-body);
     line-height: 1.7;
     max-width: 500px;
 }
@@ -1771,7 +1772,7 @@ section {
     font-size: 15px;
     font-weight: 300;
     line-height: 1.8;
-    color: var(--text-secondary);
+    color: var(--text-body);
     margin-bottom: 40px;
     max-width: 440px;
 }
@@ -1926,7 +1927,7 @@ section {
     font-size: clamp(15px, 1.4vw, 18px);
     font-weight: 300;
     line-height: 1.7;
-    color: var(--text-secondary);
+    color: var(--text-body);
     margin-bottom: 48px;
     max-width: 480px;
     margin-left: auto;
@@ -1954,7 +1955,7 @@ section {
 .build-example p {
     font-size: 15px;
     font-weight: 300;
-    color: var(--text-secondary);
+    color: var(--text-body);
     line-height: 1.7;
     font-style: italic;
 }
@@ -2206,7 +2207,7 @@ section {
     font-size: 15px;
     font-weight: 300;
     line-height: 1.8;
-    color: var(--text-secondary);
+    color: var(--text-body);
     padding-bottom: 32px;
     max-width: 700px;
 }
@@ -2260,7 +2261,7 @@ section {
     font-size: 16px;
     font-weight: 300;
     line-height: 1.8;
-    color: var(--text-secondary);
+    color: var(--text-body);
     max-width: 400px;
 }
 
@@ -2647,12 +2648,12 @@ footer {
     .hero-video-container::after {
         background: linear-gradient(
             to bottom,
-            rgba(10, 14, 27, 0.42) 0%,
-            rgba(10, 14, 27, 0.12) 16%,
-            transparent 30%,
-            transparent 62%,
-            rgba(10, 14, 27, 0.42) 78%,
-            rgba(10, 14, 27, 0.85) 92%,
+            rgba(10, 14, 27, 0.38) 0%,
+            rgba(10, 14, 27, 0.1) 14%,
+            transparent 22%,
+            transparent 66%,
+            rgba(10, 14, 27, 0.38) 78%,
+            rgba(10, 14, 27, 0.82) 90%,
             var(--bg-primary) 100%
         );
     }

@@ -292,9 +292,9 @@ const translations = {
 
     // Work item categories
     "work.fashion_milan": {
-        sr: "Moda · Milano, Italija",
-        ru: "Мода · Милан, Италия",
-        en: "Fashion · Milan, Italy"
+        sr: "Moda",
+        ru: "Мода",
+        en: "Fashion"
     },
     "work.fashion_editorial": {
         sr: "Maison Noir Modni Editorijal",
@@ -302,9 +302,9 @@ const translations = {
         en: "Maison Noir Fashion Editorial"
     },
     "work.beauty_ny": {
-        sr: "Lepota · Njujork, SAD",
-        ru: "Красота · Нью-Йорк, США",
-        en: "Beauty · New York, USA"
+        sr: "Lepota",
+        ru: "Красота",
+        en: "Beauty"
     },
     "work.beauty_campaign": {
         sr: "Noir Parfum Brendirana Kampanja",
@@ -312,9 +312,9 @@ const translations = {
         en: "Noir Parfum Brand Campaign"
     },
     "work.hospitality_como": {
-        sr: "Ugostiteljstvo · Jezero Komo, Italija",
-        ru: "Гостеприимство · Озеро Комо, Италия",
-        en: "Hospitality · Lake Como, Italy"
+        sr: "Ugostiteljstvo",
+        ru: "Гостеприимство",
+        en: "Hospitality"
     },
     "work.hospitality_como_name": {
         sr: "Villa Como Hotelska Kampanja",
@@ -322,9 +322,9 @@ const translations = {
         en: "Villa Como Hotel Campaign"
     },
     "work.mobility_monaco": {
-        sr: "Luksuzna Mobilnost · Monako",
-        ru: "Люксовый Транспорт · Монако",
-        en: "Luxury Mobility · Monaco"
+        sr: "Luksuzna Mobilnost",
+        ru: "Люксовый Транспорт",
+        en: "Luxury Mobility"
     },
     "work.mobility_name": {
         sr: "Azure Motors Lansiranje Brenda",
@@ -332,9 +332,9 @@ const translations = {
         en: "Azure Motors Brand Launch"
     },
     "work.wellness_bali": {
-        sr: "Velnes · Bali, Indonezija",
-        ru: "Велнес · Бали, Индонезия",
-        en: "Wellness · Bali, Indonesia"
+        sr: "Velnes",
+        ru: "Велнес",
+        en: "Wellness"
     },
     "work.wellness_name": {
         sr: "Serene Velnes Utočište",
@@ -342,9 +342,9 @@ const translations = {
         en: "Serene Wellness Retreat"
     },
     "work.architecture_dubai": {
-        sr: "Arhitektura · Beograd / Global",
-        ru: "Архитектура · Белград / Global",
-        en: "Architecture · Belgrade / Global"
+        sr: "Arhitektura",
+        ru: "Архитектура",
+        en: "Architecture"
     },
     "work.architecture_name": {
         sr: "Atelier Studio Arhitektura",
@@ -352,9 +352,9 @@ const translations = {
         en: "Atelier Studio Architecture"
     },
     "work.restaurant_rome": {
-        sr: "Restorani · Rim / Global",
-        ru: "Рестораны · Рим / Global",
-        en: "Restaurants · Rome / Global"
+        sr: "Restorani",
+        ru: "Рестораны",
+        en: "Restaurants"
     },
     "work.restaurant_name": {
         sr: "Oro Restoran Identitet",
@@ -362,9 +362,9 @@ const translations = {
         en: "Oro Restaurant Identity"
     },
     "work.jewelry_paris": {
-        sr: "Nakit · Pariz, Francuska",
-        ru: "Ювелирные Изделия · Париж, Франция",
-        en: "Jewelry · Paris, France"
+        sr: "Nakit",
+        ru: "Ювелирные Изделия",
+        en: "Jewelry"
     },
     "work.jewelry_name": {
         sr: "Lumière Kolekcija Nakita",
@@ -372,9 +372,9 @@ const translations = {
         en: "Lumière Jewelry Collection"
     },
     "work.interior_london": {
-        sr: "Dizajn Enterijera · London, UK",
-        ru: "Дизайн Интерьера · Лондон, Великобритания",
-        en: "Interior Design · London, UK"
+        sr: "Dizajn Enterijera",
+        ru: "Дизайн Интерьера",
+        en: "Interior Design"
     },
     "work.interior_name": {
         sr: "Casa Moderna Enterijer",
@@ -382,9 +382,9 @@ const translations = {
         en: "Casa Moderna Interior"
     },
     "work.tech_sf": {
-        sr: "Tehnologija & Zvuk · Global",
-        ru: "Технологии & Звук · Global",
-        en: "Technology & Sound · Global"
+        sr: "Tehnologija & Zvuk",
+        ru: "Технологии & Звук",
+        en: "Technology & Sound"
     },
     "work.tech_name": {
         sr: "Nexus Tech & Sound Artistry",
@@ -392,9 +392,9 @@ const translations = {
         en: "Nexus Tech & Sound Artistry"
     },
     "work.hospitality_paris": {
-        sr: "Ugostiteljstvo · Pariz, Francuska",
-        ru: "Гостеприимство · Париж, Франция",
-        en: "Hospitality · Paris, France"
+        sr: "Ugostiteljstvo",
+        ru: "Гостеприимство",
+        en: "Hospitality"
     },
     "work.hospitality_paris_name": {
         sr: "The Saint Hotel Identitet Brenda",
@@ -402,9 +402,9 @@ const translations = {
         en: "The Saint Hotel Brand Identity"
     },
     "work.personal_milan": {
-        sr: "Lični Brendovi · Milano, Italija",
-        ru: "Личные Бренды · Милан, Италия",
-        en: "Personal Brands · Milan, Italy"
+        sr: "Lični Brendovi",
+        ru: "Личные Бренды",
+        en: "Personal Brands"
     },
     "work.personal_name": {
         sr: "Alessio Ferrari Lični Brend",
