@@ -2481,6 +2481,18 @@ footer {
     .hero-buttons {
         gap: 16px;
     }
+    .hero-buttons .btn-primary,
+    .hero-buttons .btn-secondary,
+    .btn-primary,
+    .btn-secondary,
+    html[lang="sr"] .hero-buttons .btn-primary,
+    html[lang="sr"] .hero-buttons .btn-secondary,
+    html[lang="en"] .hero-buttons .btn-primary,
+    html[lang="en"] .hero-buttons .btn-secondary,
+    html[lang="ru"] .hero-buttons .btn-primary,
+    html[lang="ru"] .hero-buttons .btn-secondary {
+        border-radius: 100px;
+    }
     .hero-scroll-indicator { display: none; }
 
     /* Compact section padding on tablet/mobile */
@@ -2639,6 +2651,7 @@ footer {
         letter-spacing: 0.13em;
         box-sizing: border-box;
         text-align: center;
+        border-radius: 100px;
     }
     .hero-buttons .btn-secondary {
         background: rgba(16, 21, 40, 0.6);
@@ -2693,6 +2706,7 @@ footer {
         width: 100%;
         padding: 11px 14px;
         font-size: 10.5px;
+        border-radius: 100px;
     }
 }
 
