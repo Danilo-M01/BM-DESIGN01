@@ -78,11 +78,30 @@
         // Update the html lang attribute
         document.documentElement.lang = lang === 'sr' ? 'sr' : lang === 'ru' ? 'ru' : 'en';
 
+        // Update PDF catalogue links & label
+        const catalogueLabels = {
+            sr: 'PDF katalog na tri jezika',
+            en: 'PDF catalogue in three languages',
+            ru: 'PDF-каталог на трёх языках'
+        };
+        document.querySelectorAll('[data-catalogue-current]').forEach(link => {
+            link.setAttribute('href', `docs/bm-design01-katalog-${lang}.pdf`);
+            link.setAttribute('hreflang', lang);
+            link.setAttribute('lang', lang);
+            link.setAttribute('download', `bm-design01-katalog-${lang}.pdf`);
+        });
+        document.querySelectorAll('[data-catalogue-label]').forEach(label => {
+            label.textContent = catalogueLabels[lang] || catalogueLabels.en;
+        });
+
         // Update the active language display
         updateLangSelectorDisplay(lang);
 
         // Update hero background media based on language
         updateHeroBackground(lang);
+
+        // Notify dynamic UI components (modals, project viewer)
+        document.dispatchEvent(new CustomEvent('bm:langchange', { detail: { lang } }));
     }
 
     /**

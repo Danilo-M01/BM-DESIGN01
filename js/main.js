@@ -1,945 +1,648 @@
-document.addEventListener('DOMContentLoaded', () => {
+/* ============================================
+   BM DESIGN01 — MAIN INTERACTION ENGINE
+   Smooth navigation, project showcase, style selection & inquiry modal
+============================================ */
+(() => {
+    'use strict';
 
-    /* ============================================
-       SELECTORS
-    ============================================ */
-    const loader = document.getElementById('pageLoader');
-    const loaderNum = document.getElementById('loaderNumber');
-    const navbar = document.getElementById('navbar');
-    const hamburger = document.getElementById('hamburgerBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const mobileLinks = document.querySelectorAll('.mobile-link');
-    const scrollProgress = document.getElementById('scrollProgress');
-    const testimonialsTrack = document.getElementById('testimonialsTrack');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
+    const init = () => {
+        const site = window.BM_SITE || { collections: [], projects: [], styles: [] };
+        const dictionary = typeof translations === 'object' ? translations : {};
 
-    /* ============================================
-       PRELOADER — Smooth & Responsive
-    ============================================ */
-    let progress = 0;
-    let preloaderFinished = false;
-    document.body.style.overflowY = 'hidden';
+        const $ = id => document.getElementById(id);
+        const navbar = $('navbar');
+        const hamburger = $('hamburgerBtn');
+        const mobileMenu = $('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const scrollProgress = $('scrollProgress');
 
-    const finishPreloader = () => {
-        if (preloaderFinished) return;
-        preloaderFinished = true;
-        progress = 100;
-        if (loaderNum) loaderNum.textContent = '100%';
-        if (loader) loader.classList.add('hide');
-        document.body.style.overflowY = '';
-        revealHero();
-        setTimeout(() => {
-            if (loader) loader.style.display = 'none';
-        }, 800);
-    };
+        const projectDialog = $('projectDialog');
+        const inquiryDialog = $('inquiryDialog');
+        const inquiryForm = $('inquiryForm');
+        const collectionSelect = $('collectionSelect');
+        const formResult = $('formResult');
 
-    const loadInterval = setInterval(() => {
-        progress += Math.floor(Math.random() * 12) + 6;
-        if (progress >= 100) {
-            clearInterval(loadInterval);
-            finishPreloader();
-        } else if (loaderNum) {
-            loaderNum.textContent = `${String(progress).padStart(2, '0')}%`;
-        }
-    }, 35);
+        const selectedStyles = new Set();
+        let currentProject = null;
+        let currentCollection = null;
+        let submitting = false;
 
-    // If window already loaded, accelerate completion smoothly
-    window.addEventListener('load', () => {
-        if (!preloaderFinished) {
-            setTimeout(finishPreloader, 250);
-        }
-    }, { once: true });
+        const getLang = () => window.BM_i18n ? window.BM_i18n.getCurrentLang() : (document.documentElement.lang || 'en');
 
-    /* ============================================
-       HERO REVEAL
-    ============================================ */
-    const revealHero = () => {
-        const headlineInners = document.querySelectorAll('.hero-headline .line-inner');
-        headlineInners.forEach((line, i) => {
-            setTimeout(() => {
-                line.style.transform = 'translateY(0)';
-            }, i * 150);
-        });
+        const fallback = {
+            'ui.project_video': { sr: 'Projektni film', en: 'Project film', ru: 'Фильм проекта' },
+            'ui.project_gallery': { sr: 'Galerija projekta', en: 'Project gallery', ru: 'Галерея проекта' },
+            'ui.project_collection': { sr: 'Istražite povezanu kolekciju', en: 'Explore the related collection', ru: 'Посмотреть связанную коллекцию' },
+            'ui.open_image': { sr: 'Otvorite celu sliku', en: 'Open full image', ru: 'Открыть изображение целиком' },
+            'ui.style_limit_reached': { sr: 'Ova kolekcija uključuje do 3 stila. Uklonite jedan pre novog izbora.', en: 'This collection includes up to 3 styles. Remove one before choosing another.', ru: 'Эта коллекция включает до 3 стилей. Снимите один выбор, прежде чем добавить другой.' },
+            'ui.sending': { sr: 'Slanje upita…', en: 'Sending inquiry…', ru: 'Отправка запроса…' },
+            'ui.inquiry_sent': { sr: 'Upit je poslat. Dogovor o detaljima sledi putem emaila.', en: 'Inquiry sent. The details will be discussed by email.', ru: 'Запрос отправлен. Детали будут согласованы по электронной почте.' },
+            'ui.inquiry_error': { sr: 'Upit nije poslat. Pokušajte ponovo ili pišite na collab@bmdesign01.com.', en: 'The inquiry was not sent. Please try again or email collab@bmdesign01.com.', ru: 'Запрос не отправлен. Попробуйте ещё раз или напишите на collab@bmdesign01.com.' }
+        };
 
-        const fadeUps = document.querySelectorAll('.hero .fade-up');
-        fadeUps.forEach((el, i) => {
-            setTimeout(() => {
-                el.classList.add('revealed');
-            }, 400 + i * 100);
-        });
-    };
+        const t = key => {
+            const lang = getLang();
+            return dictionary[key]?.[lang] || dictionary[key]?.sr || fallback[key]?.[lang] || fallback[key]?.sr || '';
+        };
 
-    /* ============================================
-       SCROLL — rAF throttled, passive
-    ============================================ */
-    let ticking = false;
+        const styleBoxes = () => inquiryForm ? [...inquiryForm.querySelectorAll('input[name="styles"]')] : [];
+        const collectionName = col => col ? t(`offer.${col.id}.name`) || col.id : '';
 
-    const onScroll = () => {
-        const scrollTop = window.scrollY;
+        const priceText = col => {
+            if (!col || col.price === null || col.price === undefined) return t('offer.on_request');
+            const lang = getLang();
+            const locale = lang === 'en' ? 'en-GB' : lang === 'ru' ? 'ru-RU' : 'sr-Latn-RS';
+            return `${t('offer.from')} ${new Intl.NumberFormat(locale).format(col.price)} €`.trim();
+        };
 
-        // Navbar
-        if (scrollTop > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
+        const setButtonLabel = (button, value) => {
+            if (!button) return;
+            const label = button.querySelector('[data-i18n], span:not([aria-hidden="true"])');
+            if (label) label.textContent = value;
+            else button.textContent = value;
+        };
 
-        // Progress bar
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        if (docHeight > 0) {
-            scrollProgress.style.transform = `scaleX(${scrollTop / docHeight})`;
-        }
+        /* ============================================
+           SCROLL — rAF throttled, passive
+        ============================================ */
+        let ticking = false;
+        const onScroll = () => {
+            const scrollTop = window.scrollY;
+            if (navbar) {
+                navbar.classList.toggle('scrolled', scrollTop > 40);
+            }
+            if (scrollProgress) {
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                if (docHeight > 0) {
+                    scrollProgress.style.transform = `scaleX(${Math.min(1, Math.max(0, scrollTop / docHeight))})`;
+                }
+            }
+            ticking = false;
+        };
 
-        ticking = false;
-    };
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(onScroll);
+                ticking = true;
+            }
+        }, { passive: true });
+        onScroll();
 
-    window.addEventListener('scroll', () => {
-        if (!ticking) {
-            requestAnimationFrame(onScroll);
-            ticking = true;
-        }
-    }, { passive: true });
-
-    /* ============================================
-       MOBILE NAVIGATION
-    ============================================ */
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        mobileMenu.classList.toggle('active');
-        document.body.style.overflowY = mobileMenu.classList.contains('active') ? 'hidden' : '';
-    });
-
-    mobileLinks.forEach(link => {
-        link.addEventListener('click', () => {
+        /* ============================================
+           MOBILE NAVIGATION
+        ============================================ */
+        const closeMobileMenu = () => {
+            if (!hamburger || !mobileMenu) return;
             hamburger.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
             mobileMenu.classList.remove('active');
+            mobileMenu.setAttribute('aria-hidden', 'true');
             document.body.style.overflowY = '';
-        });
-    });
+        };
 
-    /* ============================================
-       INTERSECTION OBSERVER — scroll reveals
-    ============================================ */
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
+        if (hamburger && mobileMenu) {
+            hamburger.addEventListener('click', () => {
+                const isOpen = hamburger.classList.toggle('active');
+                hamburger.setAttribute('aria-expanded', String(isOpen));
+                mobileMenu.classList.toggle('active', isOpen);
+                mobileMenu.setAttribute('aria-hidden', String(!isOpen));
+                document.body.style.overflowY = isOpen ? 'hidden' : '';
+            });
 
-            const el = entry.target;
-
-            if (el.classList.contains('fade-up') || el.classList.contains('fade-in')) {
-                el.classList.add('revealed');
-            }
-
-            if (el.classList.contains('reveal-text')) {
-                const inner = el.querySelector('.reveal-text-inner');
-                if (inner) inner.classList.add('revealed');
-            }
-
-            if (el.classList.contains('hero-stat-number')) {
-                animateNumber(el);
-            }
-
-            observer.unobserve(el);
-        });
-    }, {
-        threshold: 0.15,
-        rootMargin: '0px 0px -30px 0px'
-    });
-
-    // Register elements (skip hero — handled by preloader)
-    document.querySelectorAll('.fade-up, .fade-in, .reveal-text').forEach(el => {
-        if (!el.closest('.hero')) {
-            revealObserver.observe(el);
+            mobileLinks.forEach(link => link.addEventListener('click', closeMobileMenu));
         }
-    });
 
-    document.querySelectorAll('.hero-stat-number').forEach(el => {
-        revealObserver.observe(el);
-    });
-
-    /* ============================================
-       WHAT WE BUILD — staggered reveals
-    ============================================ */
-    const wwbSection = document.getElementById('whatWeBuild');
-    if (wwbSection) {
-        const wwbHeader = wwbSection.querySelector('.wwb-header');
-        const wwbRows = wwbSection.querySelectorAll('.wwb-row');
-        const wwbCta = wwbSection.querySelector('.wwb-cta');
-
-        const wwbObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) return;
-
-                // Reveal header first
-                if (wwbHeader) {
-                    wwbHeader.classList.add('wwb-revealed');
-                }
-
-                // Stagger rows: 150ms apart
-                wwbRows.forEach((row, i) => {
-                    setTimeout(() => {
-                        row.classList.add('wwb-revealed');
-                    }, 150 + i * 150);
-                });
-
-                // CTA after rows finish
-                if (wwbCta) {
-                    setTimeout(() => {
-                        wwbCta.classList.add('wwb-revealed');
-                    }, 150 + wwbRows.length * 150 + 200);
-                }
-
-                observer.unobserve(entry.target);
+        /* ============================================
+           CREATIVE STYLES SELECTION
+        ============================================ */
+        const updateSelectedStyles = () => {
+            document.querySelectorAll('[data-style]').forEach(btn => {
+                const selected = selectedStyles.has(btn.dataset.style);
+                btn.setAttribute('aria-pressed', String(selected));
+                btn.classList.toggle('is-selected', selected);
             });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -40px 0px'
-        });
+            const countEl = $('selectedStyleCount');
+            if (countEl) countEl.textContent = String(selectedStyles.size);
+            const bar = $('selectedStylesBar');
+            if (bar) bar.hidden = selectedStyles.size === 0;
+        };
 
-        wwbObserver.observe(wwbSection);
-    }
+        /* ============================================
+           MODALS & DIALOGS (MONTÉ / COSMOS & INQUIRY)
+        ============================================ */
+        const syncDialogScroll = () => {
+            document.body.classList.toggle('dialog-open', Boolean(projectDialog?.open || inquiryDialog?.open));
+        };
 
-    /* ============================================
-       NUMBER COUNTER
-    ============================================ */
-    const animateNumber = (el) => {
-        const raw = el.textContent.trim();
-        const match = raw.match(/\d+/);
-        if (!match) return;
+        const openDialog = dialog => {
+            if (!dialog || dialog.open) return;
+            dialog.showModal();
+            syncDialogScroll();
+        };
 
-        const target = parseInt(match[0]);
-        const suffix = raw.replace(match[0], '');
-        const duration = 1800;
-        const start = performance.now();
+        const closeProject = () => {
+            const video = $('projectVideo');
+            if (video) video.pause();
+            if (projectDialog?.open) projectDialog.close();
+        };
 
-        const step = (now) => {
-            const elapsed = now - start;
-            const p = Math.min(elapsed / duration, 1);
-            const ease = 1 - Math.pow(1 - p, 3);
-            const current = Math.floor(ease * target);
-
-            el.textContent = `${current}${suffix}`;
-
-            if (p < 1) {
-                requestAnimationFrame(step);
-            } else {
-                el.textContent = `${target}${suffix}`;
+        const updateProjectCopy = () => {
+            if (!currentProject) return;
+            if ($('projectTitle')) $('projectTitle').textContent = currentProject.title || '';
+            if ($('projectSubtitle')) $('projectSubtitle').textContent = t(currentProject.subtitleKey);
+            const related = site.collections.find(c => c.id === currentProject.collection);
+            const btn = $('projectCollectionButton');
+            if (btn) {
+                btn.dataset.inquire = related?.id || 'custom';
+                setButtonLabel(btn, `${t('ui.project_collection')} · ${collectionName(related) || t('offer.custom.name')}`);
             }
+            $('projectVideo')?.setAttribute('aria-label', t('ui.project_video'));
+            $('projectGallery')?.setAttribute('aria-label', t('ui.project_gallery'));
+            $('projectGallery')?.querySelectorAll('figure').forEach(fig => {
+                const idx = Number(fig.dataset.galleryIndex);
+                const asset = currentProject.gallery?.[idx];
+                if (!asset) return;
+                const capSpan = fig.querySelector('.gallery-caption-text');
+                const openSpan = fig.querySelector('.gallery-open-label');
+                if (capSpan && asset.captionKey) capSpan.textContent = t(asset.captionKey) || asset.alt;
+                if (openSpan) openSpan.textContent = t('ui.open_image');
+            });
         };
 
-        requestAnimationFrame(step);
-    };
+        const openProject = id => {
+            const project = site.projects.find(item => item.id === id);
+            if (!project || !projectDialog) return;
+            currentProject = project;
 
-    /* ============================================
-       TESTIMONIALS SLIDER
-    ============================================ */
-    if (testimonialsTrack && prevBtn && nextBtn) {
-        const getOffset = () => {
-            const card = testimonialsTrack.querySelector('.testimonial-card');
-            return card ? card.getBoundingClientRect().width + 24 : 0;
-        };
+            const video = $('projectVideo');
+            if (video) {
+                video.pause();
+                video.controls = true;
+                video.autoplay = false;
+                video.preload = 'metadata';
+                video.hidden = !project.film;
+                video.removeAttribute('src');
+                if (project.film) {
+                    video.src = project.film;
+                    if (project.cover) video.poster = project.cover;
+                    else video.removeAttribute('poster');
+                }
+                video.load();
+            }
 
-        nextBtn.addEventListener('click', () => {
-            testimonialsTrack.scrollBy({ left: getOffset(), behavior: 'smooth' });
-        });
+            const gallery = $('projectGallery');
+            if (gallery) {
+                gallery.replaceChildren();
+                (project.gallery || []).forEach((asset, index) => {
+                    if (!asset?.src) return;
+                    const figure = document.createElement('figure');
+                    figure.dataset.galleryIndex = String(index);
 
-        prevBtn.addEventListener('click', () => {
-            testimonialsTrack.scrollBy({ left: -getOffset(), behavior: 'smooth' });
-        });
-    }
+                    const link = document.createElement('a');
+                    link.className = 'gallery-image-link';
+                    link.href = asset.src;
+                    link.target = '_blank';
+                    link.rel = 'noopener noreferrer';
 
-    /* ============================================
-       PORTFOLIO CATEGORY FILTERS
-    ============================================ */
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const workItems = document.querySelectorAll('.work-item');
-    const workGrid = document.getElementById('workGrid');
+                    const image = document.createElement('img');
+                    image.src = asset.src;
+                    image.alt = asset.alt || `${project.title} — ${index + 1}`;
+                    image.loading = 'lazy';
+                    image.decoding = 'async';
+                    if (asset.width) image.width = asset.width;
+                    if (asset.height) image.height = asset.height;
+                    link.append(image);
+                    figure.append(link);
 
-    if (filterBtns.length && workItems.length) {
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Update active state
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
+                    const caption = document.createElement('figcaption');
+                    const label = document.createElement('span');
+                    label.className = 'gallery-caption-text';
+                    label.textContent = t(asset.captionKey) || asset.alt || project.title;
 
-                const filter = btn.dataset.filter;
+                    const action = document.createElement('a');
+                    action.className = 'gallery-open-label';
+                    action.href = asset.src;
+                    action.target = '_blank';
+                    action.rel = 'noopener noreferrer';
+                    action.textContent = t('ui.open_image');
 
-                workItems.forEach(item => {
-                    if (filter === 'all' || item.dataset.category === filter) {
-                        item.classList.remove('filtered-out');
-                        item.style.display = '';
-                    } else {
-                        item.classList.add('filtered-out');
-                        // Delay hiding to allow animation
-                        setTimeout(() => {
-                            if (item.classList.contains('filtered-out')) {
-                                item.style.display = 'none';
-                            }
-                        }, 400);
-                    }
+                    caption.append(label, action);
+                    figure.append(caption);
+                    gallery.append(figure);
                 });
+            }
 
-                // Reset grid layout when filtering
-                if (filter !== 'all' && workGrid) {
-                    workGrid.style.gridTemplateColumns = '1fr 1fr';
-                    workItems.forEach(item => {
-                        if (!item.classList.contains('filtered-out')) {
-                            item.style.gridColumn = 'auto';
-                            item.style.gridRow = 'auto';
-                            item.style.aspectRatio = '4/3';
-                        }
-                    });
-                } else if (workGrid) {
-                    // Restore editorial layout
-                    workGrid.style.gridTemplateColumns = '';
-                    workItems.forEach(item => {
-                        item.style.gridColumn = '';
-                        item.style.gridRow = '';
-                        item.style.aspectRatio = '';
-                    });
+            updateProjectCopy();
+            openDialog(projectDialog);
+            projectDialog.scrollTop = 0;
+        };
+
+        const hideResult = () => {
+            if (!formResult) return;
+            formResult.hidden = true;
+            formResult.replaceChildren();
+        };
+
+        const setResult = (message, error = false) => {
+            if (!formResult) return;
+            formResult.replaceChildren();
+            const p = document.createElement('p');
+            p.textContent = message;
+            formResult.append(p);
+            formResult.hidden = false;
+            formResult.dataset.state = error ? 'error' : 'success';
+            formResult.setAttribute('role', 'status');
+        };
+
+        const styleLimit = () => Math.max(1, Number(currentCollection?.maxStyles) || 9);
+
+        const updateStyleHint = () => {
+            const max = styleLimit();
+            const key = max === 1 ? 'offer.styles_one' : max === 3 ? 'offer.styles_three' : 'offer.styles_custom';
+            if ($('styleLimitHint')) $('styleLimitHint').textContent = t(key);
+        };
+
+        const trimStyles = () => {
+            const checked = styleBoxes().filter(box => box.checked);
+            checked.slice(styleLimit()).forEach(box => { box.checked = false; });
+            updateStyleHint();
+        };
+
+        const renderCollection = () => {
+            if (!currentCollection) return;
+            if ($('inquiryTitle')) $('inquiryTitle').textContent = collectionName(currentCollection);
+            if ($('inquiryPrice')) $('inquiryPrice').textContent = priceText(currentCollection);
+            if ($('inquiryGoal')) $('inquiryGoal').textContent = t(`offer.${currentCollection.id}.goal`);
+
+            const includes = $('inquiryIncludes');
+            if (includes) {
+                includes.replaceChildren();
+                for (let i = 0; i < 40; i++) {
+                    const copy = t(`offer.${currentCollection.id}.item${i}`);
+                    if (!copy) break;
+                    const li = document.createElement('li');
+                    li.textContent = copy;
+                    includes.append(li);
                 }
-            });
-        });
-    }
+            }
+            if (collectionSelect) collectionSelect.value = currentCollection.id;
+            updateStyleHint();
+            if ($('inquiryDeliveryNote')) $('inquiryDeliveryNote').textContent = t('offer.disclaimer');
+        };
 
-    /* ============================================
-       FAQ ACCORDION
-    ============================================ */
-    const faqItems = document.querySelectorAll('.faq-item');
+        const openInquiry = (id = 'custom', carryStyles = true) => {
+            const collection = site.collections.find(c => c.id === id) || site.collections.find(c => c.id === 'custom') || site.collections[0];
+            if (!collection || !inquiryDialog || !inquiryForm) return;
+            const show = () => {
+                currentCollection = collection;
+                hideResult();
+                if (carryStyles) styleBoxes().forEach(box => { box.checked = selectedStyles.has(box.value); });
+                trimStyles();
+                renderCollection();
+                openDialog(inquiryDialog);
+                inquiryDialog.scrollTop = 0;
+            };
+            if (projectDialog?.open) {
+                closeProject();
+                requestAnimationFrame(show);
+            } else show();
+        };
 
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
+        /* ============================================
+           EVENT DELEGATION
+        ============================================ */
+        document.addEventListener('click', event => {
+            const target = event.target instanceof Element ? event.target : null;
+            if (!target) return;
 
-        question.addEventListener('click', () => {
-            const isActive = item.classList.contains('active');
+            if (target.closest('[data-close-project]')) { closeProject(); return; }
+            if (target.closest('[data-close-inquiry]')) { inquiryDialog?.close(); return; }
 
-            // Close all other items
-            faqItems.forEach(other => {
-                if (other !== item) {
-                    other.classList.remove('active');
-                    other.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
-                }
-            });
-
-            // Toggle current item
-            item.classList.toggle('active');
-            question.setAttribute('aria-expanded', !isActive);
-        });
-    });
-
-    /* ============================================
-       CONTACT FORM
-    ============================================ */
-    const contactForm = document.getElementById('contactForm');
-
-    if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            const nameInput = document.getElementById('contactName');
-            const emailInput = document.getElementById('contactEmail');
-
-            const nameVal = nameInput ? nameInput.value.trim() : '';
-            const emailVal = emailInput ? emailInput.value.trim() : '';
-
-            if (!nameVal) {
-                if (nameInput) {
-                    nameInput.focus();
-                    nameInput.style.borderColor = '#ef4444';
-                    setTimeout(() => { nameInput.style.borderColor = ''; }, 2500);
-                }
+            const projectBtn = target.closest('[data-project]');
+            if (projectBtn) {
+                event.preventDefault();
+                openProject(projectBtn.dataset.project);
                 return;
             }
 
-            if (!emailVal || !emailVal.includes('@')) {
-                if (emailInput) {
-                    emailInput.focus();
-                    emailInput.style.borderColor = '#ef4444';
-                    setTimeout(() => { emailInput.style.borderColor = ''; }, 2500);
-                }
+            const inquiryBtn = target.closest('[data-inquire]');
+            if (inquiryBtn) {
+                event.preventDefault();
+                openInquiry(inquiryBtn.dataset.inquire);
                 return;
             }
 
-            const formData = new FormData(contactForm);
-            const data = Object.fromEntries(formData);
-            data.name = nameVal;
-            data.email = emailVal;
+            const styleBtn = target.closest('[data-style]');
+            if (styleBtn) {
+                const id = styleBtn.dataset.style;
+                if (!site.styles.some(s => s.id === id)) return;
+                if (selectedStyles.has(id)) selectedStyles.delete(id);
+                else selectedStyles.add(id);
+                updateSelectedStyles();
+            }
+        });
 
-            // Visual feedback - loading
-            const submitBtn = contactForm.querySelector('.form-submit');
-            const originalText = submitBtn.innerHTML;
+        $('styleInquiry')?.addEventListener('click', () => openInquiry('custom'));
 
-            const sendingText = window.BM_i18n ? (window.BM_i18n.t('contact.sending', window.BM_i18n.getCurrentLang()) || 'Sending...') : 'Sending...';
-            submitBtn.innerHTML = sendingText;
-            submitBtn.disabled = true;
+        [projectDialog, inquiryDialog].filter(Boolean).forEach(dialog => {
+            dialog.addEventListener('close', () => {
+                if (dialog === projectDialog) $('projectVideo')?.pause();
+                syncDialogScroll();
+            });
+            dialog.addEventListener('click', event => {
+                if (event.target !== dialog) return;
+                const bounds = dialog.getBoundingClientRect();
+                const outside = event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom;
+                if (outside) dialog.close();
+            });
+        });
 
-            // Add type parameter for server-side routing
-            data.type = 'contact';
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape') closeMobileMenu();
+        });
 
-            fetch('/api/contact', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(async response => {
-                let responseData = null;
-                try {
-                    responseData = await response.json();
-                } catch (err) {}
+        collectionSelect?.addEventListener('change', () => {
+            currentCollection = site.collections.find(c => c.id === collectionSelect.value) || currentCollection;
+            trimStyles();
+            renderCollection();
+            hideResult();
+        });
 
-                if (response.ok) {
-                    const successText = window.BM_i18n ? (window.BM_i18n.t('contact.sent', window.BM_i18n.getCurrentLang()) || 'Message Sent ✓') : 'Message Sent ✓';
-                    submitBtn.innerHTML = successText;
-                    submitBtn.style.background = 'rgba(181, 163, 131, 0.18)';
-                    submitBtn.style.color = 'var(--accent)';
-
-                    setTimeout(() => {
-                        submitBtn.innerHTML = originalText;
-                        submitBtn.style.background = '';
-                        submitBtn.style.color = '';
-                        submitBtn.disabled = false;
-                        contactForm.reset();
-                    }, 3000);
+        styleBoxes().forEach(box => box.addEventListener('change', () => {
+            const checked = styleBoxes().filter(input => input.checked);
+            const limit = styleLimit();
+            if (checked.length > limit) {
+                if (limit === 1) {
+                    checked.filter(input => input !== box).forEach(input => { input.checked = false; });
                 } else {
-                    const serverDetails = responseData?.details || responseData?.error || responseData?.message || `HTTP ${response.status}`;
-                    console.error('Contact form submission failed on server:', {
-                        status: response.status,
-                        statusText: response.statusText,
-                        data: responseData
+                    box.checked = false;
+                    if ($('styleLimitHint')) $('styleLimitHint').textContent = t('ui.style_limit_reached');
+                }
+            } else {
+                updateStyleHint();
+            }
+            hideResult();
+        }));
+
+        const fieldLabel = name => {
+            const input = inquiryForm?.elements.namedItem(name);
+            const label = input?.id ? inquiryForm.querySelector(`label[for="${input.id}"]`) : null;
+            return label?.textContent.trim() || name;
+        };
+
+        const sanitize = str => String(str || '').replace(/[<>]/g, '').trim();
+
+        if (inquiryForm) {
+            inquiryForm.addEventListener('input', hideResult);
+            inquiryForm.addEventListener('change', hideResult);
+            inquiryForm.addEventListener('submit', async event => {
+                event.preventDefault();
+                if (submitting || !currentCollection) return;
+
+                if (!inquiryForm.reportValidity()) return;
+
+                const fields = new FormData(inquiryForm);
+                const data = {
+                    type: 'booking',
+                    service: collectionName(currentCollection),
+                    name: sanitize(fields.get('name')),
+                    email: sanitize(fields.get('email')),
+                    brand: sanitize(fields.get('brand')),
+                    social: sanitize(fields.get('social')),
+                    styles: fields.getAll('styles').map(id => site.styles.find(s => s.id === id)?.name || id),
+                    details: [
+                        sanitize(fields.get('details')),
+                        `${fieldLabel('location')}: ${sanitize(fields.get('location')) || '—'}`,
+                        `${fieldLabel('timeframe')}: ${sanitize(fields.get('timeframe')) || '—'}`
+                    ].join('\n\n')
+                };
+
+                submitting = true;
+                const submitBtn = $('inquirySubmit');
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    setButtonLabel(submitBtn, t('ui.sending'));
+                }
+                hideResult();
+
+                const abort = new AbortController();
+                const timeout = setTimeout(() => abort.abort(), 20000);
+
+                try {
+                    const response = await fetch('/api/contact', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data),
+                        signal: abort.signal
                     });
-                    throw new Error(serverDetails);
+                    if (!response.ok) throw new Error('Inquiry delivery failed');
+                    setResult(t('ui.inquiry_sent'));
+                    inquiryForm.reset();
+                    selectedStyles.clear();
+                    updateSelectedStyles();
+                    if (collectionSelect) collectionSelect.value = currentCollection.id;
+                } catch {
+                    setResult(t('ui.inquiry_error'), true);
+                } finally {
+                    clearTimeout(timeout);
+                    submitting = false;
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        setButtonLabel(submitBtn, t('offer.cta'));
+                    }
                 }
-            })
-            .catch(error => {
-                console.error('Error submitting contact form:', error);
-
-                // Diagnostic tip if testing on localhost or file protocol
-                if (window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-                    console.warn('[BM DEBUG] /api/contact je Vercel Serverless funkcija. Ako testirate lokalno na Live Serveru ili otvarate HTML direktno, /api/contact vraća 404. Za lokalno testiranje koristite "vercel dev", ili testirajte na Vercelu sa postavljenim RESEND_API_KEY.');
-                }
-
-                const errorText = window.BM_i18n ? (window.BM_i18n.t('contact.error', window.BM_i18n.getCurrentLang()) || 'Error! Try again.') : 'Error! Try again.';
-                submitBtn.innerHTML = errorText;
-                submitBtn.style.background = 'rgba(239, 68, 68, 0.1)';
-                submitBtn.style.color = '#ef4444';
-
-                setTimeout(() => {
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.style.background = '';
-                    submitBtn.style.color = '';
-                    submitBtn.disabled = false;
-                }, 3000);
             });
+        }
+
+        // Sync dynamic modals on language change
+        document.addEventListener('bm:langchange', () => {
+            updateProjectCopy();
+            renderCollection();
         });
-    }
 
-    /* ============================================
-       BOOKING SYSTEM (MODAL & STYLES SELECTION)
-    ============================================ */
-    const bookingModal = document.getElementById('bookingModal');
-    const bookingForm = document.getElementById('bookingForm');
-    const closeBookingBtn = document.getElementById('closeBookingBtn');
-    const modalOverlay = bookingModal ? bookingModal.querySelector('.booking-modal-overlay') : null;
-    const modalServiceTitle = document.getElementById('modalServiceTitle');
-    const modalServiceGoal = document.getElementById('modalServiceGoal');
-    const modalServiceIncludes = document.getElementById('modalServiceIncludes');
-    const modalServiceIncludesContainer = document.getElementById('modalServiceIncludesContainer');
-    const modalServiceInput = document.getElementById('modalServiceInput');
-    const modalStylesGroup = document.getElementById('modalStylesGroup');
-
-    const bookStylesBtn = document.getElementById('bookStylesBtn');
-    const selectedStylesCount = document.getElementById('selectedStylesCount');
-    const floatingBookStylesBtn = document.getElementById('floatingBookStylesBtn');
-    const floatingSelectedStylesCount = document.getElementById('floatingSelectedStylesCount');
-    const styleCards = document.querySelectorAll('.creative-styles .style-card');
-
-    let selectedStyles = new Set();
-
-    // Open booking modal
-    const openBookingModal = (serviceName, goalText, includesHtml, priceText = '', initialStyles = [], hasStyles = true) => {
-        if (!bookingModal) return;
-
-        // Reset form and styles checkboxes
-        if (bookingForm) {
-            bookingForm.reset();
-            const checkBoxes = bookingForm.querySelectorAll('input[type="checkbox"][name="styles"]');
-            checkBoxes.forEach(cb => {
-                cb.checked = hasStyles ? initialStyles.includes(cb.value) : false;
-            });
-        }
-
-        // Hide/Show Styles selection based on whether this service requires style selection
-        if (modalStylesGroup) {
-            modalStylesGroup.style.display = hasStyles ? '' : 'none';
-        }
-
-        // Set service info
-        modalServiceTitle.textContent = serviceName;
-        modalServiceGoal.textContent = goalText || 'Custom project design';
-        modalServiceInput.value = serviceName;
-
-        const modalPriceEl = document.getElementById('modalServicePrice');
-        if (modalPriceEl) {
-            modalPriceEl.textContent = priceText;
-            modalPriceEl.style.display = priceText ? 'block' : 'none';
-        }
-
-        if (includesHtml) {
-            modalServiceIncludes.innerHTML = includesHtml;
-            modalServiceIncludesContainer.style.display = 'block';
-        } else {
-            modalServiceIncludesContainer.style.display = 'none';
-        }
-
-        // Open
-        bookingModal.classList.add('active');
-        bookingModal.setAttribute('aria-hidden', 'false');
-        document.body.style.overflowY = 'hidden';
-    };
-
-    // Close booking modal
-    const closeBookingModal = () => {
-        if (!bookingModal) return;
-        bookingModal.classList.remove('active');
-        bookingModal.setAttribute('aria-hidden', 'true');
-        document.body.style.overflowY = '';
-    };
-
-    // 1. Hook up Collection Cards (Clicking anywhere on the card opens the booking form)
-    document.querySelectorAll('.collection-card').forEach(card => {
-        const ctaBtn = card.querySelector('.collection-card-cta');
-        if (!ctaBtn) return;
-
-        card.addEventListener('click', (e) => {
-            const href = ctaBtn.getAttribute('href');
-            if (href === '#build') {
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (!href || href === '#') return;
                 const target = document.querySelector(href);
                 if (target) {
                     e.preventDefault();
                     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
-            } else {
-                e.preventDefault();
-
-                const title = card.querySelector('.collection-card-title').textContent.trim();
-                const priceEl = card.querySelector('.collection-card-price');
-                const price = priceEl ? priceEl.textContent.trim() : '';
-                const goal = card.querySelector('.collection-card-goal').textContent.trim();
-                
-                const includesEl = card.querySelector('.collection-card-includes ul');
-                const includesHtml = includesEl ? includesEl.innerHTML : '';
-
-                // Check if this service excludes styles (e.g. Brand Presence)
-                const hasStyles = card.getAttribute('data-has-styles') !== 'false';
-
-                // Open modal with this collection details
-                openBookingModal(title, goal, includesHtml, price, [], hasStyles);
-            }
-        });
-    });
-
-    // 2. Hook up Close actions
-    if (closeBookingBtn) closeBookingBtn.addEventListener('click', closeBookingModal);
-    if (modalOverlay) modalOverlay.addEventListener('click', closeBookingModal);
-
-    window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && bookingModal && bookingModal.classList.contains('active')) {
-            closeBookingModal();
-        }
-    });
-
-    /* ============================================
-       CREATIVE STYLES — Interactive Grid Selection & WebGL Ambient Flow
-    ============================================ */
-    const initCreativeStyles = () => {
-        const styleCards = document.querySelectorAll('.creative-styles .style-card');
-        if (!styleCards.length) return;
-
-        // Card Selection Toggle
-        styleCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const styleName = card.getAttribute('data-style');
-                if (selectedStyles.has(styleName)) {
-                    selectedStyles.delete(styleName);
-                    card.classList.remove('is-selected');
-                } else {
-                    selectedStyles.add(styleName);
-                    card.classList.add('is-selected');
-                }
-
-                const count = selectedStyles.size;
-                if (selectedStylesCount) selectedStylesCount.textContent = `(${count})`;
-                if (floatingSelectedStylesCount) floatingSelectedStylesCount.textContent = `(${count})`;
-
-                if (count > 0) {
-                    if (bookStylesBtn) bookStylesBtn.classList.add('visible');
-                    if (floatingBookStylesBtn) floatingBookStylesBtn.classList.add('visible');
-                } else {
-                    if (bookStylesBtn) bookStylesBtn.classList.remove('visible');
-                    if (floatingBookStylesBtn) floatingBookStylesBtn.classList.remove('visible');
-                }
             });
         });
 
-        // WebGL Three.js Ambient Fluid / Glass Background Flow (Optimized & Pausable)
-        const canvas = document.getElementById('stylesBackgroundCanvas');
-        const section = document.getElementById('styles');
-        if (!canvas || !section || typeof THREE === 'undefined') return;
+        /* ============================================
+           INTERACTIVE STORYTELLING & HOVER FILM PREVIEW
+        ============================================ */
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-        // On mobile devices, disable WebGL canvas to preserve battery & guarantee 60fps smooth scrolling
-        if (window.innerWidth <= 768) {
-            canvas.style.display = 'none';
-            return;
+        // 1. Desktop Hover Video Preview on MONTÉ & COSMOS
+        if (finePointer && !reducedMotion) {
+            document.querySelectorAll('.project-cover[data-preview-video]').forEach(cover => {
+                const videoEl = cover.querySelector('.project-preview-video');
+                const src = cover.getAttribute('data-preview-video');
+                if (!videoEl || !src) return;
+                let loaded = false;
+
+                cover.addEventListener('mouseenter', () => {
+                    if (!loaded) {
+                        videoEl.src = src;
+                        loaded = true;
+                    }
+                    videoEl.play().then(() => {
+                        cover.classList.add('is-playing');
+                    }).catch(() => {});
+                });
+
+                cover.addEventListener('mouseleave', () => {
+                    cover.classList.remove('is-playing');
+                    videoEl.pause();
+                });
+            });
         }
 
-        let renderer, scene, camera, material, mesh;
-        let isSectionInView = false;
-        let isInitialized = false;
-        let animationFrameId = null;
-        let lastTime = 0;
-        let mouse = new THREE.Vector2(0.5, 0.5);
-
-        const animate = (time) => {
-            if (!isSectionInView || !renderer) {
-                animationFrameId = null;
-                return;
-            }
-            const dt = (time - lastTime) * 0.001;
-            lastTime = time;
-            if (material) {
-                material.uniforms.uTime.value += Math.min(dt, 0.05);
-            }
-            renderer.render(scene, camera);
-            animationFrameId = requestAnimationFrame(animate);
+        // 2. Scroll Word-Highlight on Studio Statement (Perspektiva)
+        const statementEl = document.querySelector('.statement-copy');
+        const buildStoryWords = () => {
+            if (!statementEl || reducedMotion) return;
+            const raw = statementEl.textContent.trim();
+            if (!raw) return;
+            const words = raw.split(/\s+/);
+            statementEl.replaceChildren();
+            words.forEach((word, i) => {
+                const span = document.createElement('span');
+                span.className = 'story-word is-lit';
+                span.textContent = word + (i < words.length - 1 ? ' ' : '');
+                statementEl.append(span);
+            });
         };
 
-        const startAnimation = () => {
-            if (!animationFrameId && isSectionInView && renderer) {
-                lastTime = performance.now();
-                animationFrameId = requestAnimationFrame(animate);
+        const updateStoryWords = () => {
+            if (!statementEl || reducedMotion) return;
+            const spans = statementEl.querySelectorAll('.story-word');
+            if (!spans.length) return;
+            const rect = statementEl.getBoundingClientRect();
+            const vh = window.innerHeight || 800;
+            // Progress from 0 (bottom of viewport) to 1 (upper third of viewport)
+            const progress = Math.min(1, Math.max(0, (vh * 0.85 - rect.top) / (vh * 0.45 + rect.height)));
+            const litCount = Math.ceil(progress * spans.length);
+            spans.forEach((s, idx) => s.classList.toggle('is-lit', idx < litCount));
+        };
+
+        buildStoryWords();
+        updateStoryWords();
+        let storyTicking = false;
+        window.addEventListener('scroll', () => {
+            if (!storyTicking) {
+                requestAnimationFrame(() => {
+                    updateStoryWords();
+                    storyTicking = false;
+                });
+                storyTicking = true;
             }
-        };
+        }, { passive: true });
 
-        const stopAnimation = () => {
-            if (animationFrameId) {
-                cancelAnimationFrame(animationFrameId);
-                animationFrameId = null;
-            }
-        };
-
-        const initWebGL = () => {
-            if (isInitialized) return;
-            isInitialized = true;
-
-            const w = section.clientWidth || window.innerWidth;
-            const h = section.clientHeight || 800;
-
-            scene = new THREE.Scene();
-            camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-
-            renderer = new THREE.WebGLRenderer({
-                canvas: canvas,
-                alpha: true,
-                antialias: false,
-                powerPreference: "high-performance"
-            });
-            renderer.setSize(w, h);
-            // Cap at 1.0 to eliminate high-DPI GPU fill-rate hitching
-            renderer.setPixelRatio(1.0);
-
-            const vertexShader = `
-                varying vec2 vUv;
-                void main() {
-                    vUv = uv;
-                    gl_Position = vec4(position, 1.0);
-                }
-            `;
-
-            const fragmentShader = `
-                uniform float uTime;
-                uniform vec2 uResolution;
-                uniform vec2 uMouse;
-                varying vec2 vUv;
-
-                // Simplex-inspired organic fluid flow
-                vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-                vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-                vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
-
-                float snoise(vec2 v) {
-                    const vec4 C = vec4(0.211324865405187, 0.366025403784439,
-                                       -0.577350269189626, 0.024390243902439);
-                    vec2 i  = floor(v + dot(v, C.yy));
-                    vec2 x0 = v -   i + dot(i, C.xx);
-                    vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
-                    vec4 x12 = x0.xyxy + C.xxzz;
-                    x12.xy -= i1;
-                    i = mod289(i);
-                    vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0)) + i.x + vec3(0.0, i1.x, 1.0));
-                    vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
-                    m = m*m;
-                    m = m*m;
-                    vec3 x = 2.0 * fract(p * C.www) - 1.0;
-                    vec3 h = abs(x) - 0.5;
-                    vec3 ox = floor(x + 0.5);
-                    vec3 a0 = x - ox;
-                    m *= 1.79284291400159 - 0.85373472095314 * (a0*a0 + h*h);
-                    vec3 g;
-                    g.x = a0.x * x0.x + h.x * x0.y;
-                    g.yz = a0.yz * x12.xz + h.yz * x12.yw;
-                    return 130.0 * dot(m, g);
-                }
-
-                void main() {
-                    vec2 uv = vUv;
-                    vec2 aspect = vec2(uResolution.x / uResolution.y, 1.0);
-                    vec2 p = (uv - 0.5) * aspect;
-
-                    float t = uTime * 0.25;
-
-                    // Organic liquid distortion waves
-                    float n1 = snoise(p * 2.0 + vec2(t * 0.3, t * 0.2));
-                    float n2 = snoise(p * 3.5 - vec2(t * 0.2, t * 0.4) + n1 * 0.5);
-                    float n3 = snoise(p * 5.0 + vec2(n2 * 0.4, t * 0.15));
-
-                    // Mouse interaction
-                    vec2 mousePos = (uMouse - 0.5) * aspect;
-                    float mouseDist = length(p - mousePos);
-                    float mouseWave = smoothstep(0.4, 0.0, mouseDist) * sin(mouseDist * 20.0 - uTime * 3.0) * 0.15;
-
-                    float fluid = n1 * 0.5 + n2 * 0.3 + n3 * 0.2 + mouseWave;
-
-                    // BM Design deep navy #101528 & matte champagne #B5A383
-                    vec3 colorNavy = vec3(0.063, 0.082, 0.157); // #101528
-                    vec3 colorChampagne = vec3(0.710, 0.639, 0.514); // #B5A383
-                    vec3 colorDark = vec3(0.043, 0.055, 0.106); // #0B0E1B
-
-                    vec3 finalColor = mix(colorDark, colorNavy, smoothstep(-0.4, 0.6, fluid));
-                    finalColor = mix(finalColor, colorChampagne, smoothstep(0.35, 0.95, fluid) * 0.45);
-
-                    // Vignette & edge fade
-                    float vignette = 1.0 - smoothstep(0.2, 0.9, length(uv - 0.5));
-                    finalColor *= vignette;
-
-                    gl_FragColor = vec4(finalColor, 0.45);
-                }
-            `;
-
-            material = new THREE.ShaderMaterial({
-                vertexShader,
-                fragmentShader,
-                uniforms: {
-                    uTime: { value: 0 },
-                    uResolution: { value: new THREE.Vector2(w, h) },
-                    uMouse: { value: mouse }
-                },
-                transparent: true
-            });
-
-            mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
-            scene.add(mesh);
-
-            // Resize observer
-            const ro = new ResizeObserver(entries => {
-                for (const entry of entries) {
-                    const nw = entry.contentRect.width;
-                    const nh = entry.contentRect.height;
-                    if (nw > 0 && nh > 0 && renderer) {
-                        renderer.setSize(nw, nh);
-                        if (material) material.uniforms.uResolution.value.set(nw, nh);
-                    }
-                }
-            });
-            ro.observe(section);
-
-            // Mouse move (passive)
-            section.addEventListener('mousemove', (e) => {
-                const rect = section.getBoundingClientRect();
-                mouse.x = (e.clientX - rect.left) / rect.width;
-                mouse.y = 1.0 - (e.clientY - rect.top) / rect.height;
-                if (material) material.uniforms.uMouse.value.set(mouse.x, mouse.y);
-            }, { passive: true });
-        };
-
-        // Lazy-load WebGL only when approaching the styles section
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                isSectionInView = entry.isIntersecting;
-                if (isSectionInView) {
-                    if (!isInitialized) {
-                        initWebGL();
-                    }
-                    startAnimation();
-                } else {
-                    stopAnimation();
-                }
-            });
-        }, { threshold: 0.01, rootMargin: '250px 0px 250px 0px' });
-        observer.observe(section);
-    };
-
-    initCreativeStyles();
-
-    // 4. Book Selected Styles Button
-    if (bookStylesBtn) {
-        bookStylesBtn.addEventListener('click', () => {
-            const stylesList = Array.from(selectedStyles);
-            const includesListHtml = stylesList.map(style => `<li>Selected Style: ${style}</li>`).join('');
-
-            openBookingModal(
-                'Custom Style Selection', 
-                'Tailored visual direction for your project.', 
-                includesListHtml, 
-                '', 
-                stylesList
-            );
+        // Re-split words if language changes
+        document.addEventListener('bm:langchange', () => {
+            buildStoryWords();
+            updateStoryWords();
         });
-    }
 
-    if (floatingBookStylesBtn) {
-        floatingBookStylesBtn.addEventListener('click', () => {
-            const stylesList = Array.from(selectedStyles);
-            const includesListHtml = stylesList.map(style => `<li>Selected Style: ${style}</li>`).join('');
+        // 3. Interactive FeatureSteps Process Showcase (Auto-cycle + Click + Pause on hover/offscreen)
+        const processGrid = document.querySelector('.process-feature-grid');
+        const processSteps = [...document.querySelectorAll('.process-step')];
+        const processSlides = [...document.querySelectorAll('.process-slide')];
+        const processCounter = $('processCounter');
 
-            openBookingModal(
-                'Custom Style Selection', 
-                'Tailored visual direction for your project.', 
-                includesListHtml, 
-                '', 
-                stylesList
-            );
-        });
-    }
+        if (processGrid && processSteps.length && processSlides.length) {
+            let activeStep = 0;
+            let stepTimer = null;
+            let isInView = false;
+            let isPaused = false;
+            const INTERVAL_MS = 4000;
 
-    // 5. Booking Form Submission
-    if (bookingForm) {
-        bookingForm.addEventListener('submit', (e) => {
-            e.preventDefault();
+            const setStep = index => {
+                activeStep = ((index % processSteps.length) + processSteps.length) % processSteps.length;
+                processSteps.forEach((btn, i) => {
+                    const isActive = i === activeStep;
+                    const isDone = i < activeStep;
+                    btn.classList.toggle('is-active', isActive);
+                    btn.classList.toggle('is-done', isDone);
+                    btn.setAttribute('aria-selected', String(isActive));
 
-            // Validate
-            const nameInput = document.getElementById('bookingName');
-            const emailInput = document.getElementById('bookingEmail');
+                    // Restart progress bar animation cleanly
+                    const bar = btn.querySelector('.process-step-bar > span');
+                    if (bar) {
+                        bar.style.animation = 'none';
+                        void bar.offsetWidth;
+                        bar.style.animation = '';
+                    }
+                });
 
-            if (!nameInput.value.trim() || !emailInput.value.trim() || !emailInput.value.includes('@')) {
-                const alertMsg = window.BM_i18n ? (window.BM_i18n.t('modal.fill_fields', window.BM_i18n.getCurrentLang()) || 'Please fill out Name and valid Email.') : 'Please fill out Name and valid Email.';
-                alert(alertMsg);
-                return;
-            }
+                processSlides.forEach((slide, i) => {
+                    slide.classList.toggle('is-active', i === activeStep);
+                });
 
-            // Submit feedback - loading
-            const submitBtn = bookingForm.querySelector('.form-submit');
-            const originalText = submitBtn.innerHTML;
-
-            const sendingText = window.BM_i18n ? (window.BM_i18n.t('modal.booking_sending', window.BM_i18n.getCurrentLang()) || 'Sending...') : 'Sending...';
-            submitBtn.innerHTML = sendingText;
-            submitBtn.disabled = true;
-
-            // Gather booking form data
-            const selectedStyleList = [];
-            bookingForm.querySelectorAll('input[name="styles"]:checked').forEach(cb => {
-                selectedStyleList.push(cb.value);
-            });
-
-            const data = {
-                type: 'booking',
-                service: document.getElementById('modalServiceInput').value,
-                name: nameInput.value,
-                email: emailInput.value,
-                brand: document.getElementById('bookingBrand').value,
-                social: document.getElementById('bookingSocial').value,
-                styles: selectedStyleList,
-                details: document.getElementById('bookingDetails').value
+                if (processCounter) {
+                    processCounter.textContent = `${String(activeStep + 1).padStart(2, '0')} / 06`;
+                }
             };
 
-            fetch('/api/contact', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(async response => {
-                let responseData = null;
-                try {
-                    responseData = await response.json();
-                } catch (err) {}
+            const startCycle = () => {
+                if (reducedMotion || stepTimer || !isInView || isPaused) return;
+                stepTimer = setInterval(() => {
+                    setStep(activeStep + 1);
+                }, INTERVAL_MS);
+            };
 
-                if (response.ok) {
-                    const successText = window.BM_i18n ? (window.BM_i18n.t('modal.booking_requested', window.BM_i18n.getCurrentLang()) || 'Booking Requested ✓') : 'Booking Requested ✓';
-                    submitBtn.innerHTML = successText;
-                    submitBtn.style.background = 'rgba(181, 163, 131, 0.18)';
-                    submitBtn.style.color = 'var(--accent)';
-
-                    setTimeout(() => {
-                        submitBtn.innerHTML = originalText;
-                        submitBtn.style.background = '';
-                        submitBtn.style.color = '';
-                        submitBtn.disabled = false;
-                        
-                        // Clear selected style cards visual state & reset set
-                        styleCards.forEach(c => c.classList.remove('is-selected'));
-                        selectedStyles.clear();
-                        if (selectedStylesCount) selectedStylesCount.textContent = '(0)';
-                        if (floatingSelectedStylesCount) floatingSelectedStylesCount.textContent = '(0)';
-                        if (bookStylesBtn) bookStylesBtn.classList.remove('visible');
-                        if (floatingBookStylesBtn) floatingBookStylesBtn.classList.remove('visible');
-
-                        bookingForm.reset();
-                        closeBookingModal();
-                    }, 2500);
-                } else {
-                    const serverDetails = responseData?.details || responseData?.error || responseData?.message || `HTTP ${response.status}`;
-                    console.error('Booking form submission failed on server:', {
-                        status: response.status,
-                        statusText: response.statusText,
-                        data: responseData
-                    });
-                    throw new Error(serverDetails);
+            const stopCycle = () => {
+                if (stepTimer) {
+                    clearInterval(stepTimer);
+                    stepTimer = null;
                 }
-            })
-            .catch(error => {
-                console.error('Error submitting booking form:', error);
+            };
 
-                // Diagnostic tip if testing on localhost or file protocol
-                if (window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-                    console.warn('[BM DEBUG] /api/contact je Vercel Serverless funkcija. Ako testirate lokalno na Live Serveru ili otvarate HTML direktno, /api/contact vraća 404. Za lokalno testiranje koristite "vercel dev", ili testirajte na Vercelu sa postavljenim RESEND_API_KEY.');
-                }
-
-                const errorText = window.BM_i18n ? (window.BM_i18n.t('modal.booking_error', window.BM_i18n.getCurrentLang()) || 'Error! Try again.') : 'Error! Try again.';
-                submitBtn.innerHTML = errorText;
-                submitBtn.style.background = 'rgba(239, 68, 68, 0.1)';
-                submitBtn.style.color = '#ef4444';
-
-                setTimeout(() => {
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.style.background = '';
-                    submitBtn.style.color = '';
-                    submitBtn.disabled = false;
-                }, 3000);
-            });
-        });
-    }
-
-    /* ============================================
-       SMOOTH SCROLL FOR ANCHOR LINKS
-    ============================================ */
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const href = this.getAttribute('href');
-            if (href === '#' || this.classList.contains('collection-card-cta')) return;
-
-            const target = document.querySelector(href);
-            if (target) {
-                e.preventDefault();
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+            processSteps.forEach((btn, idx) => {
+                btn.addEventListener('click', () => {
+                    stopCycle();
+                    setStep(idx);
+                    startCycle();
                 });
-            }
-        });
-    });
+            });
 
-});
+            processGrid.addEventListener('mouseenter', () => {
+                isPaused = true;
+                processGrid.classList.add('is-paused');
+                stopCycle();
+            });
+
+            processGrid.addEventListener('mouseleave', () => {
+                isPaused = false;
+                processGrid.classList.remove('is-paused');
+                startCycle();
+            });
+
+            if ('IntersectionObserver' in window) {
+                const pObs = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        isInView = entry.isIntersecting;
+                        if (isInView) startCycle();
+                        else stopCycle();
+                    });
+                }, { threshold: 0.15 });
+                pObs.observe(processGrid);
+            } else {
+                isInView = true;
+                startCycle();
+            }
+        }
+
+        updateSelectedStyles();
+    };
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
+    else init();
+})();

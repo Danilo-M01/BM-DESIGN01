@@ -36,11 +36,33 @@ module.exports = async (req, res) => {
             }
         }
 
-        if (!data || !data.name || !data.email) {
+        if (!data || typeof data !== 'object' || !data.name || !data.email) {
             return res.status(400).json({ error: 'Name and Email are required fields.' });
         }
 
-        const formType = data.type || 'contact'; // 'contact' or 'booking'
+        const escapeHtml = (str) => String(str || '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+
+        const cleanStr = (str, max = 500) => escapeHtml(String(str || '').trim().slice(0, max));
+        const cleanSubject = (str, max = 120) => String(str || '').replace(/[\r\n]+/g, ' ').trim().slice(0, max);
+
+        const rawEmail = String(data.email || '').trim().slice(0, 250);
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(rawEmail)) {
+            return res.status(400).json({ error: 'Invalid email address format.' });
+        }
+
+        const safeName = cleanStr(data.name, 250);
+        const safeEmail = escapeHtml(rawEmail);
+        const safeBrand = cleanStr(data.brand, 250);
+        const safeSocial = cleanStr(data.social, 250);
+        const safeService = cleanStr(data.service, 200);
+        const safeDetails = cleanStr(data.details, 6000);
+
+        const formType = data.type === 'booking' ? 'booking' : 'contact';
         const fromEmail = process.env.RESEND_FROM_EMAIL || "info@contact.bmdesign01.com";
         const toEmail = process.env.RESEND_TO_EMAIL || "collab@bmdesign01.com";
 
@@ -49,11 +71,11 @@ module.exports = async (req, res) => {
         let htmlContent = '';
 
         if (formType === 'booking') {
-            subject = `[Rezervacija] Novi upit za: ${data.service || 'Kolekciju/Stil'}`;
+            subject = `[Rezervacija] Novi upit za: ${cleanSubject(data.service) || 'Kolekciju/Stil'}`;
             
             const stylesList = Array.isArray(data.styles) 
-                ? data.styles.join(', ') 
-                : (data.styles || 'Nema odabranih stilova');
+                ? data.styles.slice(0, 12).map(s => cleanStr(s, 80)).join(', ') 
+                : (cleanStr(data.styles, 400) || 'Nema odabranih stilova');
 
             htmlContent = `
                 <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 8px; background-color: #fcfcfc;">
@@ -64,33 +86,33 @@ module.exports = async (req, res) => {
                     <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
                         <tr style="background-color: #f7f7f7;">
                             <td style="padding: 10px; font-weight: bold; width: 30%; border: 1px solid #eee;">Odabrana usluga:</td>
-                            <td style="padding: 10px; border: 1px solid #eee; color: #d97706; font-weight: bold;">${data.service || 'Nije specificirano'}</td>
+                            <td style="padding: 10px; border: 1px solid #eee; color: #d97706; font-weight: bold;">${safeService || 'Nije specificirano'}</td>
                         </tr>
                         <tr>
                             <td style="padding: 10px; font-weight: bold; border: 1px solid #eee;">Ime klijenta:</td>
-                            <td style="padding: 10px; border: 1px solid #eee;">${data.name}</td>
+                            <td style="padding: 10px; border: 1px solid #eee;">${safeName}</td>
                         </tr>
                         <tr style="background-color: #f7f7f7;">
                             <td style="padding: 10px; font-weight: bold; border: 1px solid #eee;">Email:</td>
-                            <td style="padding: 10px; border: 1px solid #eee;"><a href="mailto:${data.email}">${data.email}</a></td>
+                            <td style="padding: 10px; border: 1px solid #eee;"><a href="mailto:${safeEmail}">${safeEmail}</a></td>
                         </tr>
                         <tr>
                             <td style="padding: 10px; font-weight: bold; border: 1px solid #eee;">Naziv brenda:</td>
-                            <td style="padding: 10px; border: 1px solid #eee;">${data.brand || 'Nije navedeno'}</td>
+                            <td style="padding: 10px; border: 1px solid #eee;">${safeBrand || 'Nije navedeno'}</td>
                         </tr>
                         <tr style="background-color: #f7f7f7;">
                             <td style="padding: 10px; font-weight: bold; border: 1px solid #eee;">Instagram / Sajt:</td>
-                            <td style="padding: 10px; border: 1px solid #eee;">${data.social || 'Nije navedeno'}</td>
+                            <td style="padding: 10px; border: 1px solid #eee;">${safeSocial || 'Nije navedeno'}</td>
                         </tr>
                         <tr>
                             <td style="padding: 10px; font-weight: bold; border: 1px solid #eee;">Odabrani stilovi:</td>
-                            <td style="padding: 10px; border: 1px solid #eee;">${stylesList}</td>
+                            <td style="padding: 10px; border: 1px solid #eee;">${stylesList || 'Nema odabranih stilova'}</td>
                         </tr>
                     </table>
                     
                     <h3 style="margin-top: 30px; color: #333;">Napomene i ciljevi projekta:</h3>
                     <div style="background-color: #fff; padding: 15px; border: 1px solid #eee; border-radius: 4px; white-space: pre-wrap; font-style: italic; color: #555;">
-                        ${data.details || 'Nema napomena.'}
+                        ${safeDetails || 'Nema napomena.'}
                     </div>
                     
                     <footer style="margin-top: 30px; font-size: 12px; color: #888; text-align: center; border-top: 1px solid #eee; padding-top: 10px;">
@@ -100,7 +122,7 @@ module.exports = async (req, res) => {
             `;
         } else {
             // Default is contact form
-            subject = `[Kontakt] Nova poruka od: ${data.name}`;
+            subject = `[Kontakt] Nova poruka od: ${cleanSubject(data.name)}`;
             
             htmlContent = `
                 <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 8px; background-color: #fcfcfc;">
@@ -111,25 +133,25 @@ module.exports = async (req, res) => {
                     <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
                         <tr>
                             <td style="padding: 10px; font-weight: bold; width: 30%; border: 1px solid #eee;">Ime pošiljaoca:</td>
-                            <td style="padding: 10px; border: 1px solid #eee;">${data.name}</td>
+                            <td style="padding: 10px; border: 1px solid #eee;">${safeName}</td>
                         </tr>
                         <tr style="background-color: #f7f7f7;">
                             <td style="padding: 10px; font-weight: bold; border: 1px solid #eee;">Email:</td>
-                            <td style="padding: 10px; border: 1px solid #eee;"><a href="mailto:${data.email}">${data.email}</a></td>
+                            <td style="padding: 10px; border: 1px solid #eee;"><a href="mailto:${safeEmail}">${safeEmail}</a></td>
                         </tr>
                         <tr>
                             <td style="padding: 10px; font-weight: bold; border: 1px solid #eee;">Brend:</td>
-                            <td style="padding: 10px; border: 1px solid #eee;">${data.brand || 'Nije navedeno'}</td>
+                            <td style="padding: 10px; border: 1px solid #eee;">${safeBrand || 'Nije navedeno'}</td>
                         </tr>
                         <tr style="background-color: #f7f7f7;">
                             <td style="padding: 10px; font-weight: bold; border: 1px solid #eee;">Instagram / Sajt:</td>
-                            <td style="padding: 10px; border: 1px solid #eee;">${data.social || 'Nije navedeno'}</td>
+                            <td style="padding: 10px; border: 1px solid #eee;">${safeSocial || 'Nije navedeno'}</td>
                         </tr>
                     </table>
                     
                     <h3 style="margin-top: 30px; color: #333;">Detalji projekta / Poruka:</h3>
                     <div style="background-color: #fff; padding: 15px; border: 1px solid #eee; border-radius: 4px; white-space: pre-wrap; color: #333;">
-                        ${data.details || 'Nema detalja.'}
+                        ${safeDetails || 'Nema detalja.'}
                     </div>
                     
                     <footer style="margin-top: 30px; font-size: 12px; color: #888; text-align: center; border-top: 1px solid #eee; padding-top: 10px;">

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BM DESIGN01 — Visual Storytelling & Lifestyle Brands</title>
+    <title>BM DESIGN01 — Visual Storytelling &amp; Lifestyle Brands</title>
 
     <!-- Meta SEO -->
     <meta name="description"
@@ -15,13 +15,13 @@
     <link rel="canonical" href="https://www.bmdesign01.com">
 
     <!-- Theme Color for Mobile Browsers -->
-    <meta name="theme-color" content="#101528">
+    <meta name="theme-color" content="#111110">
 
     <!-- Open Graph / Facebook / WhatsApp / Viber / LinkedIn -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.bmdesign01.com/">
     <meta property="og:site_name" content="BM DESIGN01">
-    <meta property="og:title" content="BM DESIGN01 — Visual Storytelling & Lifestyle Brands">
+    <meta property="og:title" content="BM DESIGN01 — Visual Storytelling &amp; Lifestyle Brands">
     <meta property="og:description"
         content="Photography, motion, and creative direction built from travel, culture, and authentic experiences.">
     <meta property="og:image" content="https://www.bmdesign01.com/images/bmdesignlogo.png">
@@ -34,7 +34,7 @@
     <!-- Twitter / X -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://www.bmdesign01.com/">
-    <meta property="twitter:title" content="BM DESIGN01 — Visual Storytelling & Lifestyle Brands">
+    <meta property="twitter:title" content="BM DESIGN01 — Visual Storytelling &amp; Lifestyle Brands">
     <meta property="twitter:description"
         content="Photography, motion, and creative direction built from travel, culture, and authentic experiences.">
     <meta property="twitter:image" content="https://www.bmdesign01.com/images/bmdesignlogo.png">
@@ -49,45 +49,33 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
 
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Serif+Display&family=Manrope:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
-        rel="stylesheet">
-
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
+    <!-- Local Fonts & Exact Editorial Stylesheets (with Preserved Hero) -->
+    <link rel="stylesheet" href="fonts/fonts.css">
+    <link rel="stylesheet" href="css/portfolio.css">
+    <link rel="stylesheet" href="css/readability-depth.css">
+    <link rel="stylesheet" href="css/hero.css">
 </head>
 
 <body>
+    <a class="skip-link" href="#mainContent" data-i18n="ui.skip">Pređite na sadržaj</a>
 
     <!-- Scroll Progress Bar -->
-    <div class="scroll-progress" id="scrollProgress"></div>
-
-    <!-- Loading Screen -->
-    <div class="loader" id="pageLoader">
-        <div class="loader-logo-wrap">
-            <img src="images/bmdesignlogo.png" alt="BM DESIGN01" class="loader-logo-img">
-        </div>
-        <div class="loader-line"></div>
-        <div class="loader-number" id="loaderNumber">00%</div>
-    </div>
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
     <!-- Fullscreen Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
         <a href="#home" class="mobile-link" data-i18n="mobile.home">Početna</a>
         <a href="#work" class="mobile-link" data-i18n="mobile.selected_work">Izabrani Radovi</a>
         <a href="#collections" class="mobile-link" data-i18n="mobile.collections">Kolekcije</a>
         <a href="#styles" class="mobile-link" data-i18n="mobile.styles">Kreativni Stilovi</a>
+        <a href="#partnerships" class="mobile-link" data-i18n="nav.partnership">Partnerstvo</a>
         <a href="#contact" class="mobile-link" data-i18n="mobile.start_partnership">Započni Partnerstvo</a>
     </div>
 
-    <!-- Navigation Header -->
+    <!-- Navigation Header (Preserved) -->
     <nav id="navbar">
         <a href="#home" class="nav-logo" aria-label="BM DESIGN01">
-            <img src="images/bmdesignlogo.png" alt="BM DESIGN01" class="nav-logo-img">
+            <img src="images/bmdesignlogo.png" alt="BM DESIGN01" width="1200" height="1200" class="nav-logo-img">
         </a>
         <ul class="nav-links">
             <li><a href="#work" data-i18n="nav.work">Radovi</a></li>
@@ -96,1328 +84,1054 @@
             <li><a href="#partnerships" data-i18n="nav.partnership">Partnerstvo</a></li>
             <li><a href="#contact" class="nav-cta" data-i18n="nav.start_partnership">Započni Partnerstvo</a></li>
         </ul>
-        <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+        <button class="hamburger" id="hamburgerBtn" type="button" aria-label="Menu" aria-expanded="false">
             <span></span>
             <span></span>
             <span></span>
         </button>
     </nav>
 
-    <!-- Smooth Scroll Wrapper -->
-    <div class="smooth-wrapper">
-        <div class="smooth-content" id="scrollContent">
-
-            <!-- ============================================
-                 1. HERO EXPERIENCE
-            ============================================ -->
-            <section id="home" class="hero">
-                <div class="hero-video-container">
-                    <video autoplay muted loop playsinline preload="metadata" class="hero-video" id="heroVideo" poster="images/hero_poster.jpg">
-                        <source id="heroVideoSource" type="video/mp4">
-                    </video>
-                    <script>
-                        (function() {
-                            try {
-                                var l = localStorage.getItem('bmdesign01_lang') || 'en';
-                                var isMob = window.innerWidth <= 768;
-                                var v = document.getElementById('heroVideo');
-                                var s = document.getElementById('heroVideoSource');
-                                var videoMap = {
-                                    en: isMob ? 'images/herobackgroundengmobile.mp4' : 'images/herobackground.mp4',
-                                    sr: isMob ? 'images/herobackgroundsrbmobile.mp4' : 'images/herobackgroundsrpski.mp4',
-                                    ru: isMob ? 'images/herobackgrounrusmobile.mp4' : 'images/herobackgroundrussian.mp4'
-                                };
-                                var target = videoMap[l] || videoMap['en'];
-                                if (v && isMob) {
-                                    v.poster = 'images/hero_poster_mob.jpg';
-                                }
-                                if (s && target) {
-                                    s.src = target;
-                                    if (v) v.load();
-                                }
-                            } catch(e) {}
-                        })();
-                    </script>
+    <main id="mainContent">
+        <!-- ============================================
+             HERO EXPERIENCE (Preserved Intact)
+        ============================================ -->
+        <section id="home" class="hero">
+            <div class="hero-video-container">
+                <video autoplay muted loop playsinline preload="metadata" class="hero-video" id="heroVideo" poster="images/hero_poster.jpg">
+                    <source id="heroVideoSource" type="video/mp4">
+                </video>
+                <script>
+                    (function () {
+                        try {
+                            var l = localStorage.getItem('bmdesign01_lang') || 'en';
+                            var isMob = window.innerWidth <= 768;
+                            var v = document.getElementById('heroVideo');
+                            var s = document.getElementById('heroVideoSource');
+                            var videoMap = {
+                                en: isMob ? 'images/herobackgroundengmobile.mp4' : 'images/herobackground.mp4',
+                                sr: isMob ? 'images/herobackgroundsrbmobile.mp4' : 'images/herobackgroundsrpski.mp4',
+                                ru: isMob ? 'images/herobackgrounrusmobile.mp4' : 'images/herobackgroundrussian.mp4'
+                            };
+                            var target = videoMap[l] || videoMap['en'];
+                            if (v && isMob) {
+                                v.poster = 'images/hero_poster_mob.jpg';
+                            }
+                            if (s && target) {
+                                s.src = target;
+                                if (v) v.load();
+                            }
+                        } catch (e) {}
+                    })();
+                </script>
+            </div>
+            <div class="hero-content">
+                <p class="hero-sub hero-enter" style="--enter-delay: 0.1s" data-i18n="hero.sub">
+                    Kreativni studio izgrađen na putovanjima, kulturi i uverenju da najjači brendovi nastaju iz
+                    stvarnih iskustava.
+                </p>
+                <div class="hero-buttons hero-enter" style="--enter-delay: 0.24s">
+                    <a href="#work" class="btn-primary">
+                        <span data-i18n="hero.explore">Istražite Putovanje</span> <span class="btn-arrow"></span>
+                    </a>
+                    <a href="#contact" class="btn-secondary">
+                        <span data-i18n="hero.start_partnership">Započni Partnerstvo</span> <span class="btn-arrow"></span>
+                    </a>
                 </div>
-                <div class="hero-content">
+            </div>
 
-                    <p class="hero-sub fade-up" data-i18n="hero.sub">
-                        Kreativni studio izgrađen na putovanjima, kulturi i uverenju da najjači brendovi nastaju iz
-                        stvarnih iskustava.
+            <!-- Scroll Indicator -->
+            <div class="hero-scroll-indicator hero-enter" style="--enter-delay: 0.4s">
+                <span data-i18n="hero.scroll">Skroluj</span>
+                <div class="scroll-line"></div>
+            </div>
+        </section>
+
+        <!-- ============================================
+             01 / IZABRANI RADOVI (MONTÉ & COSMOS)
+        ============================================ -->
+        <section class="work-section section-pad wrap" id="work" aria-labelledby="workTitle">
+            <div class="section-heading">
+                <p class="eyebrow"><span class="section-number">01 /</span> <span data-i18n="work.label">Izabrani Radovi</span></p>
+                <div class="heading-row">
+                    <h2 id="workTitle"><span data-i18n="work.title">IZABRANE PRIČE</span></h2>
+                    <p data-i18n="ui.portfolio_intro" class="section-intro">Svaki identitet ima svoju priču. Svaki brend ima svoju viziju.</p>
+                </div>
+            </div>
+
+            <div class="portfolio-brands" id="brands" role="group" aria-labelledby="brandsTitle">
+                <div class="portfolio-group-heading">
+                    <h3 id="brandsTitle" data-i18n="ui.portfolio_brands">Brendovi</h3>
+                    <p data-i18n="ui.portfolio_brands_desc">Vizuelni identitet, fotografija proizvoda i kampanje.</p>
+                </div>
+
+                <div class="project-grid">
+                    <!-- MONTÉ -->
+                    <article class="project-card project-card-monte">
+                        <button type="button" class="project-cover" data-project="monte" data-preview-video="media/monte-film.mp4" aria-label="MONTÉ — istražite projekat">
+                            <img src="images/portfolio/monte-product-range.webp"
+                                alt="MONTÉ — vizuelni prikaz četiri boce mineralne vode, različitih oblika i zapremina, na tamnoplavoj podlozi sa kapljicama vode."
+                                width="1774" height="887" loading="lazy" decoding="async">
+                            <video class="project-preview-video" muted loop playsinline preload="none" aria-hidden="true"></video>
+                            <span class="project-film-badge">
+                                <span aria-hidden="true">▷</span>
+                                <span data-i18n="ui.project_media">Film + galerija</span>
+                            </span>
+                            <span class="project-cover-title" aria-hidden="true">MONTÉ</span>
+                            <span class="project-hover">
+                                <span data-i18n="ui.open_project">Istražite projekat</span>
+                                <span class="arrow" aria-hidden="true">↗</span>
+                            </span>
+                        </button>
+                        <div class="project-meta">
+                            <div>
+                                <p class="eyebrow">01 / <span data-i18n="ui.concept">Autorski vizuelni koncept</span></p>
+                                <h3>MONTÉ</h3>
+                                <p data-i18n="ui.monte_desc" class="project-subtitle">Vizuelni identitet, dizajn ambalaže i film</p>
+                            </div>
+                            <button type="button" class="circle-button" data-project="monte" aria-label="MONTÉ — istražite projekat">
+                                <span class="arrow" aria-hidden="true">↗</span>
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- COSMOS -->
+                    <article class="project-card project-card-cosmos">
+                        <button type="button" class="project-cover" data-project="cosmos" data-preview-video="media/cosmos-film.mp4" aria-label="COSMOS — istražite projekat">
+                            <img src="images/portfolio/cosmos-fragrance-hero.webp"
+                                alt="COSMOS — ljubičasta bočica parfema i ambalaža među kristalima u kosmičkom vizuelnom konceptu."
+                                width="1536" height="1024" loading="lazy" decoding="async">
+                            <video class="project-preview-video" muted loop playsinline preload="none" aria-hidden="true"></video>
+                            <span class="project-film-badge">
+                                <span aria-hidden="true">▷</span>
+                                <span data-i18n="ui.project_media">Film + galerija</span>
+                            </span>
+                            <span class="project-cover-title" aria-hidden="true">COSMOS</span>
+                            <span class="project-hover">
+                                <span data-i18n="ui.open_project">Istražite projekat</span>
+                                <span class="arrow" aria-hidden="true">↗</span>
+                            </span>
+                        </button>
+                        <div class="project-meta">
+                            <div>
+                                <p class="eyebrow">02 / <span data-i18n="ui.concept">Autorski vizuelni koncept</span></p>
+                                <h3>COSMOS</h3>
+                                <p data-i18n="ui.cosmos_desc" class="project-subtitle">Parfem, identitet i kreativna direkcija</p>
+                            </div>
+                            <button type="button" class="circle-button" data-project="cosmos" aria-label="COSMOS — istražite projekat">
+                                <span class="arrow" aria-hidden="true">↗</span>
+                            </button>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================
+             STUDIO STATEMENT / PERSPEKTIVA
+        ============================================ -->
+        <section class="studio-statement" aria-labelledby="perspectiveTitle">
+            <div class="wrap studio-grid">
+                <div>
+                    <p class="eyebrow">BM DESIGN01 / PERSPEKTIVA</p>
+                    <h2 id="perspectiveTitle">
+                        <span data-i18n="offer.title1">Izaberite svoj stil.</span>
+                        <em><span data-i18n="offer.title2">Doživite iskustvo.</span></em>
+                    </h2>
+                </div>
+                <div>
+                    <p data-i18n="offer.intro" class="statement-copy">
+                        Svaki identitet ima svoju priču. Svaki brend ima svoju viziju. Kroz kreativnu direkciju, profesionalnu fotografiju i filmsku video produkciju ideje pretvaramo u autentičan i prepoznatljiv sadržaj.
                     </p>
-                    <div class="hero-buttons fade-up">
-                        <a href="#work" class="btn-primary">
-                            <span data-i18n="hero.explore">Istražite Putovanje</span> <span class="btn-arrow"></span>
-                        </a>
-                        <a href="#contact" class="btn-secondary">
-                            <span data-i18n="hero.start_partnership">Započni Partnerstvo</span> <span
-                                class="btn-arrow"></span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Scroll Indicator -->
-                <div class="hero-scroll-indicator fade-up">
-                    <span data-i18n="hero.scroll">Skroluj</span>
-                    <div class="scroll-line"></div>
-                </div>
-            </section>
-
-            <!-- Marquee Section -->
-            <section class="marquee-section">
-                <div class="marquee-track">
-                    <div class="marquee-item">
+                    <div class="disciplines">
                         <span data-i18n="marquee.brand_identity">Identitet Brenda</span>
-                        <div class="marquee-dot"></div>
                         <span data-i18n="marquee.creative_campaigns">Kreativne Kampanje</span>
-                        <div class="marquee-dot"></div>
-                        <span data-i18n="marquee.personal_brands">Lični Brendovi</span>
-                        <div class="marquee-dot"></div>
                         <span data-i18n="marquee.art_direction">Art Direkcija</span>
-                        <div class="marquee-dot"></div>
                         <span data-i18n="marquee.photography">Fotografija</span>
-                        <div class="marquee-dot"></div>
-                        <span data-i18n="marquee.brand_strategy">Strategija Brenda</span>
-                        <div class="marquee-dot"></div>
-                    </div>
-                    <div class="marquee-item">
-                        <span data-i18n="marquee.brand_identity">Identitet Brenda</span>
-                        <div class="marquee-dot"></div>
-                        <span data-i18n="marquee.creative_campaigns">Kreativne Kampanje</span>
-                        <div class="marquee-dot"></div>
-                        <span data-i18n="marquee.personal_brands">Lični Brendovi</span>
-                        <div class="marquee-dot"></div>
-                        <span data-i18n="marquee.art_direction">Art Direkcija</span>
-                        <div class="marquee-dot"></div>
-                        <span data-i18n="marquee.photography">Fotografija</span>
-                        <div class="marquee-dot"></div>
-                        <span data-i18n="marquee.brand_strategy">Strategija Brenda</span>
-                        <div class="marquee-dot"></div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- ============================================
-                 WHAT WE BUILD
-            ============================================ -->
-            <section id="whatWeBuild" class="what-we-build">
-                <div class="wwb-inner container">
-                    <!-- Section Header -->
-                    <div class="wwb-header">
-                        <h2 class="wwb-title" data-i18n="wwb.title">WHAT WE BUILD</h2>
-                        <p class="wwb-intro" data-i18n="wwb.intro">We design identities, campaigns and visual
-                            experiences that help ambitious brands stand apart.</p>
-                    </div>
-
-                    <!-- Service Rows -->
-                    <div class="wwb-services">
-                        <div class="wwb-row" data-wwb-index="0">
-                            <div class="wwb-row-accent"></div>
-                            <div class="wwb-row-inner">
-                                <span class="wwb-num">01</span>
-                                <div class="wwb-row-content">
-                                    <h3 class="wwb-row-title" data-i18n="wwb.service1_title">Brand Identity</h3>
-                                    <p class="wwb-row-desc" data-i18n="wwb.service1_desc">Visual systems, positioning
-                                        and strategy.</p>
-                                </div>
-                                <a href="#work" class="wwb-row-link">
-                                    <span data-i18n="wwb.view_work">View selected work</span>
-                                    <span class="wwb-arrow">→</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="wwb-row" data-wwb-index="1">
-                            <div class="wwb-row-accent"></div>
-                            <div class="wwb-row-inner">
-                                <span class="wwb-num">02</span>
-                                <div class="wwb-row-content">
-                                    <h3 class="wwb-row-title" data-i18n="wwb.service2_title">Creative Direction</h3>
-                                    <p class="wwb-row-desc" data-i18n="wwb.service2_desc">Concepts, storytelling and art
-                                        direction.</p>
-                                </div>
-                                <a href="#work" class="wwb-row-link">
-                                    <span data-i18n="wwb.view_work">View selected work</span>
-                                    <span class="wwb-arrow">→</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="wwb-row" data-wwb-index="2">
-                            <div class="wwb-row-accent"></div>
-                            <div class="wwb-row-inner">
-                                <span class="wwb-num">03</span>
-                                <div class="wwb-row-content">
-                                    <h3 class="wwb-row-title" data-i18n="wwb.service3_title">Campaigns</h3>
-                                    <p class="wwb-row-desc" data-i18n="wwb.service3_desc">Advertising, partnerships and
-                                        launch campaigns.</p>
-                                </div>
-                                <a href="#work" class="wwb-row-link">
-                                    <span data-i18n="wwb.view_work">View selected work</span>
-                                    <span class="wwb-arrow">→</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="wwb-row" data-wwb-index="3">
-                            <div class="wwb-row-accent"></div>
-                            <div class="wwb-row-inner">
-                                <span class="wwb-num">04</span>
-                                <div class="wwb-row-content">
-                                    <h3 class="wwb-row-title" data-i18n="wwb.service4_title">Photo &amp; Film</h3>
-                                    <p class="wwb-row-desc" data-i18n="wwb.service4_desc">Photography, motion and
-                                        premium content production.</p>
-                                </div>
-                                <a href="#work" class="wwb-row-link">
-                                    <span data-i18n="wwb.view_work">View selected work</span>
-                                    <span class="wwb-arrow">→</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="wwb-row" data-wwb-index="4">
-                            <div class="wwb-row-accent"></div>
-                            <div class="wwb-row-inner">
-                                <span class="wwb-num">05</span>
-                                <div class="wwb-row-content">
-                                    <h3 class="wwb-row-title" data-i18n="wwb.service5_title">Architecture &amp; Interior
-                                        Design</h3>
-                                    <p class="wwb-row-desc" data-i18n="wwb.service5_desc">Spatial concepts, art styling
-                                        and visual storytelling for architecture and interiors.</p>
-                                </div>
-                                <a href="#work" class="wwb-row-link">
-                                    <span data-i18n="wwb.view_work">View selected work</span>
-                                    <span class="wwb-arrow">→</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Bottom CTA -->
-                    <div class="wwb-cta">
-                        <p class="wwb-cta-text" data-i18n="wwb.cta_text">Need something custom?</p>
-                        <a href="#contact" class="wwb-cta-link">
-                            <span data-i18n="wwb.cta_link">Book a discovery call</span>
-                            <span class="wwb-arrow">→</span>
-                        </a>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ============================================
-                 2. SELECTED WORK
-            ============================================ -->
-            <section id="work" class="work">
-                <div class="work-header container">
-                    <div class="work-header-left">
-                        <div class="section-label" data-i18n="work.label">Izabrani Radovi</div>
-                        <h2 class="work-title reveal-text">
-                            <span class="reveal-text-inner" data-i18n="work.title">IZABRANE PRIČE</span>
+        <!-- ============================================
+             02 / NAŠE KOLEKCIJE
+        ============================================ -->
+        <section class="collections-section section-pad" id="collections" aria-labelledby="collectionsTitle">
+            <div class="wrap">
+                <div class="section-heading">
+                    <p class="eyebrow"><span class="section-number">02 /</span> <span data-i18n="offer.label">Naše kolekcije</span></p>
+                    <div class="heading-row">
+                        <h2 id="collectionsTitle">
+                            <span data-i18n="offer.title1">Izaberite svoj stil.</span>
+                            <em><span data-i18n="offer.title2">Doživite iskustvo.</span></em>
                         </h2>
-                    </div>
-                    <a href="#work" class="work-link fade-up" data-i18n="work.view_all">Pogledaj Sve Projekte</a>
-                </div>
-                <div class="work-filters container fade-up">
-                    <button class="filter-btn active" data-filter="all" data-i18n="filter.all">Sve</button>
-                    <button class="filter-btn" data-filter="personal-brands" data-i18n="filter.personal_brands">Lični
-                        Brendovi</button>
-                    <button class="filter-btn" data-filter="fashion" data-i18n="filter.fashion">Moda</button>
-                    <button class="filter-btn" data-filter="beauty" data-i18n="filter.beauty">Lepota</button>
-                    <button class="filter-btn" data-filter="jewelry" data-i18n="filter.jewelry">Nakit</button>
-                    <button class="filter-btn" data-filter="hospitality"
-                        data-i18n="filter.hospitality">Ugostiteljstvo</button>
-                    <button class="filter-btn" data-filter="wellness" data-i18n="filter.wellness">Velnes</button>
-                    <button class="filter-btn" data-filter="luxury-mobility" data-i18n="filter.luxury_mobility">Luksuzna
-                        Mobilnost</button>
-                    <button class="filter-btn" data-filter="interior-design" data-i18n="filter.interior_design">Dizajn
-                        Enterijera</button>
-                    <button class="filter-btn" data-filter="architecture"
-                        data-i18n="filter.architecture">Arhitektura</button>
-                    <button class="filter-btn" data-filter="restaurants"
-                        data-i18n="filter.restaurants">Restorani</button>
-                    <button class="filter-btn" data-filter="technology"
-                        data-i18n="filter.technology">Tehnologija</button>
-                </div>
-
-                <!-- Editorial Layout Grid -->
-                <div class="work-editorial" id="workGrid">
-
-                    <!-- Personal Brands -->
-                    <div class="work-item fade-up" data-category="personal-brands">
-                        <picture>
-                            <source srcset="images/project-personal.webp" type="image/webp">
-                            <img src="images/project-personal.jpg" alt="Alessio Ferrari Personal Brand"
-                                class="work-item-img" loading="lazy" decoding="async" width="800" height="1000">
-                        </picture>
-                        <div class="work-overlay"></div>
-                        <div class="work-item-info">
-                            <div class="work-item-cat" data-i18n="work.personal_milan">Lični Brendovi</div>
-                            <h4 class="work-item-name" data-i18n="work.personal_name">Alessio Ferrari Lični Brend</h4>
-                        </div>
-                    </div>
-
-                    <!-- Fashion (New Editorial Dubai Photo) -->
-                    <div class="work-item fade-up" data-category="fashion">
-                        <picture>
-                            <source srcset="images/project-fashion.webp" type="image/webp">
-                            <img src="images/project-fashion.jpg" alt="Maison Noir Fashion Editorial"
-                                class="work-item-img" loading="lazy" decoding="async" width="800" height="1000">
-                        </picture>
-                        <div class="work-overlay"></div>
-                        <div class="work-item-info">
-                            <div class="work-item-cat" data-i18n="work.fashion_milan">Moda</div>
-                            <h4 class="work-item-name" data-i18n="work.fashion_editorial">Maison Noir Modni Editorijal</h4>
-                        </div>
-                    </div>
-
-                    <!-- Beauty (New Abstract Artistic Splatter) -->
-                    <div class="work-item fade-up" data-category="beauty">
-                        <picture>
-                            <source srcset="images/project-beauty.webp" type="image/webp">
-                            <img src="images/project-beauty.jpg" alt="Noir Parfum Brand Campaign"
-                                class="work-item-img" loading="lazy" decoding="async" width="800" height="1000">
-                        </picture>
-                        <div class="work-overlay"></div>
-                        <div class="work-item-info">
-                            <div class="work-item-cat" data-i18n="work.beauty_ny">Lepota</div>
-                            <h4 class="work-item-name" data-i18n="work.beauty_campaign">Noir Parfum Brendirana Kampanja</h4>
-                        </div>
-                    </div>
-
-                    <!-- Jewelry -->
-                    <div class="work-item fade-up" data-category="jewelry">
-                        <picture>
-                            <source srcset="images/project-jewelry.webp" type="image/webp">
-                            <img src="images/project-jewelry.jpg" alt="Lumière Jewelry Collection"
-                                class="work-item-img" loading="lazy" decoding="async" width="800" height="1000">
-                        </picture>
-                        <div class="work-overlay"></div>
-                        <div class="work-item-info">
-                            <div class="work-item-cat" data-i18n="work.jewelry_paris">Nakit</div>
-                            <h4 class="work-item-name" data-i18n="work.jewelry_name">Lumière Kolekcija Nakita</h4>
-                        </div>
-                    </div>
-
-                    <!-- Hospitality (Como) -->
-                    <div class="work-item fade-up" data-category="hospitality">
-                        <picture>
-                            <source srcset="images/project-hospitality1.webp" type="image/webp">
-                            <img src="images/project-hospitality1.jpg" alt="Villa Como Hotel Campaign"
-                                class="work-item-img" loading="lazy" decoding="async" width="800" height="1000">
-                        </picture>
-                        <div class="work-overlay"></div>
-                        <div class="work-item-info">
-                            <div class="work-item-cat" data-i18n="work.hospitality_como">Ugostiteljstvo</div>
-                            <h4 class="work-item-name" data-i18n="work.hospitality_como_name">Villa Como Hotelska Kampanja</h4>
-                        </div>
-                    </div>
-
-                    <!-- Hospitality (The Saint) -->
-                    <div class="work-item fade-up" data-category="hospitality">
-                        <picture>
-                            <source srcset="images/project-hospitality2.webp" type="image/webp">
-                            <img src="images/project-hospitality2.jpg" alt="The Saint Hotel Brand Identity"
-                                class="work-item-img" loading="lazy" decoding="async" width="800" height="1000">
-                        </picture>
-                        <div class="work-overlay"></div>
-                        <div class="work-item-info">
-                            <div class="work-item-cat" data-i18n="work.hospitality_paris">Ugostiteljstvo</div>
-                            <h4 class="work-item-name" data-i18n="work.hospitality_paris_name">The Saint Hotel Identitet Brenda</h4>
-                        </div>
-                    </div>
-
-                    <!-- Wellness -->
-                    <div class="work-item fade-up" data-category="wellness">
-                        <picture>
-                            <source srcset="images/project-wellness.webp" type="image/webp">
-                            <img src="images/project-wellness.jpg" alt="Serene Wellness Retreat"
-                                class="work-item-img" loading="lazy" decoding="async" width="800" height="1000">
-                        </picture>
-                        <div class="work-overlay"></div>
-                        <div class="work-item-info">
-                            <div class="work-item-cat" data-i18n="work.wellness_bali">Velnes</div>
-                            <h4 class="work-item-name" data-i18n="work.wellness_name">Serene Velnes Utočište</h4>
-                        </div>
-                    </div>
-
-                    <!-- Luxury Mobility -->
-                    <div class="work-item fade-up" data-category="luxury-mobility">
-                        <picture>
-                            <source srcset="images/project-mobility.webp" type="image/webp">
-                            <img src="images/project-mobility.jpg" alt="Azure Motors Brand Launch"
-                                class="work-item-img" loading="lazy" decoding="async" width="800" height="1000">
-                        </picture>
-                        <div class="work-overlay"></div>
-                        <div class="work-item-info">
-                            <div class="work-item-cat" data-i18n="work.mobility_monaco">Luksuzna Mobilnost</div>
-                            <h4 class="work-item-name" data-i18n="work.mobility_name">Azure Motors Lansiranje Brenda</h4>
-                        </div>
-                    </div>
-
-                    <!-- Interior Design -->
-                    <div class="work-item fade-up" data-category="interior-design">
-                        <picture>
-                            <source srcset="images/project-interior.webp" type="image/webp">
-                            <img src="images/project-interior.jpg" alt="Casa Moderna Interior"
-                                class="work-item-img" loading="lazy" decoding="async" width="800" height="1000">
-                        </picture>
-                        <div class="work-overlay"></div>
-                        <div class="work-item-info">
-                            <div class="work-item-cat" data-i18n="work.interior_london">Dizajn Enterijera</div>
-                            <h4 class="work-item-name" data-i18n="work.interior_name">Casa Moderna Enterijer</h4>
-                        </div>
-                    </div>
-
-                    <!-- Architecture (New Slavija Dusk Terrace Photo) -->
-                    <div class="work-item fade-up" data-category="architecture">
-                        <picture>
-                            <source srcset="images/project-architecture.webp" type="image/webp">
-                            <img src="images/project-architecture.jpg" alt="Atelier Studio Architecture"
-                                class="work-item-img" loading="lazy" decoding="async" width="800" height="1000">
-                        </picture>
-                        <div class="work-overlay"></div>
-                        <div class="work-item-info">
-                            <div class="work-item-cat" data-i18n="work.architecture_dubai">Arhitektura</div>
-                            <h4 class="work-item-name" data-i18n="work.architecture_name">Atelier Studio Arhitektura</h4>
-                        </div>
-                    </div>
-
-                    <!-- Restaurants (New Luxury Restaurant Dining Photo) -->
-                    <div class="work-item fade-up" data-category="restaurants">
-                        <picture>
-                            <source srcset="images/project-restaurant.webp" type="image/webp">
-                            <img src="images/project-restaurant.jpg" alt="Oro Restaurant Identity"
-                                class="work-item-img" loading="lazy" decoding="async" width="800" height="1000">
-                        </picture>
-                        <div class="work-overlay"></div>
-                        <div class="work-item-info">
-                            <div class="work-item-cat" data-i18n="work.restaurant_rome">Restorani</div>
-                            <h4 class="work-item-name" data-i18n="work.restaurant_name">Oro Restoran Identitet</h4>
-                        </div>
-                    </div>
-
-                    <!-- Technology (New Roland Digital Piano Artistry Photo) -->
-                    <div class="work-item fade-up" data-category="technology">
-                        <picture>
-                            <source srcset="images/project-technology.webp" type="image/webp">
-                            <img src="images/project-technology.jpg" alt="Nexus Tech Brand Identity"
-                                class="work-item-img" loading="lazy" decoding="async" width="800" height="1000">
-                        </picture>
-                        <div class="work-overlay"></div>
-                        <div class="work-item-info">
-                            <div class="work-item-cat" data-i18n="work.tech_sf">Tehnologija & Zvuk</div>
-                            <h4 class="work-item-name" data-i18n="work.tech_name">Nexus Tech & Sound Artistry</h4>
-                        </div>
+                        <a class="text-link brochure" href="docs/bm-design01-katalog-sr.pdf" data-catalogue-current lang="sr" hreflang="sr" download="bm-design01-katalog-sr.pdf" type="application/pdf">
+                            <span data-i18n="offer.pdf">Preuzmite kolekcije · PDF</span>
+                            <span class="arrow" aria-hidden="true">↗</span>
+                        </a>
                     </div>
                 </div>
-            </section>
 
-    <!-- ============================================
-                 3. COLLECTIONS
-            ============================================ -->
-    <section id="collections" class="collections">
-        <div class="collections-header container">
-            <div class="section-label" data-i18n="collections.label">Kolekcije Brendova</div>
-            <h2 class="collections-title reveal-text">
-                <span class="reveal-text-inner" data-i18n="collections.title1">IZABERITE ISKUSTVO</span>
-            </h2>
-            <h2 class="collections-title reveal-text">
-                <span class="reveal-text-inner" data-i18n="collections.title2">KOJE ODGOVARA VAŠIM CILJEVIMA.</span>
-            </h2>
-        </div>
+                <div class="catalogue-downloads" role="group" aria-labelledby="catalogueDownloadsLabel">
+                    <p id="catalogueDownloadsLabel" data-catalogue-label>PDF katalog na tri jezika</p>
+                    <div class="catalogue-language-links">
+                        <a href="docs/bm-design01-katalog-sr.pdf" data-catalogue-language="sr" lang="sr" hreflang="sr" download="bm-design01-katalog-sr.pdf" type="application/pdf">Srpski</a>
+                        <a href="docs/bm-design01-katalog-en.pdf" data-catalogue-language="en" lang="en" hreflang="en" download="bm-design01-katalog-en.pdf" type="application/pdf">English</a>
+                        <a href="docs/bm-design01-katalog-ru.pdf" data-catalogue-language="ru" lang="ru" hreflang="ru" download="bm-design01-katalog-ru.pdf" type="application/pdf">Русский</a>
+                    </div>
+                </div>
 
-        <!-- STANDARD COLLECTIONS -->
-        <div class="collections-tier container">
-            <div class="collections-tier-label fade-up" data-i18n="collections.standard_label">Standardne Kolekcije
-            </div>
-            <p class="collections-tier-desc fade-up" data-i18n="collections.standard_desc">
-                Za biznise i lične brendove kojima je potreban konzistentan, visokokvalitetan sadržaj.
-            </p>
-        </div>
-
-        <div class="collections-grid container">
-            <!-- Personal Identity -->
-            <div class="collection-card collection-card-grey fade-up" data-has-styles="true">
-                <div class="collection-card-overlay"></div>
-                <div class="collection-card-header">
-                    <h3 class="collection-card-title" data-i18n="collections.personal_title">Lični Identitet</h3>
-                    <div class="collection-card-price">290 €</div>
-                    <p class="collection-card-goal" data-i18n="collections.personal_goal">Izgradite autoritet oko sebe.
+                <!-- Standard Tier -->
+                <div class="tier-heading">
+                    <h3><span data-i18n="offer.standard_label">Osnovne kolekcije</span></h3>
+                    <p data-i18n="offer.standard_desc">
+                        Vaš identitet. Vaš stil. Naša kreativna perspektiva. Produkcije za pojedince i brendove koji žele dosledan, autentičan i prepoznatljiv vizuelni identitet.
                     </p>
                 </div>
-                <p class="collection-card-desc" data-i18n="collections.personal_desc">
-                    Dizajniran za kreativce, preduzetnike i profesionalce koji žele da uspostave konzistentan vizuelni
-                    identitet.
-                </p>
-                <div class="collection-card-includes">
-                    <span class="collection-card-label" data-i18n="collections.includes">Uključuje</span>
-                    <ul>
-                        <li data-i18n="collections.9_posts">9 editovanih objava za društvene mreže</li>
-                        <li data-i18n="collections.pro_photo">Fotografisanje i Video sadržaj</li>
-                        <li data-i18n="collections.short_video">Kratki video sadržaj</li>
-                        <li data-i18n="collections.one_style">Jedan kreativni stil po vašem izboru</li>
-                    </ul>
-                </div>
-                <a href="#contact" class="collection-card-cta">
-                    <span data-i18n="collections.book_collection">Rezerviši Kolekciju</span> <span
-                        class="btn-arrow"></span>
-                </a>
-            </div>
 
-            <!-- Brand Presence -->
-            <div class="collection-card collection-card-blue fade-up" data-has-styles="false">
-                <div class="collection-card-overlay"></div>
-                <div class="collection-card-header">
-                    <h3 class="collection-card-title" data-i18n="collections.brand_title">Prisustvo Brenda</h3>
-                    <div class="collection-card-price">590 €</div>
-                    <p class="collection-card-goal" data-i18n="collections.brand_goal">Konzistentan sadržaj za biznise u
-                        rastu.</p>
-                </div>
-                <p class="collection-card-desc" data-i18n="collections.brand_desc">
-                    Konzistentna fotografija i video koji jačaju vaš brend na svim platformama.
-                </p>
-                <div class="collection-card-includes">
-                    <span class="collection-card-label" data-i18n="collections.includes">Uključuje</span>
-                    <ul>
-                        <li data-i18n="collections.9_posts">9 editovanih objava za društvene mreže</li>
-                        <li data-i18n="collections.pro_photo">Fotografisanje i Video sadržaj</li>
-                        <li data-i18n="collections.advertising">Reklamiranje i oglašavanje</li>
-                    </ul>
-                </div>
-                <a href="#contact" class="collection-card-cta">
-                    <span data-i18n="collections.book_collection">Rezerviši Kolekciju</span> <span
-                        class="btn-arrow"></span>
-                </a>
-            </div>
+                <div class="collection-grid collection-grid-standard">
+                    <!-- 01 Personal Identity -->
+                    <article class="collection-card collection-personal" data-collection="personal">
+                        <div class="collection-visual">
+                            <span class="artwork" style="--art-position:0% 50%" role="img" aria-label="BM DESIGN01 — vizuelni primer kreativnog stila"></span>
+                            <span class="collection-index">01</span>
+                        </div>
+                        <div class="collection-body">
+                            <div class="collection-top">
+                                <h4><span data-i18n="offer.personal.name">Personal Identity</span></h4>
+                                <p class="collection-price"><span data-i18n="offer.from">Od</span> 590 €</p>
+                            </div>
+                            <p data-i18n="offer.personal.goal" class="collection-goal">Vaš identitet. Vaš lični potpis.</p>
+                            <details class="collection-details">
+                                <summary>
+                                    <span data-i18n="ui.collection_scope">Koncept i kompletan obim</span>
+                                    <span class="plus-icon" aria-hidden="true">+</span>
+                                </summary>
+                                <div class="collection-full">
+                                    <p data-i18n="offer.personal.description">
+                                        Kroz profesionalnu fotografiju, video i pažljivo odabran kreativni stil stvaramo sadržaj koji odražava vaš karakter, profesionalnost i ambicije. Za kreativce, preduzetnike i profesionalce koji žele snažno i prepoznatljivo lično prisustvo.
+                                    </p>
+                                    <p data-i18n="offer.includes" class="eyebrow">Kolekcija uključuje</p>
+                                    <ul>
+                                        <li data-i18n="offer.personal.item0">9 profesionalno obrađenih vizuala</li>
+                                        <li data-i18n="offer.personal.item1">Profesionalno fotografisanje ličnog brenda</li>
+                                        <li data-i18n="offer.personal.item2">1 kratki video</li>
+                                        <li data-i18n="offer.personal.item3">1 kreativni stil po izboru</li>
+                                        <li data-i18n="offer.personal.item4">Vizuelna direkcija</li>
+                                        <li data-i18n="offer.personal.item5">Priprema sadržaja za društvene mreže</li>
+                                    </ul>
+                                    <p data-i18n="offer.personal.note" class="collection-note">Početna cena za osnovni obim kolekcije. Detalje potvrđujemo individualnom ponudom.</p>
+                                </div>
+                            </details>
+                            <button type="button" class="text-link collection-cta" data-inquire="personal">
+                                <span data-i18n="offer.cta">Zatražite ponudu</span>
+                                <span class="arrow" aria-hidden="true">↗</span>
+                            </button>
+                        </div>
+                    </article>
 
-            <!-- Custom System -->
-            <div class="collection-card collection-card-accent collection-card-gold fade-up" data-has-styles="true">
-                <div class="collection-card-overlay"></div>
-                <div class="collection-card-header">
-                    <h3 class="collection-card-title" data-i18n="collections.custom_title">Prilagođen Sistem</h3>
-                    <div class="collection-card-price" data-i18n="collections.custom_price">Na Upit</div>
-                    <p class="collection-card-goal" data-i18n="collections.custom_goal">Personalizovani sistem za razvoj
-                        vašeg brenda</p>
-                </div>
-                <p class="collection-card-desc" data-i18n="collections.custom_desc">
-                    Svaki projekat je drugačiji. Kreiraćemo produkciju prilagođenu vašim ciljevima, industriji i viziji.
-                </p>
-                <div class="collection-card-includes">
-                    <span class="collection-card-label" data-i18n="collections.includes">Uključuje</span>
-                    <ul>
-                        <li data-i18n="collections.custom_item1">Izaberite usluge po želji</li>
-                        <li data-i18n="collections.custom_item2">Skrojite paket prema vašim ciljevima</li>
-                        <li data-i18n="collections.custom_item3">Fleksibilan obim produkcije</li>
-                    </ul>
-                </div>
-                <p class="collection-card-note" data-i18n="collections.custom_note">
-                    Za lansiranje proizvoda, destinacijske kampanje, restorane, hotele, modne brendove i jednokratne
-                    produkcije.
-                </p>
-                <a href="#build" class="collection-card-cta">
-                    <span data-i18n="collections.describe_project">Kreiraj Svoj Paket</span> <span
-                        class="btn-arrow"></span>
-                </a>
-            </div>
-        </div>
+                    <!-- 02 Brand Presence -->
+                    <article class="collection-card collection-brand" data-collection="brand">
+                        <div class="collection-visual">
+                            <img src="media/cosmos-poster.jpg" width="1200" height="900" alt="Brand Presence — vizuelni pravac kolekcije" loading="lazy" decoding="async">
+                            <span class="collection-index">02</span>
+                        </div>
+                        <div class="collection-body">
+                            <div class="collection-top">
+                                <h4><span data-i18n="offer.brand.name">Brand Presence</span></h4>
+                                <p class="collection-price"><span data-i18n="offer.from">Od</span> 990 €</p>
+                            </div>
+                            <p data-i18n="offer.brand.goal" class="collection-goal">Stvorite prisustvo koje se pamti.</p>
+                            <details class="collection-details">
+                                <summary>
+                                    <span data-i18n="ui.collection_scope">Koncept i kompletan obim</span>
+                                    <span class="plus-icon" aria-hidden="true">+</span>
+                                </summary>
+                                <div class="collection-full">
+                                    <p data-i18n="offer.brand.description">
+                                        Spajamo fotografiju, video i kreativni pristup kako bismo istakli karakter vašeg brenda, predstavili njegove proizvode i stvorili dosledno vizuelno prisustvo. Za kompanije i brendove koji žele da unaprede komunikaciju i profesionalni imidž.
+                                    </p>
+                                    <p data-i18n="offer.includes" class="eyebrow">Kolekcija uključuje</p>
+                                    <ul>
+                                        <li data-i18n="offer.brand.item0">9 profesionalno obrađenih brend vizuala</li>
+                                        <li data-i18n="offer.brand.item1">Profesionalno fotografisanje brenda i proizvoda</li>
+                                        <li data-i18n="offer.brand.item2">Video produkcija i 1 kratki promotivni video</li>
+                                        <li data-i18n="offer.brand.item3">Kreativni koncept i vizuelna direkcija</li>
+                                        <li data-i18n="offer.brand.item4">1 kreativni stil</li>
+                                        <li data-i18n="offer.brand.item5">Priprema sadržaja za društvene mreže</li>
+                                        <li data-i18n="offer.brand.item6">Vizuelni materijali prilagođeni digitalnom oglašavanju</li>
+                                    </ul>
+                                    <p data-i18n="offer.brand.note" class="collection-note">Početna cena za osnovni obim kolekcije. Prava korišćenja i konačan obim potvrđujemo ponudom.</p>
+                                </div>
+                            </details>
+                            <button type="button" class="text-link collection-cta" data-inquire="brand">
+                                <span data-i18n="offer.cta">Zatražite ponudu</span>
+                                <span class="arrow" aria-hidden="true">↗</span>
+                            </button>
+                            <button type="button" class="portfolio-example" data-project="cosmos">
+                                <span data-i18n="ui.portfolio_example">Primer iz portfolija</span> · COSMOS
+                            </button>
+                        </div>
+                    </article>
 
-        <!-- CAMPAIGN EXPERIENCES -->
-        <div class="collections-tier container">
-            <div class="collections-tier-label fade-up" data-i18n="collections.campaign_label">Kampanjska Iskustva</div>
-            <p class="collections-tier-desc fade-up" data-i18n="collections.campaign_desc">
-                Proširene produkcije sa kreativnom direkcijom i više vizuelnih koncepata.
-            </p>
-        </div>
-
-        <div class="collections-grid container">
-            <!-- Iconic Personal Identity -->
-            <div class="collection-card collection-card-red fade-up" data-has-styles="true">
-                <div class="collection-card-overlay"></div>
-                <div class="collection-card-header">
-                    <h3 class="collection-card-title" data-i18n="collections.iconic_title">Ikonični Lični Identitet</h3>
-                    <div class="collection-card-price">590 €</div>
-                    <p class="collection-card-goal" data-i18n="collections.iconic_goal">Za pojedince koji grade ikoničan
-                        lični brend.</p>
+                    <!-- 03 Custom System -->
+                    <article class="collection-card collection-custom" data-collection="custom">
+                        <div class="collection-visual">
+                            <img src="images/project-interior.webp" width="1200" height="900" alt="Custom System — vizuelni pravac kolekcije" loading="lazy" decoding="async">
+                            <span class="collection-index">03</span>
+                        </div>
+                        <div class="collection-body">
+                            <div class="collection-top">
+                                <h4><span data-i18n="offer.custom.name">Custom System</span></h4>
+                                <p class="collection-price"><span data-i18n="offer.on_request">Cena na upit</span></p>
+                            </div>
+                            <p data-i18n="offer.custom.goal" class="collection-goal">Vaša vizija. Bez unapred definisanih granica.</p>
+                            <details class="collection-details">
+                                <summary>
+                                    <span data-i18n="ui.collection_scope">Koncept i kompletan obim</span>
+                                    <span class="plus-icon" aria-hidden="true">+</span>
+                                </summary>
+                                <div class="collection-full">
+                                    <p data-i18n="offer.custom.description">
+                                        Individualna kreativna rešenja prilagođena vašoj industriji, ciljevima i ambicijama. Od ekskluzivnih lansiranja proizvoda do međunarodnih kampanja, razvijamo produkciju koja prati vašu viziju.
+                                    </p>
+                                    <p data-i18n="offer.includes" class="eyebrow">Kolekcija uključuje</p>
+                                    <ul>
+                                        <li data-i18n="offer.custom.item0">Individualna kreativna direkcija</li>
+                                        <li data-i18n="offer.custom.item1">Profesionalna fotografija i filmska video produkcija</li>
+                                        <li data-i18n="offer.custom.item2">Strategija brenda i vizuelni identitet</li>
+                                        <li data-i18n="offer.custom.item3">Razvoj reklamnih kampanja</li>
+                                        <li data-i18n="offer.custom.item4">Organizacija modela, stilizovanja i lokacija</li>
+                                        <li data-i18n="offer.custom.item5">Fotografisanje proizvoda i životnog stila</li>
+                                        <li data-i18n="offer.custom.item6">Dugoročna kreativna partnerstva</li>
+                                        <li data-i18n="offer.custom.item7">Fleksibilan obim produkcije</li>
+                                        <li data-i18n="offer.custom.item8">Individualno definisani materijali i isporuka</li>
+                                    </ul>
+                                    <p data-i18n="offer.custom.note" class="collection-note">
+                                        Mogućnosti produkcije za nakit, parfeme, modu, hotele, destinacije, automobile, arhitekturu i ekskluzivna iskustva. Broj stilova, obim i cena dogovaraju se individualno.
+                                    </p>
+                                </div>
+                            </details>
+                            <button type="button" class="text-link collection-cta" data-inquire="custom">
+                                <span data-i18n="offer.custom_cta">Kreirajte svoju kolekciju</span>
+                                <span class="arrow" aria-hidden="true">↗</span>
+                            </button>
+                        </div>
+                    </article>
                 </div>
-                <p class="collection-card-desc" data-i18n="collections.iconic_desc">
-                    Produkcijsko iskustvo sa više vremena za snimanje, višestrukim kreativnim stilovima i naprednim
-                    storytellingom.
-                </p>
-                <div class="collection-card-includes">
-                    <span class="collection-card-label" data-i18n="collections.includes">Uključuje</span>
-                    <ul>
-                        <li data-i18n="collections.iconic_9posts">9 objava</li>
-                        <li data-i18n="collections.pro_photo">Fotografisanje i Video sadržaj</li>
-                        <li data-i18n="collections.iconic_cinema">Filmska video produkcija</li>
-                        <li data-i18n="collections.iconic_3styles">Do 3 kreativna stila</li>
-                        <li data-i18n="collections.iconic_direction">Kreativna direkcija tokom cele produkcije</li>
-                    </ul>
-                </div>
-                <a href="#contact" class="collection-card-cta">
-                    <span data-i18n="collections.book_experience">Rezerviši Iskustvo</span> <span
-                        class="btn-arrow"></span>
-                </a>
-            </div>
 
-            <!-- Brand Campaign -->
-            <div class="collection-card collection-card-emerald fade-up" data-has-styles="true">
-                <div class="collection-card-overlay"></div>
-                <div class="collection-card-header">
-                    <h3 class="collection-card-title" data-i18n="collections.brand_campaign_title">Brendirana Kampanja
-                    </h3>
-                    <div class="collection-card-price">1.490 €</div>
-                    <p class="collection-card-goal" data-i18n="collections.brand_campaign_goal">Za brendove koji žele
-                        sadržaj na nivou kampanje.</p>
-                </div>
-                <p class="collection-card-desc" data-i18n="collections.brand_campaign_desc">
-                    Dizajniran za biznise koji žele da unaprede vizuelni identitet kroz produkciju i kreativnu
-                    direkciju.
-                </p>
-                <div class="collection-card-includes">
-                    <span class="collection-card-label" data-i18n="collections.includes">Uključuje</span>
-                    <ul>
-                        <li data-i18n="collections.iconic_9posts">9 objava</li>
-                        <li data-i18n="collections.pro_photo">Fotografisanje i Video sadržaj</li>
-                        <li data-i18n="collections.iconic_cinema">Filmska video produkcija</li>
-                        <li data-i18n="collections.iconic_3styles">Do 3 kreativna stila</li>
-                        <li data-i18n="collections.advertising">Reklamiranje i oglašavanje</li>
-                        <li data-i18n="collections.brand_campaign_direction">Kreativna direkcija</li>
-                        <li data-i18n="collections.brand_campaign_planning">Prošireno planiranje produkcije</li>
-                    </ul>
-                </div>
-                <a href="#contact" class="collection-card-cta">
-                    <span data-i18n="collections.book_experience">Rezerviši Iskustvo</span> <span
-                        class="btn-arrow"></span>
-                </a>
-            </div>
-
-            <!-- Event Storytelling -->
-            <div class="collection-card collection-card-warm fade-up" data-has-styles="false">
-                <div class="collection-card-overlay"></div>
-                <div class="collection-card-header">
-                    <h3 class="collection-card-title" data-i18n="collections.event_title">Pripovedanje Događaja</h3>
-                    <div class="collection-card-price">490 € — 2.000+ €</div>
-                    <p class="collection-card-goal" data-i18n="collections.event_goal">Zabeležite iskustva koja ljudi
-                        pamte.</p>
-                </div>
-                <p class="collection-card-desc" data-i18n="collections.event_desc">
-                    Profesionalna fotografija i video pokrivenost za događaje, lansiranja, konferencije i ekskluzivna
-                    iskustva.
-                </p>
-                <div class="collection-card-includes">
-                    <span class="collection-card-label" data-i18n="collections.includes">Uključuje</span>
-                    <ul>
-                        <li data-i18n="collections.event_photo">Foto pokrivenost</li>
-                        <li data-i18n="collections.event_video">Video pokrivenost</li>
-                        <li data-i18n="collections.event_highlight">Highlight film</li>
-                        <li data-i18n="collections.event_gallery">Uređena galerija</li>
-                    </ul>
-                </div>
-                <a href="#contact" class="collection-card-cta">
-                    <span data-i18n="collections.book_event">Rezerviši Pokrivenost Događaja</span> <span
-                        class="btn-arrow"></span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================
-                 4. CREATIVE STYLES — Interactive Selection Grid & WebGL Ambient Flow
-            ============================================ -->
-    <section id="styles" class="creative-styles">
-        <!-- Lumina WebGL Ambient Shader Animation across the entire section -->
-        <canvas class="creative-styles-canvas" id="stylesBackgroundCanvas"></canvas>
-
-        <div class="styles-header container">
-            <div class="styles-header-left">
-                <div class="section-label" data-i18n="styles.label">Izbor Kreativnog Stila</div>
-                <h2 class="styles-title reveal-text">
-                    <span class="reveal-text-inner" data-i18n="styles.title1">IZABERITE VIZUELNI JEZIK</span>
-                </h2>
-                <h2 class="styles-title reveal-text">
-                    <span class="reveal-text-inner" data-i18n="styles.title2">KOJI DEFINIŠE VAŠ SADRŽAJ.</span>
-                </h2>
-            </div>
-            <div class="styles-header-right fade-up">
-                <button type="button" class="btn-book-styles" id="bookStylesBtn">
-                    <span data-i18n="styles.book_selected">Rezerviši Izabrane Stilove</span> <span
-                        id="selectedStylesCount">(0)</span>
-                </button>
-            </div>
-        </div>
-
-        <div class="styles-grid container">
-            <div class="style-card fade-up" data-style="Luxury Minimal">
-                <div class="style-card-visual style-luxury-minimal"></div>
-                <div class="style-card-info">
-                    <h4 class="style-card-name" data-i18n="styles.luxury_minimal">Luksuzni Minimalizam</h4>
-                    <p class="style-card-desc" data-i18n="styles.luxury_minimal_desc">Čiste kompozicije inspirisane
-                        modnim editorijalima.</p>
-                </div>
-            </div>
-
-            <div class="style-card fade-up" data-style="Cinematic Essence">
-                <div class="style-card-visual style-cinematic-essence"></div>
-                <div class="style-card-info">
-                    <h4 class="style-card-name" data-i18n="styles.cinematic">Filmska Esencija</h4>
-                    <p class="style-card-desc" data-i18n="styles.cinematic_desc">Storytelling inspirisan filmom sa
-                        dramatičnim osvetljenjem.</p>
-                </div>
-            </div>
-
-            <div class="style-card fade-up" data-style="Urban Street">
-                <div class="style-card-visual style-urban-street"></div>
-                <div class="style-card-info">
-                    <h4 class="style-card-name" data-i18n="styles.urban">Urbani Ulični</h4>
-                    <p class="style-card-desc" data-i18n="styles.urban_desc">Sirova energija i gradska kultura uhvaćena
-                        u pokretu.</p>
-                </div>
-            </div>
-
-            <div class="style-card fade-up" data-style="Classic Elegance">
-                <div class="style-card-visual style-classic-elegance"></div>
-                <div class="style-card-info">
-                    <h4 class="style-card-name" data-i18n="styles.classic">Klasična Elegancija</h4>
-                    <p class="style-card-desc" data-i18n="styles.classic_desc">Vanvremenska sofisticiranost sa
-                        rafiniranm kompozicijama.</p>
-                </div>
-            </div>
-
-            <div class="style-card fade-up" data-style="Natural Harmony">
-                <div class="style-card-visual style-natural-harmony"></div>
-                <div class="style-card-info">
-                    <h4 class="style-card-name" data-i18n="styles.natural">Prirodna Harmonija</h4>
-                    <p class="style-card-desc" data-i18n="styles.natural_desc">Organski tonovi i prirodno svetlo u
-                        svakom kadru.</p>
-                </div>
-            </div>
-
-            <div class="style-card fade-up" data-style="Artistic Direction">
-                <div class="style-card-visual style-artistic-direction"></div>
-                <div class="style-card-info">
-                    <h4 class="style-card-name" data-i18n="styles.artistic">Umetnička Direkcija</h4>
-                    <p class="style-card-desc" data-i18n="styles.artistic_desc">Smela kreativna vizija koja izaziva
-                        konvencije.</p>
-                </div>
-            </div>
-
-            <div class="style-card fade-up" data-style="Hot & Bold">
-                <div class="style-card-visual style-hot-bold"></div>
-                <div class="style-card-info">
-                    <h4 class="style-card-name" data-i18n="styles.hot_bold">Vatreno i Smelo</h4>
-                    <p class="style-card-desc" data-i18n="styles.hot_bold_desc">Živahne boje i samouvereni vizuelni
-                        iskazi.</p>
-                </div>
-            </div>
-
-            <div class="style-card fade-up" data-style="Retro Revival">
-                <div class="style-card-visual style-retro-revival"></div>
-                <div class="style-card-info">
-                    <h4 class="style-card-name" data-i18n="styles.retro">Retro Povratak</h4>
-                    <p class="style-card-desc" data-i18n="styles.retro_desc">Nostalgična estetika osmišljena za moderne
-                        brendove.</p>
-                </div>
-            </div>
-
-            <div class="style-card fade-up" data-style="Futuristic Glow">
-                <div class="style-card-visual style-futuristic-glow"></div>
-                <div class="style-card-info">
-                    <h4 class="style-card-name" data-i18n="styles.futuristic">Futuristički Sjaj</h4>
-                    <p class="style-card-desc" data-i18n="styles.futuristic_desc">Neonski vizuali i estetika budućnosti.
+                <!-- Campaign Tier -->
+                <div class="tier-heading">
+                    <h3><span data-i18n="offer.campaign_label">Kampanjska iskustva</span></h3>
+                    <p data-i18n="offer.campaign_desc">
+                        Više od sadržaja. Potpuno kreativno iskustvo. Proširene produkcije koje povezuju originalne koncepte, umetničku direkciju i filmsko pripovedanje.
                     </p>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- ============================================
-                 5. INDUSTRIES WE CREATE FOR
-            ============================================ -->
-    <section id="industries" class="industries">
-        <div class="industries-header container">
-            <div class="section-label" data-i18n="industries.label">Industrije</div>
-            <h2 class="industries-title reveal-text">
-                <span class="reveal-text-inner" data-i18n="industries.title">INDUSTRIJE ZA KOJE STVARAMO</span>
-            </h2>
-        </div>
+                <div class="collection-grid collection-grid-campaign">
+                    <!-- 04 Iconic Personal Identity -->
+                    <article class="collection-card collection-iconic-personal" data-collection="iconic-personal">
+                        <div class="collection-visual">
+                            <span class="artwork" style="--art-position:50% 0%" role="img" aria-label="BM DESIGN01 — vizuelni primer kreativnog stila"></span>
+                            <span class="collection-index">04</span>
+                        </div>
+                        <div class="collection-body">
+                            <div class="collection-top">
+                                <h4><span data-i18n="offer.iconic-personal.name">Iconic Personal Identity</span></h4>
+                                <p class="collection-price"><span data-i18n="offer.from">Od</span> 1.290 €</p>
+                            </div>
+                            <p data-i18n="offer.iconic-personal.goal" class="collection-goal">Jedan identitet. Tri perspektive. Prepoznatljivo prisustvo.</p>
+                            <details class="collection-details">
+                                <summary>
+                                    <span data-i18n="ui.collection_scope">Koncept i kompletan obim</span>
+                                    <span class="plus-icon" aria-hidden="true">+</span>
+                                </summary>
+                                <div class="collection-full">
+                                    <p data-i18n="offer.iconic-personal.description">
+                                        Kroz tri pažljivo osmišljene kreativne celine predstavljamo različite strane vaše ličnosti, stila i ambicija. Svaka celina donosi tri jedinstvena vizuala, povezana sopstvenom estetikom i kreativnom pričom.
+                                    </p>
+                                    <p data-i18n="offer.includes" class="eyebrow">Kolekcija uključuje</p>
+                                    <ul>
+                                        <li data-i18n="offer.iconic-personal.item0">9 premium obrađenih vizuala</li>
+                                        <li data-i18n="offer.iconic-personal.item1">3 kreativne celine — po 3 objave</li>
+                                        <li data-i18n="offer.iconic-personal.item2">Do 3 kreativna stila po izboru</li>
+                                        <li data-i18n="offer.iconic-personal.item3">Proširena fotografska i video produkcija</li>
+                                        <li data-i18n="offer.iconic-personal.item4">1 cinematic personal brand video</li>
+                                        <li data-i18n="offer.iconic-personal.item5">Kreativna i umetnička direkcija</li>
+                                        <li data-i18n="offer.iconic-personal.item6">Razvoj individualnih vizuelnih koncepata</li>
+                                        <li data-i18n="offer.iconic-personal.item7">Personalizovano vizuelno pripovedanje</li>
+                                        <li data-i18n="offer.iconic-personal.item8">Premium postprodukcija</li>
+                                        <li data-i18n="offer.iconic-personal.item9">Priprema sadržaja za društvene mreže</li>
+                                    </ul>
+                                    <p data-i18n="offer.iconic-personal.note" class="collection-note">
+                                        Početna cena za osnovni obim iskustva. Konačan koncept, rokove i prava korišćenja potvrđujemo ponudom.
+                                    </p>
+                                </div>
+                            </details>
+                            <button type="button" class="text-link collection-cta" data-inquire="iconic-personal">
+                                <span data-i18n="offer.cta">Zatražite ponudu</span>
+                                <span class="arrow" aria-hidden="true">↗</span>
+                            </button>
+                        </div>
+                    </article>
 
-        <div class="industries-grid container">
-            <!-- 1. Personal Brands -->
-            <div class="industry-item fade-up">
-                <span class="industry-name" data-i18n="industries.personal_brands">Lični Brendovi</span>
-                <div class="industry-arrow">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                </div>
-            </div>
-            <!-- 2. Fashion -->
-            <div class="industry-item fade-up">
-                <span class="industry-name" data-i18n="industries.fashion">Moda</span>
-                <div class="industry-arrow">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                </div>
-            </div>
-            <!-- 3. Beauty -->
-            <div class="industry-item fade-up">
-                <span class="industry-name" data-i18n="industries.beauty">Lepota</span>
-                <div class="industry-arrow">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                </div>
-            </div>
-            <!-- 4. Jewelry -->
-            <div class="industry-item fade-up">
-                <span class="industry-name" data-i18n="industries.jewelry">Nakit</span>
-                <div class="industry-arrow">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                </div>
-            </div>
-            <!-- 5. Hospitality -->
-            <div class="industry-item fade-up">
-                <span class="industry-name" data-i18n="industries.hospitality">Ugostiteljstvo</span>
-                <div class="industry-arrow">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                </div>
-            </div>
-            <!-- 6. Wellness -->
-            <div class="industry-item fade-up">
-                <span class="industry-name" data-i18n="industries.wellness">Velnes</span>
-                <div class="industry-arrow">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                </div>
-            </div>
-            <!-- 7. Luxury Mobility -->
-            <div class="industry-item fade-up">
-                <span class="industry-name" data-i18n="industries.luxury_mobility">Luksuzna Mobilnost</span>
-                <div class="industry-arrow">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                </div>
-            </div>
-            <!-- 8. Interior Design -->
-            <div class="industry-item fade-up">
-                <span class="industry-name" data-i18n="industries.interior_design">Dizajn Enterijera</span>
-                <div class="industry-arrow">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                </div>
-            </div>
-            <!-- 9. Architecture -->
-            <div class="industry-item fade-up">
-                <span class="industry-name" data-i18n="industries.architecture">Arhitektura</span>
-                <div class="industry-arrow">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                </div>
-            </div>
-            <!-- 10. Sports -->
-            <div class="industry-item fade-up">
-                <span class="industry-name" data-i18n="industries.sports">Sport</span>
-                <div class="industry-arrow">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                </div>
-            </div>
-            <!-- 11. Technology -->
-            <div class="industry-item fade-up">
-                <span class="industry-name" data-i18n="industries.technology">Tehnologija</span>
-                <div class="industry-arrow">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                </div>
-            </div>
-        </div>
-    </section>
+                    <!-- 05 Iconic Brand Identity -->
+                    <article class="collection-card collection-iconic-brand" data-collection="iconic-brand">
+                        <div class="collection-visual">
+                            <span class="artwork" style="--art-position:0% 0%" role="img" aria-label="BM DESIGN01 — vizuelni primer kreativnog stila"></span>
+                            <span class="collection-index">05</span>
+                        </div>
+                        <div class="collection-body">
+                            <div class="collection-top">
+                                <h4><span data-i18n="offer.iconic-brand.name">Iconic Brand Identity</span></h4>
+                                <p class="collection-price"><span data-i18n="offer.from">Od</span> 1.790 €</p>
+                            </div>
+                            <p data-i18n="offer.iconic-brand.goal" class="collection-goal">Vaš brend. Vaš prepoznatljiv potpis.</p>
+                            <details class="collection-details">
+                                <summary>
+                                    <span data-i18n="ui.collection_scope">Koncept i kompletan obim</span>
+                                    <span class="plus-icon" aria-hidden="true">+</span>
+                                </summary>
+                                <div class="collection-full">
+                                    <p data-i18n="offer.iconic-brand.description">
+                                        Kroz kreativnu direkciju, profesionalnu fotografiju i filmsko pripovedanje stvaramo prepoznatljiv vizuelni svet vašeg brenda. Svaki detalj oblikujemo tako da predstavi njegov karakter, vrednosti i jedinstvenu perspektivu.
+                                    </p>
+                                    <p data-i18n="offer.includes" class="eyebrow">Kolekcija uključuje</p>
+                                    <ul>
+                                        <li data-i18n="offer.iconic-brand.item0">9 premium brend vizuala</li>
+                                        <li data-i18n="offer.iconic-brand.item1">Proširena fotografska i video produkcija</li>
+                                        <li data-i18n="offer.iconic-brand.item2">1 filmski video brenda</li>
+                                        <li data-i18n="offer.iconic-brand.item3">Do 3 kreativna stila</li>
+                                        <li data-i18n="offer.iconic-brand.item4">Kreativna i umetnička direkcija</li>
+                                        <li data-i18n="offer.iconic-brand.item5">Razvoj kreativnog koncepta</li>
+                                        <li data-i18n="offer.iconic-brand.item6">Premium fotografisanje proizvoda i životnog stila</li>
+                                        <li data-i18n="offer.iconic-brand.item7">Vizuelno pripovedanje</li>
+                                        <li data-i18n="offer.iconic-brand.item8">Napredna obrada i postprodukcija</li>
+                                        <li data-i18n="offer.iconic-brand.item9">Materijali prilagođeni digitalnim kampanjama</li>
+                                    </ul>
+                                    <p data-i18n="offer.iconic-brand.note" class="collection-note">
+                                        Za nakit, parfeme, modu, lepotu, životni stil i premium proizvode. Navedena cena je početna.
+                                    </p>
+                                </div>
+                            </details>
+                            <button type="button" class="text-link collection-cta" data-inquire="iconic-brand">
+                                <span data-i18n="offer.cta">Zatražite ponudu</span>
+                                <span class="arrow" aria-hidden="true">↗</span>
+                            </button>
+                            <button type="button" class="portfolio-example" data-project="cosmos">
+                                <span data-i18n="ui.portfolio_example">Primer iz portfolija</span> · COSMOS
+                            </button>
+                        </div>
+                    </article>
 
-    <!-- ============================================
-                 6. CREATIVE PARTNERSHIPS
-            ============================================ -->
-    <section id="partnerships" class="partnerships">
-        <div class="partnerships-inner container">
-            <div class="partnerships-content fade-up">
-                <div class="section-label" data-i18n="partnerships.label">Kreativna Partnerstva</div>
-                <h2 class="partnerships-title" data-i18n="partnerships.title">MI POSTAJEMO VAŠ DUGOROČNI KREATIVNI TIM.
+                    <!-- 06 Brand Campaign -->
+                    <article class="collection-card collection-campaign" data-collection="campaign">
+                        <div class="collection-visual">
+                            <img src="media/monte-poster.jpg" width="1200" height="900" alt="Brand Campaign — vizuelni pravac kolekcije" loading="lazy" decoding="async">
+                            <span class="collection-index">06</span>
+                        </div>
+                        <div class="collection-body">
+                            <div class="collection-top">
+                                <h4><span data-i18n="offer.campaign.name">Brand Campaign</span></h4>
+                                <p class="collection-price"><span data-i18n="offer.from">Od</span> 2.490 €</p>
+                            </div>
+                            <p data-i18n="offer.campaign.goal" class="collection-goal">Stvorite nešto nezaboravno.</p>
+                            <details class="collection-details">
+                                <summary>
+                                    <span data-i18n="ui.collection_scope">Koncept i kompletan obim</span>
+                                    <span class="plus-icon" aria-hidden="true">+</span>
+                                </summary>
+                                <div class="collection-full">
+                                    <p data-i18n="offer.campaign.description">
+                                        Od prvog koncepta do završnog kadra razvijamo vizuelna iskustva koja povezuju identitet brenda sa emocijom, atmosferom i originalnom pričom. Za ambiciozne brendove koji žele svoju viziju da pretvore u prepoznatljivu kreativnu kampanju.
+                                    </p>
+                                    <p data-i18n="offer.includes" class="eyebrow">Kolekcija uključuje</p>
+                                    <ul>
+                                        <li data-i18n="offer.campaign.item0">9 premium kampanjskih vizuala</li>
+                                        <li data-i18n="offer.campaign.item1">Profesionalna fotografska i filmska video produkcija</li>
+                                        <li data-i18n="offer.campaign.item2">1 filmski reklamni video brenda</li>
+                                        <li data-i18n="offer.campaign.item3">Do 3 kreativna stila</li>
+                                        <li data-i18n="offer.campaign.item4">Kreativna i umetnička direkcija</li>
+                                        <li data-i18n="offer.campaign.item5">Razvoj kreativnog koncepta kampanje</li>
+                                        <li data-i18n="offer.campaign.item6">Prošireno planiranje produkcije</li>
+                                        <li data-i18n="offer.campaign.item7">Planiranje modela, stilizovanja i lokacija</li>
+                                        <li data-i18n="offer.campaign.item8">Premium postprodukcija</li>
+                                        <li data-i18n="offer.campaign.item9">Vizuelno pripovedanje</li>
+                                        <li data-i18n="offer.campaign.item10">Kampanjski materijali pripremljeni za digitalno oglašavanje</li>
+                                    </ul>
+                                    <p data-i18n="offer.campaign.note" class="collection-note">
+                                        Početna cena. Budžet za oglase i upravljanje reklamnim kampanjama nisu uključeni, osim ako se posebno ugovore.
+                                    </p>
+                                </div>
+                            </details>
+                            <button type="button" class="text-link collection-cta" data-inquire="campaign">
+                                <span data-i18n="offer.cta">Zatražite ponudu</span>
+                                <span class="arrow" aria-hidden="true">↗</span>
+                            </button>
+                            <button type="button" class="portfolio-example" data-project="monte">
+                                <span data-i18n="ui.portfolio_example">Primer iz portfolija</span> · MONTÉ
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- 07 Event Storytelling -->
+                    <article class="collection-card collection-event" data-collection="event">
+                        <div class="collection-visual">
+                            <img src="images/project-restaurant.webp" width="1200" height="900" alt="Event Storytelling — vizuelni pravac kolekcije" loading="lazy" decoding="async">
+                            <span class="collection-index">07</span>
+                        </div>
+                        <div class="collection-body">
+                            <div class="collection-top">
+                                <h4><span data-i18n="offer.event.name">Event Storytelling</span></h4>
+                                <p class="collection-price"><span data-i18n="offer.from">Od</span> 2.000 €</p>
+                            </div>
+                            <p data-i18n="offer.event.goal" class="collection-goal">Trenuci postaju uspomene. Uspomene postaju priče.</p>
+                            <details class="collection-details">
+                                <summary>
+                                    <span data-i18n="ui.collection_scope">Koncept i kompletan obim</span>
+                                    <span class="plus-icon" aria-hidden="true">+</span>
+                                </summary>
+                                <div class="collection-full">
+                                    <p data-i18n="offer.event.description">
+                                        Kroz profesionalnu fotografiju, filmsku video produkciju i autentično vizuelno pripovedanje pretvaramo posebne trenutke u iskustva koja ostaju u sećanju. Čuvamo atmosferu, energiju i priču vašeg događaja.
+                                    </p>
+                                    <p data-i18n="offer.includes" class="eyebrow">Kolekcija uključuje</p>
+                                    <ul>
+                                        <li data-i18n="offer.event.item0">Profesionalno fotografisanje događaja</li>
+                                        <li data-i18n="offer.event.item1">Profesionalno video snimanje</li>
+                                        <li data-i18n="offer.event.item2">1 filmski video sa najvažnijim trenucima događaja</li>
+                                        <li data-i18n="offer.event.item3">Premium obrađena fotografska galerija</li>
+                                        <li data-i18n="offer.event.item4">Kreativno vizuelno pripovedanje</li>
+                                        <li data-i18n="offer.event.item5">Kreativna direkcija</li>
+                                        <li data-i18n="offer.event.item6">Profesionalna montaža i postprodukcija</li>
+                                        <li data-i18n="offer.event.item7">Individualno planiranje produkcije</li>
+                                        <li data-i18n="offer.event.item8">Materijali prilagođeni digitalnim platformama</li>
+                                    </ul>
+                                    <p data-i18n="offer.event.note" class="collection-note">
+                                        Za ekskluzivna okupljanja, luksuzne događaje, lansiranja brendova, modne događaje, konferencije i privatna iskustva. Broj stilova i obim galerije dogovaraju se individualno. Navedena cena je početna.
+                                    </p>
+                                </div>
+                            </details>
+                            <button type="button" class="text-link collection-cta" data-inquire="event">
+                                <span data-i18n="offer.cta">Zatražite ponudu</span>
+                                <span class="arrow" aria-hidden="true">↗</span>
+                            </button>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Pricing Notes -->
+                <details class="pricing-details">
+                    <summary>
+                        <span data-i18n="offer.pricing_title">Produkcija i cene</span>
+                        <span class="plus-icon" aria-hidden="true">+</span>
+                    </summary>
+                    <div class="pricing-copy">
+                        <p data-i18n="offer.pricing_intro">
+                            Svako iskustvo kreira se individualno. Sve navedene cene predstavljaju početne iznose za osnovni obim kolekcije. Konačna cena zavisi od kreativnih zahteva, obima produkcije, lokacija, postprodukcije i prava korišćenja materijala.
+                        </p>
+                        <p data-i18n="offer.pricing_costs">
+                            Profesionalni modeli, šminkeri, stilisti, dodatna ekipa, zakup lokacija, putovanja i posebni produkcijski troškovi obračunavaju se zasebno kada su potrebni.
+                        </p>
+                        <p data-i18n="offer.pricing_terms">
+                            Trajanje snimanja, rokovi isporuke, broj korekcija, formati i prava korišćenja definišu se individualnom ponudom.
+                        </p>
+                        <p data-i18n="offer.pricing_ads">
+                            Priprema materijala za oglašavanje ne uključuje budžet za oglase ili upravljanje reklamnim kampanjama, osim ako je to posebno ugovoreno.
+                        </p>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <!-- ============================================
+             03 / IZBOR KREATIVNOG STILA
+        ============================================ -->
+        <section class="styles-section section-pad" id="styles" aria-labelledby="stylesTitle">
+            <div class="wrap">
+                <div class="section-heading">
+                    <p class="eyebrow"><span class="section-number">03 /</span> <span data-i18n="styles.label">Izbor Kreativnog Stila</span></p>
+                    <div class="heading-row">
+                        <h2 id="stylesTitle">
+                            <span data-i18n="styles.title1">IZABERITE VIZUELNI JEZIK</span>
+                            <em><span data-i18n="styles.title2">KOJI DEFINIŠE VAŠ SADRŽAJ.</span></em>
+                        </h2>
+                        <p data-i18n="styles.subtitle" class="section-intro">
+                            Ovi kreativni pravci se primenjuju na kompletnu fotografisanje i video produkciju u okviru vašeg paketa.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="styles-grid">
+                    <button type="button" class="style-card" data-style="luxury-minimal" aria-pressed="false">
+                        <span class="style-image">
+                            <span class="artwork" style="--art-position:0% 0%" role="img" aria-label="BM DESIGN01 — vizuelni primer kreativnog stila"></span>
+                            <span class="style-number">01</span>
+                            <span class="style-check" aria-hidden="true">✓</span>
+                        </span>
+                        <span class="style-text">
+                            <strong>Luxury Minimal</strong>
+                            <span data-i18n="styles.luxury_minimal" class="style-local-name">Luksuzni Minimalizam</span>
+                            <span data-i18n="styles.luxury_minimal_desc" class="style-description">Čiste kompozicije inspirisane modnim editorijalima.</span>
+                        </span>
+                        <span class="style-action">
+                            <span data-i18n="ui.style_select">Izaberite stil</span>
+                            <span class="style-plus" aria-hidden="true">+</span>
+                        </span>
+                    </button>
+
+                    <button type="button" class="style-card" data-style="cinematic-essence" aria-pressed="false">
+                        <span class="style-image">
+                            <span class="artwork" style="--art-position:50% 0%" role="img" aria-label="BM DESIGN01 — vizuelni primer kreativnog stila"></span>
+                            <span class="style-number">02</span>
+                            <span class="style-check" aria-hidden="true">✓</span>
+                        </span>
+                        <span class="style-text">
+                            <strong>Cinematic Essence</strong>
+                            <span data-i18n="styles.cinematic" class="style-local-name">Filmska Esencija</span>
+                            <span data-i18n="styles.cinematic_desc" class="style-description">Storytelling inspirisan filmom sa dramatičnim osvetljenjem.</span>
+                        </span>
+                        <span class="style-action">
+                            <span data-i18n="ui.style_select">Izaberite stil</span>
+                            <span class="style-plus" aria-hidden="true">+</span>
+                        </span>
+                    </button>
+
+                    <button type="button" class="style-card" data-style="urban-street" aria-pressed="false">
+                        <span class="style-image">
+                            <span class="artwork" style="--art-position:100% 0%" role="img" aria-label="BM DESIGN01 — vizuelni primer kreativnog stila"></span>
+                            <span class="style-number">03</span>
+                            <span class="style-check" aria-hidden="true">✓</span>
+                        </span>
+                        <span class="style-text">
+                            <strong>Urban Street</strong>
+                            <span data-i18n="styles.urban" class="style-local-name">Urbani Ulični</span>
+                            <span data-i18n="styles.urban_desc" class="style-description">Sirova energija i gradska kultura uhvaćena u pokretu.</span>
+                        </span>
+                        <span class="style-action">
+                            <span data-i18n="ui.style_select">Izaberite stil</span>
+                            <span class="style-plus" aria-hidden="true">+</span>
+                        </span>
+                    </button>
+
+                    <button type="button" class="style-card" data-style="classic-elegance" aria-pressed="false">
+                        <span class="style-image">
+                            <span class="artwork" style="--art-position:0% 50%" role="img" aria-label="BM DESIGN01 — vizuelni primer kreativnog stila"></span>
+                            <span class="style-number">04</span>
+                            <span class="style-check" aria-hidden="true">✓</span>
+                        </span>
+                        <span class="style-text">
+                            <strong>Classic Elegance</strong>
+                            <span data-i18n="styles.classic" class="style-local-name">Klasična Elegancija</span>
+                            <span data-i18n="styles.classic_desc" class="style-description">Vanvremenska sofisticiranost sa rafiniranm kompozicijama.</span>
+                        </span>
+                        <span class="style-action">
+                            <span data-i18n="ui.style_select">Izaberite stil</span>
+                            <span class="style-plus" aria-hidden="true">+</span>
+                        </span>
+                    </button>
+
+                    <button type="button" class="style-card" data-style="natural-harmony" aria-pressed="false">
+                        <span class="style-image">
+                            <span class="artwork" style="--art-position:50% 50%" role="img" aria-label="BM DESIGN01 — vizuelni primer kreativnog stila"></span>
+                            <span class="style-number">05</span>
+                            <span class="style-check" aria-hidden="true">✓</span>
+                        </span>
+                        <span class="style-text">
+                            <strong>Natural Harmony</strong>
+                            <span data-i18n="styles.natural" class="style-local-name">Prirodna Harmonija</span>
+                            <span data-i18n="styles.natural_desc" class="style-description">Organski tonovi i prirodno svetlo u svakom kadru.</span>
+                        </span>
+                        <span class="style-action">
+                            <span data-i18n="ui.style_select">Izaberite stil</span>
+                            <span class="style-plus" aria-hidden="true">+</span>
+                        </span>
+                    </button>
+
+                    <button type="button" class="style-card" data-style="artistic-direction" aria-pressed="false">
+                        <span class="style-image">
+                            <span class="artwork" style="--art-position:100% 50%" role="img" aria-label="BM DESIGN01 — vizuelni primer kreativnog stila"></span>
+                            <span class="style-number">06</span>
+                            <span class="style-check" aria-hidden="true">✓</span>
+                        </span>
+                        <span class="style-text">
+                            <strong>Artistic Direction</strong>
+                            <span data-i18n="styles.artistic" class="style-local-name">Umetnička Direkcija</span>
+                            <span data-i18n="styles.artistic_desc" class="style-description">Smela kreativna vizija koja izaziva konvencije.</span>
+                        </span>
+                        <span class="style-action">
+                            <span data-i18n="ui.style_select">Izaberite stil</span>
+                            <span class="style-plus" aria-hidden="true">+</span>
+                        </span>
+                    </button>
+
+                    <button type="button" class="style-card" data-style="hot-bold" aria-pressed="false">
+                        <span class="style-image">
+                            <span class="artwork" style="--art-position:0% 100%" role="img" aria-label="BM DESIGN01 — vizuelni primer kreativnog stila"></span>
+                            <span class="style-number">07</span>
+                            <span class="style-check" aria-hidden="true">✓</span>
+                        </span>
+                        <span class="style-text">
+                            <strong>Hot &amp; Bold</strong>
+                            <span data-i18n="styles.hot_bold" class="style-local-name">Vatreno i Smelo</span>
+                            <span data-i18n="styles.hot_bold_desc" class="style-description">Živahne boje i samouvereni vizuelni iskazi.</span>
+                        </span>
+                        <span class="style-action">
+                            <span data-i18n="ui.style_select">Izaberite stil</span>
+                            <span class="style-plus" aria-hidden="true">+</span>
+                        </span>
+                    </button>
+
+                    <button type="button" class="style-card" data-style="retro-revival" aria-pressed="false">
+                        <span class="style-image">
+                            <span class="artwork" style="--art-position:50% 100%" role="img" aria-label="BM DESIGN01 — vizuelni primer kreativnog stila"></span>
+                            <span class="style-number">08</span>
+                            <span class="style-check" aria-hidden="true">✓</span>
+                        </span>
+                        <span class="style-text">
+                            <strong>Retro Revival</strong>
+                            <span data-i18n="styles.retro" class="style-local-name">Retro Povratak</span>
+                            <span data-i18n="styles.retro_desc" class="style-description">Nostalgična estetika osmišljena za moderne brendove.</span>
+                        </span>
+                        <span class="style-action">
+                            <span data-i18n="ui.style_select">Izaberite stil</span>
+                            <span class="style-plus" aria-hidden="true">+</span>
+                        </span>
+                    </button>
+
+                    <button type="button" class="style-card" data-style="futuristic-glow" aria-pressed="false">
+                        <span class="style-image">
+                            <span class="artwork" style="--art-position:100% 100%" role="img" aria-label="BM DESIGN01 — vizuelni primer kreativnog stila"></span>
+                            <span class="style-number">09</span>
+                            <span class="style-check" aria-hidden="true">✓</span>
+                        </span>
+                        <span class="style-text">
+                            <strong>Futuristic Glow</strong>
+                            <span data-i18n="styles.futuristic" class="style-local-name">Futuristički Sjaj</span>
+                            <span data-i18n="styles.futuristic_desc" class="style-description">Neonski vizuali i estetika budućnosti.</span>
+                        </span>
+                        <span class="style-action">
+                            <span data-i18n="ui.style_select">Izaberite stil</span>
+                            <span class="style-plus" aria-hidden="true">+</span>
+                        </span>
+                    </button>
+                </div>
+
+                <p class="visual-note"><span data-i18n="ui.style_examples">Vizuelni primeri kreativnih stilova</span> / BM DESIGN01</p>
+
+                <div id="selectedStylesBar" class="selected-styles" hidden>
+                    <p><span data-i18n="ui.styles_selected">Izabrani stilovi</span> <b id="selectedStyleCount">0</b></p>
+                    <button type="button" class="button button-light" id="styleInquiry">
+                        <span data-i18n="ui.style_inquiry">Nastavite sa izabranim stilovima</span>
+                        <span class="arrow" aria-hidden="true">↗</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================
+             04 / KREATIVNA PARTNERSTVA & PROCES
+        ============================================ -->
+        <section class="partnership-section section-pad wrap" id="partnerships" aria-labelledby="partnershipsTitle">
+            <div class="partnership-grid">
+                <div class="partnership-photo">
+                    <img src="images/project-interior.webp" alt="Vizuelna direkcija enterijera" width="800" height="1000" loading="lazy" decoding="async">
+                    <div class="photo-caption">BM DESIGN01 / <span data-i18n="ui.photo_caption">Vizuelna direkcija / BM DESIGN01</span></div>
+                </div>
+                <div class="partnership-copy">
+                    <p class="eyebrow"><span class="section-number">04 /</span> <span data-i18n="partnerships.label">Kreativna Partnerstva</span></p>
+                    <h2 id="partnershipsTitle"><span data-i18n="partnerships.title">MI POSTAJEMO VAŠ DUGOROČNI KREATIVNI TIM.</span></h2>
+                    <p data-i18n="partnerships.desc" class="section-intro">
+                        Ne jurimo trendove. Kreiramo vizuelne identitete koji traju. Jer kad brend odražava ono što zaista jeste, ljudi ga pamte.
+                    </p>
+                    <ul>
+                        <li data-i18n="partnerships.visual_social">Vizuelni identitet i sadržaj za društvene mreže</li>
+                        <li data-i18n="partnerships.direction_strategy">Kreativna direkcija, strategija i razvoj brenda</li>
+                        <li data-i18n="partnerships.monthly_prod">Mesečna produkcija</li>
+                    </ul>
+                    <button type="button" class="button" data-inquire="custom">
+                        <span data-i18n="partnerships.start">Započni Partnerstvo</span>
+                        <span class="arrow" aria-hidden="true">↗</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="process">
+                <p class="eyebrow"><span data-i18n="process.label">Naš Proces</span></p>
+                <ol>
+                    <li><span>01</span><strong data-i18n="process.discover">Otkriće</strong></li>
+                    <li><span>02</span><strong data-i18n="process.creative_dir">Kreativna Direkcija</strong></li>
+                    <li><span>03</span><strong data-i18n="process.production">Produkcija</strong></li>
+                    <li><span>04</span><strong data-i18n="process.editing">Montaža</strong></li>
+                    <li><span>05</span><strong data-i18n="process.delivery">Isporuka</strong></li>
+                    <li><span>06</span><strong data-i18n="process.growth">Rast</strong></li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- ============================================
+             INDUSTRIJE ZA KOJE STVARAMO
+        ============================================ -->
+        <section class="industries-section wrap" aria-labelledby="industriesTitle">
+            <p id="industriesTitle" class="eyebrow"><span data-i18n="industries.title">INDUSTRIJE ZA KOJE STVARAMO</span></p>
+            <div class="industry-list">
+                <span data-i18n="industries.personal_brands">Lični Brendovi</span>
+                <span data-i18n="industries.fashion">Moda</span>
+                <span data-i18n="industries.beauty">Lepota</span>
+                <span data-i18n="industries.jewelry">Nakit</span>
+                <span data-i18n="industries.hospitality">Ugostiteljstvo</span>
+                <span data-i18n="industries.wellness">Velnes</span>
+                <span data-i18n="industries.luxury_mobility">Luksuzna Mobilnost</span>
+                <span data-i18n="industries.interior_design">Dizajn Enterijera</span>
+                <span data-i18n="industries.architecture">Arhitektura</span>
+                <span data-i18n="industries.sports">Sport</span>
+                <span data-i18n="industries.technology">Tehnologija</span>
+            </div>
+        </section>
+
+        <!-- ============================================
+             IZGRADITE VAŠU VIZIJU
+        ============================================ -->
+        <section class="custom-section" id="build" aria-labelledby="buildTitle">
+            <div class="wrap custom-grid">
+                <div>
+                    <p class="eyebrow"><span data-i18n="build.label">Izgradite Vašu Viziju</span></p>
+                    <h2 id="buildTitle"><span data-i18n="build.title">NE VIDITE PRAVU KOLEKCIJU?</span></h2>
+                    <p data-i18n="build.desc">
+                        Svaki brend je drugačiji. Recite nam o svojoj viziji, a mi ćemo kreirati produkciju posebno prilagođenu vašem projektu.
+                    </p>
+                    <button type="button" class="button" data-inquire="custom">
+                        <span data-i18n="build.describe">Opišite Vaš Projekat</span>
+                        <span class="arrow" aria-hidden="true">↗</span>
+                    </button>
+                </div>
+                <blockquote>
+                    <span class="quote-mark" aria-hidden="true">“</span>
+                    <small data-i18n="build.example_label">Primer</small>
+                    <p data-i18n="build.example_text">
+                        "Kampanja za luksuzni hotel u Italiji. Filmski storytelling. Četiri dana snimanja. Lifestyle fotografija."
+                    </p>
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- ============================================
+             05 / ČESTO POSTAVLJANA PITANJA
+        ============================================ -->
+        <section class="faq-section section-pad wrap" id="faq" aria-labelledby="faqTitle">
+            <div class="faq-intro">
+                <p class="eyebrow"><span class="section-number">05 /</span> <span data-i18n="offer.faq_label">Dobro je znati</span></p>
+                <h2 id="faqTitle"><span data-i18n="offer.faq_title">Često postavljana pitanja</span></h2>
+            </div>
+            <div class="faq-list">
+                    <details>
+                        <summary><span class="faq-index">01</span><span data-i18n="offer.faq0.question">Šta je uključeno u kolekciju?</span><span class="plus" aria-hidden="true">+</span></summary>
+                        <p data-i18n="offer.faq0.answer">Svaka kolekcija predstavlja unapred osmišljenu osnovu za kreativnu produkciju. U zavisnosti od izabranog iskustva, uključuje profesionalnu fotografiju, video, kreativnu direkciju, obradu i pripremu finalnog sadržaja. Detaljan obim usluga potvrđujemo individualnom ponudom.</p>
+                    </details>
+                    <details>
+                        <summary><span class="faq-index">02</span><span data-i18n="offer.faq1.question">Da li su navedene cene konačne?</span><span class="plus" aria-hidden="true">+</span></summary>
+                        <p data-i18n="offer.faq1.answer">Ne. Sve cene predstavljaju početne iznose za osnovni obim kolekcije. Konačna cena zavisi od složenosti koncepta, lokacije, potrebne ekipe, obima produkcije i prava korišćenja materijala.</p>
+                    </details>
+                    <details>
+                        <summary><span class="faq-index">03</span><span data-i18n="offer.faq2.question">Koliko traje produkcija?</span><span class="plus" aria-hidden="true">+</span></summary>
+                        <p data-i18n="offer.faq2.answer">Svaki projekat ima sopstvene kreativne i organizacione zahteve. Trajanje snimanja i rok isporuke određujemo prema odabranoj kolekciji, konceptu i obimu produkcije, a potvrđujemo ih pre početka saradnje.</p>
+                    </details>
+                    <details>
+                        <summary><span class="faq-index">04</span><span data-i18n="offer.faq3.question">Da li obezbeđujete profesionalne modele i lokacije?</span><span class="plus" aria-hidden="true">+</span></summary>
+                        <p data-i18n="offer.faq3.answer">Da. Prema potrebama projekta možemo organizovati profesionalne modele, šminkere, stiliste, lokacije i dodatne saradnike. Troškovi njihovog angažovanja posebno se definišu u ponudi.</p>
+                    </details>
+                    <details>
+                        <summary><span class="faq-index">05</span><span data-i18n="offer.faq4.question">Da li možemo izabrati više kreativnih stilova?</span><span class="plus" aria-hidden="true">+</span></summary>
+                        <p data-i18n="offer.faq4.answer">Da. Broj kreativnih stilova zavisi od odabrane kolekcije. Osnovne kolekcije uključuju jedan stil, dok napredna kampanjska iskustva omogućavaju kombinovanje do tri različita stila. Za dodatne kreativne pravce moguće je kreirati individualnu ponudu.</p>
+                    </details>
+                    <details>
+                        <summary><span class="faq-index">06</span><span data-i18n="offer.faq5.question">Da li radite sa stvarnim modelima i proizvodima?</span><span class="plus" aria-hidden="true">+</span></summary>
+                        <p data-i18n="offer.faq5.answer">Da. Foto i video produkcije mogu se realizovati sa stvarnim modelima, autentičnim proizvodima i pažljivo odabranim lokacijama. U skladu sa kreativnim konceptom možemo koristiti i digitalne alate za dodatnu vizuelnu obradu.</p>
+                    </details>
+                    <details>
+                        <summary><span class="faq-index">07</span><span data-i18n="offer.faq6.question">Da li mogu koristiti fotografije i video za reklame?</span><span class="plus" aria-hidden="true">+</span></summary>
+                        <p data-i18n="offer.faq6.answer">Da, u skladu sa pravima korišćenja dogovorenim za projekat. Materijale pripremamo za odabrane digitalne platforme, dok se proširena komercijalna prava i dodatni formati posebno definišu u ponudi.</p>
+                    </details>
+                    <details>
+                        <summary><span class="faq-index">08</span><span data-i18n="offer.faq7.question">Da li radite na međunarodnim projektima?</span><span class="plus" aria-hidden="true">+</span></summary>
+                        <p data-i18n="offer.faq7.answer">Da. BM DESIGN01 otvoren je za međunarodne kreativne saradnje, uključujući snimanja na različitim destinacijama i kampanje na međunarodnom tržištu. Putovanje, smeštaj i logistika planiraju se prema potrebama projekta.</p>
+                    </details>
+                    <details>
+                        <summary><span class="faq-index">09</span><span data-i18n="offer.faq8.question">Mogu li potpuno prilagoditi svoju kolekciju?</span><span class="plus" aria-hidden="true">+</span></summary>
+                        <p data-i18n="offer.faq8.answer">Naravno. Custom System namenjen je projektima kojima je potrebna individualna kreativna direkcija, poseban obim produkcije ili usluge izvan standardnih kolekcija.</p>
+                    </details>
+                    <details>
+                        <summary><span class="faq-index">10</span><span data-i18n="offer.faq9.question">Kako funkcionišu kreativna partnerstva?</span><span class="plus" aria-hidden="true">+</span></summary>
+                        <p data-i18n="offer.faq9.answer">Kreativna partnerstva predstavljaju dugoročnu saradnju kroz koju razvijamo vizuelni identitet, kampanje i sadržaj usklađen sa dugoročnim ciljevima vašeg brenda. Obim saradnje, dinamika produkcije i usluge definišu se prema vašim potrebama.</p>
+                    </details>
+            </div>
+        </section>
+
+        <!-- ============================================
+             KONTAKT
+        ============================================ -->
+        <section class="contact-section" id="contact" aria-labelledby="contactTitle">
+            <div class="wrap">
+                <div class="contact-pretitle">
+                    <p class="eyebrow">BM DESIGN01 / <span data-i18n="contact.label">Kontakt</span></p>
+                    <span class="contact-star" aria-hidden="true">✳</span>
+                </div>
+                <h2 id="contactTitle">
+                    <span data-i18n="ui.contact_head1">Stvorimo nešto</span>
+                    <em><span data-i18n="ui.contact_head2">što se pamti.</span></em>
                 </h2>
-                <p class="partnerships-desc" data-i18n="partnerships.desc">
-                    Ne jurimo trendove. Kreiramo vizuelne identitete koji traju. Jer kad brend odražava ono što zaista
-                    jeste, ljudi ga pamte.
-                </p>
-                <div class="partnerships-services">
-                    <div class="partnership-service" data-i18n="partnerships.visual_social">Vizuelni identitet i sadržaj
-                        za društvene mreže</div>
-                    <div class="partnership-service" data-i18n="partnerships.direction_strategy">Kreativna direkcija,
-                        strategija i razvoj brenda</div>
-                    <div class="partnership-service" data-i18n="partnerships.monthly_prod">Mesečna produkcija</div>
-                </div>
-                <a href="#contact" class="btn-primary">
-                    <span data-i18n="partnerships.start">Započni Partnerstvo</span> <span class="btn-arrow"></span>
-                </a>
-            </div>
-
-            <div class="partnerships-process fade-up">
-                <div class="process-label" data-i18n="process.label">Naš Proces</div>
-                <div class="process-steps">
-                    <div class="process-step">
-                        <div class="process-step-num">01</div>
-                        <div class="process-step-name" data-i18n="process.discover">Otkriće</div>
-                    </div>
-                    <div class="process-step-line"></div>
-                    <div class="process-step">
-                        <div class="process-step-num">02</div>
-                        <div class="process-step-name" data-i18n="process.creative_dir">Kreativna Direkcija</div>
-                    </div>
-                    <div class="process-step-line"></div>
-                    <div class="process-step">
-                        <div class="process-step-num">03</div>
-                        <div class="process-step-name" data-i18n="process.production">Produkcija</div>
-                    </div>
-                    <div class="process-step-line"></div>
-                    <div class="process-step">
-                        <div class="process-step-num">04</div>
-                        <div class="process-step-name" data-i18n="process.editing">Montaža</div>
-                    </div>
-                    <div class="process-step-line"></div>
-                    <div class="process-step">
-                        <div class="process-step-num">05</div>
-                        <div class="process-step-name" data-i18n="process.delivery">Isporuka</div>
-                    </div>
-                    <div class="process-step-line"></div>
-                    <div class="process-step">
-                        <div class="process-step-num">06</div>
-                        <div class="process-step-name" data-i18n="process.growth">Rast</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================
-                 7. BUILD YOUR OWN PROJECT
-            ============================================ -->
-    <section id="build" class="build-project">
-        <div class="build-bg">
-            <div class="build-bg-line" style="width: 400px; height: 400px;"></div>
-            <div class="build-bg-line" style="width: 700px; height: 700px;"></div>
-            <div class="build-bg-line" style="width: 1000px; height: 1000px;"></div>
-        </div>
-        <div class="build-inner container">
-            <div class="build-content fade-up">
-                <div class="section-label" data-i18n="build.label">Izgradite Vašu Viziju</div>
-                <h2 class="build-title" data-i18n="build.title">NE VIDITE PRAVU KOLEKCIJU?</h2>
-                <p class="build-desc" data-i18n="build.desc">
-                    Svaki brend je drugačiji. Recite nam o svojoj viziji, a mi ćemo kreirati produkciju posebno
-                    prilagođenu vašem projektu.
-                </p>
-                <div class="build-example">
-                    <span class="build-example-label" data-i18n="build.example_label">Primer</span>
-                    <p data-i18n="build.example_text">"Kampanja za luksuzni hotel u Italiji. Filmski storytelling.
-                        Četiri dana snimanja. Lifestyle fotografija."</p>
-                </div>
-                <a href="#contact" class="btn-primary">
-                    <span data-i18n="build.describe">Opišite Vaš Projekat</span> <span class="btn-arrow"></span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================
-                 8. TESTIMONIALS
-            ============================================ -->
-    <section class="testimonials">
-        <div class="testimonials-header container">
-            <div class="section-label" data-i18n="testimonials.label">Partnerstva</div>
-            <h2 class="testimonials-title reveal-text">
-                <span class="reveal-text-inner" data-i18n="testimonials.title">REČI NAŠIH PARTNERA</span>
-            </h2>
-        </div>
-
-        <div class="testimonials-track" id="testimonialsTrack">
-            <!-- Testimonial 1 -->
-            <div class="testimonial-card">
-                <div class="testimonial-quote">"</div>
-                <p class="testimonial-text" data-i18n="testimonials.text1">
-                    BM DESIGN01 nije samo redizajnirao naš brend — oni su redefinisali način na koji razmišljamo o
-                    njemu. Njihov proces je više ličio na razgovor nego na transakciju.
-                </p>
-                <div class="testimonial-author">
-                    <div class="testimonial-avatar">VC</div>
+                <div class="contact-bottom">
                     <div>
-                        <h5 class="testimonial-name">Villa Como</h5>
-                        <span class="testimonial-role" data-i18n="testimonials.role1">Ugostiteljstvo · Jezero
-                            Komo</span>
+                        <p data-i18n="contact.desc">
+                            Recite nam o svojoj viziji i hajde da izgradimo nešto što predstavlja vaš brend u najboljem svetlu.
+                        </p>
+                        <a href="mailto:collab@bmdesign01.com" class="contact-email">collab@bmdesign01.com</a>
                     </div>
+                    <button type="button" class="button button-light" data-inquire="custom">
+                        <span data-i18n="offer.cta">Zatražite ponudu</span>
+                        <span class="arrow" aria-hidden="true">↗</span>
+                    </button>
                 </div>
             </div>
-
-            <!-- Testimonial 2 -->
-            <div class="testimonial-card">
-                <div class="testimonial-quote">"</div>
-                <p class="testimonial-text" data-i18n="testimonials.text2">
-                    Godinama sam radio sa agencijama. Ovo je bilo potpuno drugačije. Razumeli su viziju pre nego što sam
-                    mogao da je objasnim.
-                </p>
-                <div class="testimonial-author">
-                    <div class="testimonial-avatar">AF</div>
-                    <div>
-                        <h5 class="testimonial-name">Alessio Ferrari</h5>
-                        <span class="testimonial-role" data-i18n="testimonials.role2">Lični Brend · Milano</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Testimonial 3 -->
-            <div class="testimonial-card">
-                <div class="testimonial-quote">"</div>
-                <p class="testimonial-text" data-i18n="testimonials.text3">
-                    Rad sa ovim timom je bio pravo partnerstvo. Izazvali su naše razmišljanje, unapredili našu priču i
-                    isporučili nešto što istinski pokreće ljude.
-                </p>
-                <div class="testimonial-author">
-                    <div class="testimonial-avatar">TS</div>
-                    <div>
-                        <h5 class="testimonial-name">The Saint Hotel</h5>
-                        <span class="testimonial-role" data-i18n="testimonials.role3">Ugostiteljstvo · Pariz</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="testimonials-nav container">
-            <button class="testimonial-nav-btn" id="prevBtn" aria-label="Previous">
-                <svg viewBox="0 0 24 24">
-                    <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
-            </button>
-            <button class="testimonial-nav-btn" id="nextBtn" aria-label="Next">
-                <svg viewBox="0 0 24 24">
-                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
-            </button>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- ============================================
-                 9. FAQ
-            ============================================ -->
-    <section id="faq" class="faq-section">
-        <div class="faq-header container">
-            <div class="section-label" data-i18n="faq.label">Često Postavljana Pitanja</div>
-            <h2 class="faq-title reveal-text">
-                <span class="reveal-text-inner" data-i18n="faq.title">ČESTO POSTAVLJANA PITANJA</span>
-            </h2>
-        </div>
-
-        <div class="faq-list container">
-            <div class="faq-item fade-up">
-                <button class="faq-question" aria-expanded="false">
-                    <span data-i18n="faq.q1">Šta je uključeno u kolekciju?</span>
-                    <div class="faq-icon"><span></span><span></span></div>
-                </button>
-                <div class="faq-answer">
-                    <p data-i18n="faq.a1">Svaka kolekcija uključuje profesionalnu fotografiju, kratki video sadržaj,
-                        editovane objave za društvene mreže i izabrani kreativni stil. Kampanjska iskustva proširuju se
-                        na filmsku video produkciju, kreativnu direkciju i do 3 kreativna stila.</p>
-                </div>
-            </div>
-
-            <div class="faq-item fade-up">
-                <button class="faq-question" aria-expanded="false">
-                    <span data-i18n="faq.q2">Koliko dugo traje produkcija?</span>
-                    <div class="faq-icon"><span></span><span></span></div>
-                </button>
-                <div class="faq-answer">
-                    <p data-i18n="faq.a2">Standardne kolekcije se obično završavaju u roku od 2–3 nedelje od dana
-                        snimanja. Kampanjska iskustva mogu trajati 3–5 nedelja u zavisnosti od obima kreativne direkcije
-                        i post-produkcije.</p>
-                </div>
-            </div>
-
-            <div class="faq-item fade-up">
-                <button class="faq-question" aria-expanded="false">
-                    <span data-i18n="faq.q3">Da li radite internacionalno?</span>
-                    <div class="faq-icon"><span></span><span></span></div>
-                </button>
-                <div class="faq-answer">
-                    <p data-i18n="faq.a3">Da. Isporučili smo projekte u više od 15 zemalja. Naš rad je inspirisan
-                        putovanjima, kulturom i raznolikim okruženjima. Dostupni smo za produkcije bilo gde u svetu.</p>
-                </div>
-            </div>
-
-            <div class="faq-item fade-up">
-                <button class="faq-question" aria-expanded="false">
-                    <span data-i18n="faq.q4">Mogu li prilagoditi svoju kolekciju?</span>
-                    <div class="faq-icon"><span></span><span></span></div>
-                </button>
-                <div class="faq-answer">
-                    <p data-i18n="faq.a4">Naravno. Ako naše standardne kolekcije ili kampanjska iskustva ne odgovaraju
-                        vašim ciljevima, kreiraćemo prilagođenu produkciju za vašu industriju, brend i viziju.</p>
-                </div>
-            </div>
-
-            <div class="faq-item fade-up">
-                <button class="faq-question" aria-expanded="false">
-                    <span data-i18n="faq.q5">Sa kojim industrijama radite?</span>
-                    <div class="faq-icon"><span></span><span></span></div>
-                </button>
-                <div class="faq-answer">
-                    <p data-i18n="faq.a5">Stvaramo za modu, lepotu, ugostiteljstvo, luksuznu mobilnost, velnes,
-                        arhitekturu, restorane, nakit, dizajn enterijera, tehnologiju i lične brendove.</p>
-                </div>
-            </div>
-
-            <div class="faq-item fade-up">
-                <button class="faq-question" aria-expanded="false">
-                    <span data-i18n="faq.q6">Kako funkcionišu kreativna partnerstva?</span>
-                    <div class="faq-icon"><span></span><span></span></div>
-                </button>
-                <div class="faq-answer">
-                    <p data-i18n="faq.a6">Kreativna partnerstva su dugoročne saradnje gde mi postajemo vaš posvećeni
-                        kreativni tim. To uključuje mesečnu produkciju, razvoj kampanja, kreativnu direkciju, strategiju
-                        brenda, sadržaj za društvene mreže i upravljanje vizuelnim identitetom.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================
-                 10. CONTACT
-            ============================================ -->
-    <section id="contact" class="contact-section">
-        <div class="contact-bg">
-            <div class="contact-bg-line" style="width: 300px; height: 300px;"></div>
-            <div class="contact-bg-line" style="width: 600px; height: 600px;"></div>
-            <div class="contact-bg-line" style="width: 900px; height: 900px;"></div>
-        </div>
-        <div class="contact-inner container">
-            <div class="contact-content fade-up">
-                <div class="section-label" data-i18n="contact.label">Kontakt</div>
-                <h2 class="contact-title" data-i18n="contact.title" data-i18n-target="html">SPREMNI DA STVORITE<br>NEŠTO
-                    NEZABORAVNO?</h2>
-                <p class="contact-desc" data-i18n="contact.desc">
-                    Recite nam o svojoj viziji i hajde da izgradimo nešto što predstavlja vaš brend u najboljem svetlu.
-                </p>
-            </div>
-            <form class="contact-form fade-up" id="contactForm" novalidate>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="contactName" data-i18n="contact.name">Ime</label>
-                        <input type="text" id="contactName" name="name" required autocomplete="name">
-                    </div>
-                    <div class="form-group">
-                        <label for="contactEmail" data-i18n="contact.email">Email</label>
-                        <input type="email" id="contactEmail" name="email" required autocomplete="email">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="contactBrand" data-i18n="contact.brand">Brend</label>
-                        <input type="text" id="contactBrand" name="brand">
-                    </div>
-                    <div class="form-group">
-                        <label for="contactSocial" data-i18n="contact.social">Instagram / Veb sajt</label>
-                        <input type="text" id="contactSocial" name="social">
-                    </div>
-                </div>
-                <div class="form-group form-group-full">
-                    <label for="contactDetails" data-i18n="contact.details">Detalji Projekta</label>
-                    <textarea id="contactDetails" name="details" rows="5"></textarea>
-                </div>
-                <button type="submit" class="btn-primary form-submit">
-                    <span data-i18n="contact.submit">Započnite Vaše Putovanje</span> <span class="btn-arrow"></span>
-                </button>
-            </form>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-inner container">
-            <div class="footer-brand">
-                <a href="#home" class="footer-logo-link" aria-label="BM DESIGN01">
-                    <img src="images/bmdesignlogo.png" alt="BM DESIGN01" class="footer-logo-img">
-                </a>
-                <div class="footer-tagline" data-i18n="footer.tagline">Kreativni Studio</div>
-            </div>
-            <div class="footer-links">
-                <a href="https://www.instagram.com/bmdesign01/" class="footer-link" target="_blank"
-                    rel="noopener">Instagram</a>
-                <a href="https://tiktok.com" class="footer-link" target="_blank" rel="noopener">TikTok</a>
-
-            </div>
-            <div class="footer-copy" data-i18n="footer.copyright">
-                © 2026 BM DESIGN01. Sva prava zadržana.
-            </div>
+         FOOTER
+    ============================================ -->
+    <footer class="site-footer wrap">
+        <a class="footer-brand" href="#home">BM DESIGN01</a>
+        <p>CHOOSE YOUR STYLE. FEEL THE EXPERIENCE.</p>
+        <div class="footer-links">
+            <a href="https://www.instagram.com/bmdesign01/" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
+            <a href="docs/bm-design01-katalog-sr.pdf" data-catalogue-current lang="sr" hreflang="sr" download="bm-design01-katalog-sr.pdf" type="application/pdf">PDF ↗</a>
+            <span>© 2026 BM DESIGN01</span>
         </div>
     </footer>
 
-    </div>
-    </div>
-
-    <!-- Floating Action Button for Style Selection -->
-    <button type="button" class="floating-booking-btn" id="floatingBookStylesBtn">
-        <span data-i18n="floating.begin">Započnite Putovanje</span> <span id="floatingSelectedStylesCount">(0)</span>
-    </button>
-
-    <!-- Booking Modal -->
-    <div id="bookingModal" class="booking-modal" aria-hidden="true">
-        <div class="booking-modal-overlay"></div>
-        <div class="booking-modal-content">
-            <button class="booking-modal-close" aria-label="Close modal" id="closeBookingBtn">
-                <span></span>
-                <span></span>
+    <!-- ============================================
+         PROJECT LIGHTBOX DIALOG (MONTÉ / COSMOS)
+    ============================================ -->
+    <dialog id="projectDialog" class="project-dialog" aria-labelledby="projectTitle">
+        <div class="dialog-toolbar">
+            <span class="dialog-brand">BM DESIGN01</span>
+            <button class="close-button" data-close-project type="button">
+                <span data-i18n="ui.close">Zatvorite</span>
+                <span aria-hidden="true">×</span>
             </button>
-            <div class="booking-modal-body">
-                <div class="booking-modal-left">
-                    <div class="section-label" data-i18n="modal.selected_experience">Izabrano Iskustvo</div>
-                    <h3 id="modalServiceTitle" class="booking-modal-service-title">Personal Identity</h3>
-                    <div id="modalServicePrice" class="booking-modal-service-price"></div>
-                    <p id="modalServiceGoal" class="booking-modal-service-goal">Build authority around yourself.</p>
-                    <div class="booking-modal-includes" id="modalServiceIncludesContainer">
-                        <span class="booking-modal-includes-label" data-i18n="collections.includes">Uključuje</span>
-                        <ul id="modalServiceIncludes">
-                            <li>9 edited social media posts</li>
-                            <li>Fotografisanje i Video sadržaj</li>
-                            <li>Short-form video content</li>
-                            <li>One creative style of your choice</li>
-                        </ul>
+        </div>
+        <div class="project-dialog-body">
+            <p class="eyebrow"><span data-i18n="ui.concept">Autorski vizuelni koncept</span></p>
+            <h2 id="projectTitle"></h2>
+            <p id="projectSubtitle" class="project-subtitle"></p>
+            <video id="projectVideo" controls playsinline preload="none"></video>
+            <div class="project-gallery" id="projectGallery"></div>
+            <button type="button" class="button button-light" id="projectCollectionButton">
+                <span data-i18n="ui.project_collection">Istražite povezanu kolekciju</span>
+                <span class="arrow" aria-hidden="true">↗</span>
+            </button>
+        </div>
+    </dialog>
+
+    <!-- ============================================
+         INQUIRY & COLLECTION MODAL DIALOG
+    ============================================ -->
+    <dialog id="inquiryDialog" class="inquiry-dialog" aria-labelledby="inquiryTitle">
+        <div class="dialog-toolbar">
+            <span class="dialog-brand">BM DESIGN01</span>
+            <button class="close-button" data-close-inquiry type="button">
+                <span data-i18n="ui.close">Zatvorite</span>
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="inquiry-layout">
+            <aside class="inquiry-summary">
+                <p class="eyebrow"><span data-i18n="offer.label">Naše kolekcije</span></p>
+                <h2 id="inquiryTitle">Custom System</h2>
+                <p id="inquiryPrice" class="inquiry-price"></p>
+                <p id="inquiryGoal" class="inquiry-goal"></p>
+                <p class="eyebrow"><span data-i18n="offer.includes">Kolekcija uključuje</span></p>
+                <ul id="inquiryIncludes"></ul>
+            </aside>
+            <form id="inquiryForm">
+                <div class="field">
+                    <label for="collectionSelect"><span data-i18n="ui.collection_label">Izabrana kolekcija</span></label>
+                    <select id="collectionSelect" name="collection">
+                        <option value="personal" data-i18n="offer.personal.name">Personal Identity</option>
+                        <option value="brand" data-i18n="offer.brand.name">Brand Presence</option>
+                        <option value="custom" data-i18n="offer.custom.name">Custom System</option>
+                        <option value="iconic-personal" data-i18n="offer.iconic-personal.name">Iconic Personal Identity</option>
+                        <option value="iconic-brand" data-i18n="offer.iconic-brand.name">Iconic Brand Identity</option>
+                        <option value="campaign" data-i18n="offer.campaign.name">Brand Campaign</option>
+                        <option value="event" data-i18n="offer.event.name">Event Storytelling</option>
+                    </select>
+                </div>
+
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="field-name"><span data-i18n="ui.name">Ime i prezime</span></label>
+                        <input type="text" id="field-name" name="name" required autocomplete="name" maxlength="250">
+                    </div>
+                    <div class="field">
+                        <label for="field-email"><span data-i18n="ui.email">Email adresa</span></label>
+                        <input type="email" id="field-email" name="email" required autocomplete="email" maxlength="250">
+                    </div>
+                    <div class="field">
+                        <label for="field-brand"><span data-i18n="ui.brand">Naziv brenda ili kompanije</span></label>
+                        <input type="text" id="field-brand" name="brand" autocomplete="organization" maxlength="250">
+                    </div>
+                    <div class="field">
+                        <label for="field-social"><span data-i18n="ui.social">Instagram ili veb-sajt</span></label>
+                        <input type="text" id="field-social" name="social" maxlength="250">
+                    </div>
+                    <div class="field">
+                        <label for="field-location"><span data-i18n="offer.location">Lokacija produkcije</span></label>
+                        <input type="text" id="field-location" name="location" maxlength="250">
+                    </div>
+                    <div class="field">
+                        <label for="field-timeframe"><span data-i18n="offer.timeframe">Planirani period realizacije</span></label>
+                        <input type="text" id="field-timeframe" name="timeframe" maxlength="250">
                     </div>
                 </div>
-                <div class="booking-modal-right">
-                    <h4 class="booking-form-title" data-i18n="modal.booking_inquiry">UPIT ZA REZERVACIJU</h4>
-                    <form id="bookingForm" novalidate>
-                        <input type="hidden" id="modalServiceInput" name="service">
 
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="bookingName" data-i18n="modal.name">Ime</label>
-                                <input type="text" id="bookingName" name="name" required autocomplete="name">
-                            </div>
-                            <div class="form-group">
-                                <label for="bookingEmail" data-i18n="modal.email">Email</label>
-                                <input type="email" id="bookingEmail" name="email" required autocomplete="email">
-                            </div>
-                        </div>
+                <fieldset class="style-options">
+                    <legend><span data-i18n="modal.styles_label">Kreativni Stilovi po Izboru</span></legend>
+                    <p id="styleLimitHint" class="form-note" aria-live="polite"></p>
+                    <div class="style-options-grid">
+                        <label class="style-option"><input type="checkbox" name="styles" value="luxury-minimal"><span>Luxury Minimal</span></label>
+                        <label class="style-option"><input type="checkbox" name="styles" value="cinematic-essence"><span>Cinematic Essence</span></label>
+                        <label class="style-option"><input type="checkbox" name="styles" value="urban-street"><span>Urban Street</span></label>
+                        <label class="style-option"><input type="checkbox" name="styles" value="classic-elegance"><span>Classic Elegance</span></label>
+                        <label class="style-option"><input type="checkbox" name="styles" value="natural-harmony"><span>Natural Harmony</span></label>
+                        <label class="style-option"><input type="checkbox" name="styles" value="artistic-direction"><span>Artistic Direction</span></label>
+                        <label class="style-option"><input type="checkbox" name="styles" value="hot-bold"><span>Hot &amp; Bold</span></label>
+                        <label class="style-option"><input type="checkbox" name="styles" value="retro-revival"><span>Retro Revival</span></label>
+                        <label class="style-option"><input type="checkbox" name="styles" value="futuristic-glow"><span>Futuristic Glow</span></label>
+                    </div>
+                </fieldset>
 
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="bookingBrand" data-i18n="modal.brand">Naziv Brenda</label>
-                                <input type="text" id="bookingBrand" name="brand">
-                            </div>
-                            <div class="form-group">
-                                <label for="bookingSocial" data-i18n="modal.social">Instagram / Veb sajt</label>
-                                <input type="text" id="bookingSocial" name="social">
-                            </div>
-                        </div>
-
-                        <div class="form-group form-group-full modal-styles-group" id="modalStylesGroup">
-                            <label data-i18n="modal.styles_label">Kreativni Stilovi po Izboru</label>
-                            <div class="modal-styles-checkbox-grid">
-                                <label class="style-checkbox-label">
-                                    <input type="checkbox" name="styles" value="Luxury Minimal"
-                                        id="style-luxury-minimal">
-                                    <span class="style-checkbox-custom"></span>
-                                    <span data-i18n="styles.luxury_minimal">Luksuzni Minimalizam</span>
-                                </label>
-                                <label class="style-checkbox-label">
-                                    <input type="checkbox" name="styles" value="Cinematic Essence"
-                                        id="style-cinematic-essence">
-                                    <span class="style-checkbox-custom"></span>
-                                    <span data-i18n="styles.cinematic">Filmska Esencija</span>
-                                </label>
-                                <label class="style-checkbox-label">
-                                    <input type="checkbox" name="styles" value="Urban Street" id="style-urban-street">
-                                    <span class="style-checkbox-custom"></span>
-                                    <span data-i18n="styles.urban">Urbani Ulični</span>
-                                </label>
-                                <label class="style-checkbox-label">
-                                    <input type="checkbox" name="styles" value="Classic Elegance"
-                                        id="style-classic-elegance">
-                                    <span class="style-checkbox-custom"></span>
-                                    <span data-i18n="styles.classic">Klasična Elegancija</span>
-                                </label>
-                                <label class="style-checkbox-label">
-                                    <input type="checkbox" name="styles" value="Natural Harmony"
-                                        id="style-natural-harmony">
-                                    <span class="style-checkbox-custom"></span>
-                                    <span data-i18n="styles.natural">Prirodna Harmonija</span>
-                                </label>
-                                <label class="style-checkbox-label">
-                                    <input type="checkbox" name="styles" value="Artistic Direction"
-                                        id="style-artistic-direction">
-                                    <span class="style-checkbox-custom"></span>
-                                    <span data-i18n="styles.artistic">Umetnička Direkcija</span>
-                                </label>
-                                <label class="style-checkbox-label">
-                                    <input type="checkbox" name="styles" value="Hot & Bold" id="style-hot-bold">
-                                    <span class="style-checkbox-custom"></span>
-                                    <span data-i18n="styles.hot_bold">Vatreno i Smelo</span>
-                                </label>
-                                <label class="style-checkbox-label">
-                                    <input type="checkbox" name="styles" value="Retro Revival" id="style-retro-revival">
-                                    <span class="style-checkbox-custom"></span>
-                                    <span data-i18n="styles.retro">Retro Povratak</span>
-                                </label>
-                                <label class="style-checkbox-label">
-                                    <input type="checkbox" name="styles" value="Futuristic Glow"
-                                        id="style-futuristic-glow">
-                                    <span class="style-checkbox-custom"></span>
-                                    <span data-i18n="styles.futuristic">Futuristički Sjaj</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="form-group form-group-full">
-                            <label for="bookingDetails" data-i18n="modal.notes">Napomene i Ciljevi Projekta</label>
-                            <textarea id="bookingDetails" name="details" rows="3" data-i18n="modal.notes_placeholder"
-                                data-i18n-target="placeholder"
-                                placeholder="Recite nam o viziji vašeg brenda..."></textarea>
-                        </div>
-                        <button type="submit" class="btn-primary form-submit">
-                            <span data-i18n="modal.request_booking">Zatraži Rezervaciju</span> <span
-                                class="btn-arrow"></span>
-                        </button>
-                    </form>
+                <div class="field">
+                    <label for="field-details"><span data-i18n="ui.details">Predstavite nam svoju viziju</span></label>
+                    <textarea name="details" id="field-details" rows="4" required maxlength="6000"></textarea>
                 </div>
-            </div>
+
+                <p class="form-note" id="inquiryDeliveryNote"></p>
+                <button id="inquirySubmit" class="button button-light" type="submit">
+                    <span data-i18n="offer.cta">Zatražite ponudu</span>
+                    <span class="arrow" aria-hidden="true">↗</span>
+                </button>
+                <p data-i18n="offer.disclaimer" class="form-note form-disclaimer">
+                    Slanjem upita ne potvrđujete rezervaciju niti preuzimate obavezu plaćanja. Nakon prijema upita dogovaramo detalje i pripremamo individualnu ponudu.
+                </p>
+                <div id="formResult" class="form-result" aria-live="polite" hidden></div>
+            </form>
         </div>
-    </div>
+    </dialog>
 
-    <!-- Three.js Engine for WebGL Lumina Effects (deferred for fast initial load) -->
-    <script defer src="js/three.min.js"></script>
-
-    <!-- Translation scripts (must be loaded before main.js and i18n.js) -->
+    <!-- Translation Dictionaries & Site Data (deferred, preserves load order) -->
     <script defer src="js/translations.js"></script>
+    <script defer src="js/collections-copy.js"></script>
+    <script defer src="js/site-data.js"></script>
     <script defer src="js/i18n.js"></script>
-
-    <!-- Script file -->
     <script defer src="js/main.js"></script>
 </body>
 
