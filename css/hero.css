@@ -410,6 +410,12 @@ nav#navbar.scrolled .nav-logo-img {
     transform: scale(1.03);
 }
 
+/* Keep top of portrait artworks (head & hair) 100% visible inside 4:3 collection frames on all devices */
+.collection-visual > .artwork {
+    top: 0;
+    transform: none;
+}
+
 /* Hover film preview */
 .project-preview-video {
     position: absolute;
